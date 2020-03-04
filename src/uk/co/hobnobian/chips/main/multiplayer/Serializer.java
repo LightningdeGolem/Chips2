@@ -46,4 +46,8 @@ public class Serializer {
 			return null;
 	        
 	    }
+	    
+	    public static boolean serializeEqual(Serializable i, Serializable i2) {
+	    	return (toString(i).equals(toString(i2)));
+	    }
 }
