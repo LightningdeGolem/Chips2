@@ -17,7 +17,7 @@ import uk.co.hobnobian.chips.main.server.Direction;
 public class Renderer extends JPanel implements KeyListener{
 	private static final long serialVersionUID = -3818026926139086329L;
 	
-	public boolean paused = true;
+	public boolean paused = false;
 	public boolean canplay = true;
 	
 	ClientConnectionLayer con;
