@@ -4,12 +4,13 @@ import uk.co.hobnobian.chips.main.server.Direction;
 import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
+import uk.co.hobnobian.chips.main.server.Player;
 
 public class VanishingWall extends Entity {
 	private static final long serialVersionUID = 8867297559775914464L;
 
 	@Override
-	public void tick(Game g) {
+	public void tick(Game g, Player[] ps) {
 		return;
 
 	}

@@ -41,7 +41,7 @@ public abstract class Entity implements Serializable{
 		dead = !b;
 	}
 	
-	public abstract void tick(Game g);
+	public abstract void tick(Game g, Player[] ps);
 	public abstract String getImage(GameVariables vars);
 	
 	public void move(Direction d) {
@@ -52,7 +52,7 @@ public abstract class Entity implements Serializable{
 	
 	public abstract boolean onPlayerEnter(Game g, Entity p, Direction d, GameVariables vars);
 	public boolean onPlayerMove(Game g, Entity e, Direction d, GameVariables vars) {
-		g.changesEnts.add(this);
+		g.addChangeEnts(this);
 		return onPlayerEnter(g, e, d, vars);
 	}
 	

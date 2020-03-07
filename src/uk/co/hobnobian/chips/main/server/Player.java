@@ -31,7 +31,7 @@ public class Player extends Entity{
 	}
 
 	@Override
-	public void tick(Game g) {}
+	public void tick(Game g, Player[] p) {}
 
 	@Override
 	public String getImage(GameVariables vars) {

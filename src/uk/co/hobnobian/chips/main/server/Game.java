@@ -14,7 +14,8 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	Player p = new Player();
 	Player p2 = null;
 	
-	List<Entity> changesEnts = new ArrayList<Entity>();
+	private List<Entity> changesEnts = new ArrayList<Entity>();
+	private boolean shouldRecordChangeEnts = true;
 	
 	private boolean main = true;
 	public boolean resetMapWhenDie = true;
@@ -24,6 +25,12 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	GameVariables vars;;
 	Timer tick = new Timer();
 	GraphicsServerLayer con;
+	
+	public void addChangeEnts(Entity e) {
+		if (shouldRecordChangeEnts) {
+			changesEnts.add(e);
+		}
+	}
 	
 	public void update() {
 		con.updateMap(map, vars, p, p2);
@@ -73,9 +80,11 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	public void tick() {
-		if (main) {
-			updateEntities();
+		if (!main) {
+			shouldRecordChangeEnts = false;
 		}
+		updateEntities();
+		shouldRecordChangeEnts = true;
 		if (!p.isAlive()) {
 			if (main) {
 				p.go_to(map.getP1StartPos());
@@ -96,12 +105,15 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		ArrayList<Entity> toBeDeleted = new ArrayList<Entity>();
 		for (Entity e : entities) {
 			if (e.isAlive()) {
-				e.tick(this);
+				if (p2 == null) {
+					e.tick(this, new Player[] {p});
+				}
+				else {
+					e.tick(this, new Player[] {p, p2});
+				}
 			}
 			else {
-				if (main) {
-					toBeDeleted.add(e);
-				}
+				toBeDeleted.add(e);
 			}
 		}
 		for (Entity e : toBeDeleted) {

@@ -10,7 +10,7 @@ public class MovableBlock extends Entity {
 	private static final long serialVersionUID = -1285985386766971864L;
 
 	@Override
-	public void tick(Game g) {
+	public void tick(Game g, Player[] ps) {
 		// TODO Auto-generated method stub
 
 	}
