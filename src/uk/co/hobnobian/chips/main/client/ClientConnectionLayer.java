@@ -7,7 +7,6 @@ public interface ClientConnectionLayer {
 	public void reset();
 	public void setUpdater(Renderer d);
 	
-	public void play();
-	public void pause();
+	public void togglePause();
 	
 }

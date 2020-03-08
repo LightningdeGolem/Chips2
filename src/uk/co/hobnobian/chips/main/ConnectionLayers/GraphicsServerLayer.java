@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 
 import uk.co.hobnobian.chips.main.PlayerMoveListener;
 import uk.co.hobnobian.chips.main.client.ClientConnectionLayer;
@@ -73,9 +74,21 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 			players.put(pos, loadImage(p2.getImage(vars)));
 		}
 		
-		du.update(blocks, ents, players);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				du.update(blocks, ents, players);
+			}
+			
+		});
 		
 		
+		
+	}
+	
+	public void setPaused(boolean p) {
+		du.paused = p;
 	}
 
 	public void setPlayerListener(PlayerMoveListener p) {
@@ -102,14 +115,8 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 	}
 
 	@Override
-	public void play() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+	public void togglePause() {
+		game.togglePause();
 		
 	}
 }

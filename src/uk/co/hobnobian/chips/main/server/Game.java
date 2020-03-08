@@ -14,6 +14,10 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	Player p = new Player();
 	Player p2 = null;
 	
+	private boolean tickWhenPaused = true;
+	
+	private boolean paused = false;
+	
 	private List<Entity> changesEnts = new ArrayList<Entity>();
 	private boolean shouldRecordChangeEnts = true;
 	
@@ -22,7 +26,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	Map map;
 	private String originalMap;
-	GameVariables vars;;
+	GameVariables vars;
 	Timer tick = new Timer();
 	GraphicsServerLayer con;
 	
@@ -80,6 +84,9 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	public void tick() {
+		if (!tickWhenPaused && paused) {
+			return;
+		}
 		if (!main) {
 			shouldRecordChangeEnts = false;
 		}
@@ -124,6 +131,9 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 
 	@Override
 	public void onPlayerMove(Direction d) {
+		if (paused) {
+			return;
+		}
 		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
 			int[] newpos = Direction.move(p.getpos(), d);
 			if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
@@ -243,10 +253,27 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		
 	}
 	
+	public void togglePause() {
+		setPaused(!paused);
+	}
+	private void setPaused(boolean p) {
+		paused = p;
+		con.setPaused(paused);
+		con.updateMap(map,vars, this.p, p2);
+	}
+	
 	public void reset() {
 		if (main) {
 			vars = new GameVariables();
 			setMap((Map) Serializer.fromString(originalMap));
 		}
+	}
+
+	public boolean isTickWhenPaused() {
+		return tickWhenPaused;
+	}
+
+	public void setTickWhenPaused(boolean tickWhenPaused) {
+		this.tickWhenPaused = tickWhenPaused;
 	}
 }

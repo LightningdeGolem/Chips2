@@ -28,45 +28,46 @@ public class Main {
 	public static final int defaultPort = 1234;
 	
 	public static void main(String[] args) {
-		if (args.length > 0) {
-			if (args[0].equalsIgnoreCase("singleplayer")) {
-				singlePlayer();
-			}
-			else if (args[0].equalsIgnoreCase("server")) {
-				int port = defaultPort;
-				if (args.length > 1) {
-					try {
-						port = Integer.parseInt(args[1]);
-					}
-					catch(NumberFormatException e){}
-				}
-				server(port);
-			}
-			else if (args[0].equalsIgnoreCase("client")) {
-				String host = "localhost";
-				int port = defaultPort;
-				
-				if (args.length > 1) {
-					String entire = args[1];
-					String[] parts = entire.split(":");
-					host = parts[0];
-					if (parts.length > 1) {
-						try {
-							port = Integer.parseInt(parts[1]);
-						}
-						catch(NumberFormatException e){}
-					}
-				}
-				
-				System.out.println("Connection to "+host+":"+port);
-				client(host, port);
-			}
-		}
-		else {
-			
-			
-			new StartupMenu();
-		}
+		singlePlayer();
+//		if (args.length > 0) {
+//			if (args[0].equalsIgnoreCase("singleplayer")) {
+//				singlePlayer();
+//			}
+//			else if (args[0].equalsIgnoreCase("server")) {
+//				int port = defaultPort;
+//				if (args.length > 1) {
+//					try {
+//						port = Integer.parseInt(args[1]);
+//					}
+//					catch(NumberFormatException e){}
+//				}
+//				server(port);
+//			}
+//			else if (args[0].equalsIgnoreCase("client")) {
+//				String host = "localhost";
+//				int port = defaultPort;
+//				
+//				if (args.length > 1) {
+//					String entire = args[1];
+//					String[] parts = entire.split(":");
+//					host = parts[0];
+//					if (parts.length > 1) {
+//						try {
+//							port = Integer.parseInt(parts[1]);
+//						}
+//						catch(NumberFormatException e){}
+//					}
+//				}
+//				
+//				System.out.println("Connection to "+host+":"+port);
+//				client(host, port);
+//			}
+//		}
+//		else {
+//			
+//			
+//			new StartupMenu();
+//		}
 		
 //		new StartupMenu();
 //		singlePlayer();

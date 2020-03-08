@@ -20,13 +20,29 @@ public class Renderer extends JPanel implements KeyListener{
 	public boolean paused = false;
 	public boolean canplay = true;
 	
+	private FontsManager fonts;
+	
 	ClientConnectionLayer con;
 	HashMap<int[], Image> entities = null;
 	HashMap<int[], Image> blocks = null;
 	public final Image background;
 	HashMap<int[], Image> players = null;
 	
+	
+	private void initializeFonts() {
+		fonts = new FontsManager();
+		fonts.cache(new Font("Sans-serif", 1, 40), "PAUSED");
+		
+		Font f = new Font("Sans-serif",2,20);
+		fonts.cache(f,"Press 'r' to restart game");
+		fonts.cache(f, "Press 'e' to exit game");
+		fonts.cache(f, "Press 'ESC' to exit menu");
+		
+		
+	}
+	
 	public Renderer(ClientConnectionLayer c, Image bkgrnd) {
+		initializeFonts();
 		//224x224 for 7x7 block layout
 		//64x64 block
 		background = bkgrnd;
@@ -68,19 +84,16 @@ public class Renderer extends JPanel implements KeyListener{
 			g2d.fillRect(0, 0, 448, 448);
 			
 			
-			Font f = new Font("Sans-serif", 0, 48);
-			g2d.setFont(f);
+			
 			g2d.setColor(Color.BLACK);
-			g2d.drawString("PAUSED", 120, 224);
-			f = new Font("Sans-serif", 0, 18);
-			g2d.setFont(f);
-			g2d.drawString("Press 'ESC' to exit", 120, 260);
+			fonts.render("PAUSED", 120, 210, g2d, this);
+			
+			fonts.render("Press 'r' to restart game", 120, 260, g2d, this);
+			fonts.render("Press 'e' to exit game", 120, 280, g2d, this);
 			
 			
 			if (canplay) {
-				f = new Font("Sans-serif", 0, 18);
-				g2d.setFont(f);
-				g2d.drawString("Press 'P' to play", 120, 300);
+				fonts.render("Press 'ESC' to exit menu", 120, 300, g2d, this);
 			}
 		}
 		
@@ -109,24 +122,34 @@ public class Renderer extends JPanel implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int k = e.getKeyCode();
-		if (k == 37) {
-			//LEFT
-			con.move(Direction.WEST);
+		if (!paused) {
+			if (k == 37) {
+				//LEFT
+				con.move(Direction.WEST);
+			}
+			else if (k == 38) {
+				//UP
+				con.move(Direction.NORTH);
+			}
+			else if (k == 39) {
+				//RIGHT
+				con.move(Direction.EAST);
+			}
+			else if (k == 40) {
+				//DOWN
+				con.move(Direction.SOUTH);
+			}
 		}
-		else if (k == 38) {
-			//UP
-			con.move(Direction.NORTH);
-		}
-		else if (k == 39) {
-			//RIGHT
-			con.move(Direction.EAST);
-		}
-		else if (k == 40) {
-			//DOWN
-			con.move(Direction.SOUTH);
-		}
-		else if (e.getKeyChar() == 'r') {
+		System.out.println(e.getKeyCode());
+		if (e.getKeyChar() == 'r') {
 			con.reset();
+		}
+		else if (e.getKeyCode() == 'e') {
+			
+		}
+		//ESC
+		else if (e.getKeyCode() == 27){
+			con.togglePause();
 		}
 		
 	}
