@@ -144,7 +144,7 @@ public class Renderer extends JPanel implements KeyListener{
 		if (e.getKeyChar() == 'r') {
 			con.reset();
 		}
-		else if (e.getKeyCode() == 'e') {
+		else if (e.getKeyCode() == 'e' && paused) {
 			
 		}
 		//ESC

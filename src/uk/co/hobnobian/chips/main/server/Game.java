@@ -16,6 +16,9 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	private boolean tickWhenPaused = true;
 	
+	public boolean exiting = false;
+	
+	
 	private boolean paused = false;
 	
 	private List<Entity> changesEnts = new ArrayList<Entity>();
@@ -275,5 +278,10 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 
 	public void setTickWhenPaused(boolean tickWhenPaused) {
 		this.tickWhenPaused = tickWhenPaused;
+	}
+	
+	public void exit() {
+		tick.cancel();
+		exiting = true;
 	}
 }
