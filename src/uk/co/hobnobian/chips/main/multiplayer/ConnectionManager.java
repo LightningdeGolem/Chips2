@@ -24,4 +24,5 @@ public interface ConnectionManager {
 	
 	public List<Entity> getChanges();
 	public void resetChanges();
+	public boolean isClosing();
 }

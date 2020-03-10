@@ -280,6 +280,10 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		this.tickWhenPaused = tickWhenPaused;
 	}
 	
+	public boolean isClosing() {
+		return exiting;
+	}
+	
 	public void exit() {
 		tick.cancel();
 		exiting = true;

@@ -46,34 +46,56 @@ public class Server implements Runnable{
 		
 		try {
 			while (true) {
+				if (con.isClosing()) {
+					try {
+						bw.write(Serializer.toString(new EndGamePacket())+"\n");
+						bw.flush();
+						bw.close();
+					}
+					catch (IOException e) {}
+					break;
+					
+					
+				}
+				
 				ServerPacket packet = new ServerPacket(con.getVars(), con.getEntities(), con.getOurPlayer());
 				bw.write(Serializer.toString(packet)+"\n");
 				bw.flush();
 				while (!br.ready()) {}
 				String rawdata = br.readLine();
-				ClientPacket data = (ClientPacket) Serializer.fromString(rawdata);
-				con.setTheirPlayer(data.getPlayer());
 				
-				GameVariables current = con.getVars();
-				for (String key : data.getChanges().keySet()) {
-					current.set(key, data.getChanges().get(key));
+				ClientPacket data;
+				Object o = Serializer.fromString(rawdata);
+				if (o instanceof EndGamePacket) {
+					EndGamePacket e = (EndGamePacket) o;
+					break;
 				}
-				List<Entity> entities = con.getEntities();
-				for (Entity e : data.getChangesEntity()) {
-					if (entities.contains(e)) {
-						int index = entities.indexOf(e);
-						entities.set(index, e);
+				else if (o instanceof ClientPacket) {
+					data = (ClientPacket) o;
+					con.setTheirPlayer(data.getPlayer());
+					
+					GameVariables current = con.getVars();
+					for (String key : data.getChanges().keySet()) {
+						current.set(key, data.getChanges().get(key));
 					}
+					List<Entity> entities = con.getEntities();
+					for (Entity e : data.getChangesEntity()) {
+						if (entities.contains(e)) {
+							int index = entities.indexOf(e);
+							entities.set(index, e);
+						}
+					}
+					con.setEntities(entities);
+					con.setVars(current);
 				}
-				con.setEntities(entities);
-				con.setVars(current);
+				
+				
 				Thread.sleep(10);
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

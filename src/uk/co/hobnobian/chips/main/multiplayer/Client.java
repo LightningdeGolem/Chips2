@@ -40,6 +40,7 @@ public class Client implements Runnable{
 	private void go() {
 		
 		try {
+			
 			while (!br.ready()) {}
 			String raw = br.readLine();
 			ServerPacket data = (ServerPacket) Serializer.fromString(raw);
@@ -49,6 +50,17 @@ public class Client implements Runnable{
 			con.setEntities(data.getEntities());
 			
 			while (true) {
+				if (con.isClosing()) {
+					try {
+						bw.write(Serializer.toString(new EndGamePacket())+"\n");
+						bw.flush();
+						bw.close();
+					}
+					catch (IOException e) {}
+					break;
+					
+					
+				}
 				ClientPacket toSend = new ClientPacket(con.getVars(), old,con.getChanges(), con.getOurPlayer());
 				con.resetChanges();
 				bw.write(Serializer.toString(toSend)+"\n");
@@ -56,12 +68,21 @@ public class Client implements Runnable{
 				
 				while (!br.ready()) {}
 				String rawdata = br.readLine();
-				data = (ServerPacket) Serializer.fromString(rawdata);
-				old = con.getVars();
-				con.setVars(data.getVars());
-				con.setTheirPlayer(data.getPlayer());
-				con.setEntities(data.getEntities());
-				Thread.sleep(100);
+				
+				Object o = Serializer.fromString(rawdata);
+				if (o instanceof EndGamePacket) {
+					EndGamePacket e = (EndGamePacket) o;
+					break;
+				}
+				else if (o instanceof ServerPacket) {
+					data = (ServerPacket) Serializer.fromString(rawdata);
+					old = con.getVars();
+					con.setVars(data.getVars());
+					con.setTheirPlayer(data.getPlayer());
+					con.setEntities(data.getEntities());
+				}
+				Thread.sleep(10);
+				
 			}
 			
 		} catch (IOException e) {
