@@ -72,6 +72,9 @@ public class Client implements Runnable{
 				Object o = Serializer.fromString(rawdata);
 				if (o instanceof EndGamePacket) {
 					EndGamePacket e = (EndGamePacket) o;
+					con.exit();
+					bw.close();
+					br.close();
 					break;
 				}
 				else if (o instanceof ServerPacket) {

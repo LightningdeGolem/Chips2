@@ -17,6 +17,7 @@ import uk.co.hobnobian.chips.main.entities.MovableBlock;
 import uk.co.hobnobian.chips.main.entities.VanishingWall;
 import uk.co.hobnobian.chips.main.multiplayer.Client;
 import uk.co.hobnobian.chips.main.multiplayer.Server;
+import uk.co.hobnobian.chips.main.options.StartupMenu;
 import uk.co.hobnobian.chips.main.server.EditableMap;
 import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
@@ -27,46 +28,44 @@ public class Main {
 	public static final int defaultPort = 1234;
 	
 	public static void main(String[] args) {
-		singlePlayer();
-//		if (args.length > 0) {
-//			if (args[0].equalsIgnoreCase("singleplayer")) {
-//				singlePlayer();
-//			}
-//			else if (args[0].equalsIgnoreCase("server")) {
-//				int port = defaultPort;
-//				if (args.length > 1) {
-//					try {
-//						port = Integer.parseInt(args[1]);
-//					}
-//					catch(NumberFormatException e){}
-//				}
-//				server(port);
-//			}
-//			else if (args[0].equalsIgnoreCase("client")) {
-//				String host = "localhost";
-//				int port = defaultPort;
-//				
-//				if (args.length > 1) {
-//					String entire = args[1];
-//					String[] parts = entire.split(":");
-//					host = parts[0];
-//					if (parts.length > 1) {
-//						try {
-//							port = Integer.parseInt(parts[1]);
-//						}
-//						catch(NumberFormatException e){}
-//					}
-//				}
-//				
-//				System.out.println("Connection to "+host+":"+port);
-//				client(host, port);
-//			}
-//		}
-//		else {
-//			
-//			
-//			new StartupMenu();
-//		}
+//		singlePlayer();
+		if (args.length > 0) {
+			if (args[0].equalsIgnoreCase("singleplayer")) {
+				singlePlayer();
+			}
+			else if (args[0].equalsIgnoreCase("server")) {
+				int port = defaultPort;
+				if (args.length > 1) {
+					try {
+						port = Integer.parseInt(args[1]);
+					}
+					catch(NumberFormatException e){}
+				}
+				server(port);
+			}
+			else if (args[0].equalsIgnoreCase("client")) {
+				String host = "localhost";
+				int port = defaultPort;
+				
+				if (args.length > 1) {
+					String entire = args[1];
+					String[] parts = entire.split(":");
+					host = parts[0];
+					if (parts.length > 1) {
+						try {
+							port = Integer.parseInt(parts[1]);
+						}
+						catch(NumberFormatException e){}
+					}
+				}
+				
+				System.out.println("Connection to "+host+":"+port);
+				client(host, port);
+			}
+		}
+		else {
+			new StartupMenu();
+		}
 		
 //		new StartupMenu();
 //		singlePlayer();
