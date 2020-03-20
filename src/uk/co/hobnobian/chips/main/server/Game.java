@@ -286,6 +286,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	public void exit() {
 		tick.cancel();
+		con.closeWindow();
 		exiting = true;
 	}
 }

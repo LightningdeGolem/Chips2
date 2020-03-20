@@ -28,6 +28,8 @@ public class Renderer extends JPanel implements KeyListener{
 	public final Image background;
 	HashMap<int[], Image> players = null;
 	
+	private Window window;
+	
 	
 	private void initializeFonts() {
 		fonts = new FontsManager();
@@ -41,7 +43,8 @@ public class Renderer extends JPanel implements KeyListener{
 		
 	}
 	
-	public Renderer(ClientConnectionLayer c, Image bkgrnd) {
+	public Renderer(ClientConnectionLayer c, Image bkgrnd, Window w) {
+		window = w;
 		initializeFonts();
 		//224x224 for 7x7 block layout
 		//64x64 block
@@ -140,12 +143,16 @@ public class Renderer extends JPanel implements KeyListener{
 				con.move(Direction.SOUTH);
 			}
 		}
-		System.out.println(e.getKeyCode());
 		if (e.getKeyChar() == 'r') {
+			if (paused) {
+				paused = !paused;
+				con.togglePause();
+			}
 			con.reset();
 		}
-		else if (e.getKeyCode() == 'e' && paused) {
-			
+		
+		else if (e.getKeyCode() == 69 && paused) {
+			con.exit();
 		}
 		//ESC
 		else if (e.getKeyCode() == 27){
@@ -158,5 +165,9 @@ public class Renderer extends JPanel implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void close() {
+		window.dispose();
 	}
 }

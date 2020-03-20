@@ -80,7 +80,7 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 			GraphicsServerLayer l = new GraphicsServerLayer();
 			
 			
-			Renderer r = new Renderer(l, i);
+			Renderer r = new Renderer(l, i,wi);
 			wi.add(r);
 			
 			GameVariables vars = new GameVariables();

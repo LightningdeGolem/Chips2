@@ -17,7 +17,6 @@ import uk.co.hobnobian.chips.main.entities.MovableBlock;
 import uk.co.hobnobian.chips.main.entities.VanishingWall;
 import uk.co.hobnobian.chips.main.multiplayer.Client;
 import uk.co.hobnobian.chips.main.multiplayer.Server;
-import uk.co.hobnobian.chips.main.options.StartupMenu;
 import uk.co.hobnobian.chips.main.server.EditableMap;
 import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
@@ -92,7 +91,7 @@ public class Main {
 		} catch (IOException e) {
 			return;
 		}
-		Renderer r = new Renderer(l, i);
+		Renderer r = new Renderer(l, i, w);
 		w.add(r);
 		
 		EditableMap m = new EditableMap();
@@ -134,7 +133,7 @@ public class Main {
 		} catch (IOException e) {
 			return;
 		}
-		Renderer r = new Renderer(l, i);
+		Renderer r = new Renderer(l, i,w);
 		w.add(r);
 		
 		GameVariables vars = new GameVariables();
@@ -170,7 +169,7 @@ public class Main {
 		} catch (IOException e) {
 			return;
 		}
-		Renderer r = new Renderer(l, i);
+		Renderer r = new Renderer(l, i,w);
 		w.add(r);
 		
 		EditableMap m = new EditableMap();

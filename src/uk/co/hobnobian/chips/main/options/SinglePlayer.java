@@ -52,7 +52,7 @@ public class SinglePlayer extends JFrame implements MouseListener{
 		} catch (IOException e) {
 			return;
 		}
-		Renderer r = new Renderer(l, i);
+		Renderer r = new Renderer(l, i,w);
 		w.add(r);
 		
 		

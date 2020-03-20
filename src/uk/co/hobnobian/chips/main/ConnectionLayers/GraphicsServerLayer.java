@@ -119,4 +119,15 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 		game.togglePause();
 		
 	}
+
+	@Override
+	public void exit() {
+		game.exit();
+		
+	}
+
+	public void closeWindow() {
+		du.close();
+		
+	}
 }

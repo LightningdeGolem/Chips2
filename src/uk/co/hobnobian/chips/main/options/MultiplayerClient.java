@@ -97,7 +97,7 @@ public class MultiplayerClient extends JFrame implements MouseListener{
 				s.close();
 				return;
 			}
-			Renderer r = new Renderer(l, i);
+			Renderer r = new Renderer(l, i, w);
 			w.add(r);
 			
 			GameVariables vars = new GameVariables();

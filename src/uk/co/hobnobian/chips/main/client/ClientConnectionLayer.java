@@ -8,5 +8,6 @@ public interface ClientConnectionLayer {
 	public void setUpdater(Renderer d);
 	
 	public void togglePause();
+	public void exit();
 	
 }
