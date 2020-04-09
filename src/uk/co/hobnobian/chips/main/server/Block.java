@@ -15,8 +15,8 @@ public abstract class Block implements Serializable{
 
 	protected BlockInfo info = null;
 	
-	public abstract boolean onEnter(Entity e, Direction d, GameVariables vars);
-	public abstract boolean onLeave(Entity e, Direction d, GameVariables vars);
+	public abstract boolean onEnter(Player p, Direction d, GameVariables vars);
+	public abstract boolean onLeave(Player p, Direction d, GameVariables vars);
 	
 	public Block() {}
 	

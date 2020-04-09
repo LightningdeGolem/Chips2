@@ -13,14 +13,11 @@ import uk.co.hobnobian.chips.main.blocks.GreenBlock;
 import uk.co.hobnobian.chips.main.blocks.GreenButton;
 import uk.co.hobnobian.chips.main.client.Renderer;
 import uk.co.hobnobian.chips.main.client.Window;
-import uk.co.hobnobian.chips.main.entities.MovableBlock;
-import uk.co.hobnobian.chips.main.entities.VanishingWall;
 import uk.co.hobnobian.chips.main.multiplayer.Client;
 import uk.co.hobnobian.chips.main.multiplayer.Server;
 import uk.co.hobnobian.chips.main.options.StartupMenu;
 import uk.co.hobnobian.chips.main.server.Block;
 import uk.co.hobnobian.chips.main.server.EditableMap;
-import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 
@@ -103,10 +100,6 @@ public class Main {
 		m.setAt(new GreenBlock(), 1, 1);
 		m.setAt(new GreenBlock(), 2, 0);
 		
-		Entity block = Entity.createEntity(MovableBlock.class);
-		block.go_to(new int[] {3,3});
-		m.getEntities().add(block);
-		
 		GameVariables vars = new GameVariables();
 		Game g = new Game(l,m, vars);
 		
@@ -180,14 +173,6 @@ public class Main {
 		m.setAt(new GreenBlock(), 0, 1);
 		m.setAt(new GreenBlock(), 1, 1);
 		m.setAt(new GreenBlock(), 2, 0);
-		
-		Entity block = Entity.createEntity(MovableBlock.class);
-		block.go_to(new int[] {3,3});
-		m.getEntities().add(block);
-		
-		Entity vanish = Entity.createEntity(VanishingWall.class);
-		vanish.go_to(new int[] {4,4});
-		m.getEntities().add(vanish);
 		
 		
 		GameVariables vars = new GameVariables();

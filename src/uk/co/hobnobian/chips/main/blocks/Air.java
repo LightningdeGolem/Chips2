@@ -2,14 +2,14 @@ package uk.co.hobnobian.chips.main.blocks;
 
 import uk.co.hobnobian.chips.main.server.Block;
 import uk.co.hobnobian.chips.main.server.Direction;
-import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.GameVariables;
+import uk.co.hobnobian.chips.main.server.Player;
 
 public class Air extends Block {
 	private static final long serialVersionUID = 6187292863080124496L;
 
 	@Override
-	public boolean onEnter(Entity e, Direction d, GameVariables vars) {
+	public boolean onEnter(Player p, Direction d, GameVariables vars) {
 		return true;
 	}
 
@@ -19,7 +19,7 @@ public class Air extends Block {
 	}
 
 	@Override
-	public boolean onLeave(Entity e, Direction d, GameVariables vars) {
+	public boolean onLeave(Player p, Direction d, GameVariables vars) {
 		return true;
 	}
 }

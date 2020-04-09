@@ -1,7 +1,5 @@
 package uk.co.hobnobian.chips.main.server;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,9 +19,6 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	private boolean paused = false;
 	
-	private List<Entity> changesEnts = new ArrayList<Entity>();
-	private boolean shouldRecordChangeEnts = true;
-	
 	private boolean main = true;
 	public boolean resetMapWhenDie = true;
 	
@@ -32,12 +27,6 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	GameVariables vars;
 	Timer tick = new Timer();
 	GraphicsServerLayer con;
-	
-	public void addChangeEnts(Entity e) {
-		if (shouldRecordChangeEnts) {
-			changesEnts.add(e);
-		}
-	}
 	
 	public void update() {
 		con.updateMap(map, vars, p, p2);
@@ -90,11 +79,6 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		if (!tickWhenPaused && paused) {
 			return;
 		}
-		if (!main) {
-			shouldRecordChangeEnts = false;
-		}
-		updateEntities();
-		shouldRecordChangeEnts = true;
 		if (!p.isAlive()) {
 			if (main) {
 				p.go_to(map.getP1StartPos());
@@ -110,27 +94,6 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		con.updateMap(map,vars, p, p2);
 	}
 	
-	public void updateEntities() {
-		List<Entity> entities = map.getEntities();
-		ArrayList<Entity> toBeDeleted = new ArrayList<Entity>();
-		for (Entity e : entities) {
-			if (e.isAlive()) {
-				if (p2 == null) {
-					e.tick(this, new Player[] {p});
-				}
-				else {
-					e.tick(this, new Player[] {p, p2});
-				}
-			}
-			else {
-				toBeDeleted.add(e);
-			}
-		}
-		for (Entity e : toBeDeleted) {
-			map.getEntities().remove(e);
-		}
-	}
-	
 
 	@Override
 	public void onPlayerMove(Direction d) {
@@ -140,25 +103,10 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
 			int[] newpos = Direction.move(p.getpos(), d);
 			if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
-				
-				boolean canmove = true;
-				for (Entity e : map.getEntities()) {
-					if (e.isAlive()) {
-						if (e.getpos()[0] == newpos[0] && e.getpos()[1] == newpos[1]) {
-							canmove = e.onPlayerMove(this, p, Direction.invert(d), vars);
-							break;
-						}
-					}
-				}
 				if (p2 != null) {
-					if (canmove) {
-						if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-							p.move(d);
-						}
+					if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
+						p.move(d);
 					}
-				}
-				else if (canmove){
-					p.move(d);
 				}
 				
 			}
@@ -167,32 +115,18 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		con.updateMap(map,vars, p, p2);
 	}
 	
-	public boolean canEntityMove(Entity p, Direction d) {
+	public boolean canPlayerMove(Player p, Direction d) {
 		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
 			int[] newpos = Direction.move(p.getpos(), d);
+			
 			if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
-				
-				boolean canmove = true;
-				for (Entity e : map.getEntities()) {
-					if (e.isAlive()) {
-						if (e.getpos()[0] == newpos[0] && e.getpos()[1] == newpos[1]) {
-							canmove = e.onPlayerMove(this, p, Direction.invert(d), vars);
-							break;
-						}
-					}
-				}
 				if (p2 != null) {
-					if (canmove) {
-						if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-							return true;
-						}
-						else {
-							return false;
-						}
+					if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
+						return true;
 					}
-				}
-				else if (canmove){
-					return canmove;
+					else {
+						return false;
+					}
 				}
 				
 				
@@ -224,29 +158,8 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 
 	@Override
-	public List<Entity> getEntities() {
-		return map.getEntities();
-	}
-
-	@Override
-	public void setEntities(List<Entity> list) {
-		map.entities = (ArrayList<Entity>) list;
-	}
-
-	@Override
 	public void setMain(boolean value) {
 		main = value;
-		
-	}
-
-	@Override
-	public List<Entity> getChanges() {
-		return changesEnts;
-	}
-
-	@Override
-	public void resetChanges() {
-		changesEnts = new ArrayList<Entity>();
 		
 	}
 

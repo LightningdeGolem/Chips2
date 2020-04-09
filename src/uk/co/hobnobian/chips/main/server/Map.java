@@ -1,8 +1,7 @@
 package uk.co.hobnobian.chips.main.server;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
 
 import uk.co.hobnobian.chips.main.blocks.Air;
 import uk.co.hobnobian.chips.main.blocks.Wall;
@@ -10,7 +9,6 @@ import uk.co.hobnobian.chips.main.blocks.Wall;
 public class Map implements Serializable{
 	private static final long serialVersionUID = -2109585197244870226L;
 	protected Block[][] blocks = new Block[256][256];
-	protected ArrayList<Entity> entities = new ArrayList<Entity>();
 	protected final Class<?extends Block> defaultOutOfBounds = Wall.class;
 	
 	private int[] p1StartPos = {0,0};
@@ -33,19 +31,6 @@ public class Map implements Serializable{
 		}
 		return data;
 	}
-	public final List<Entity> getEntities(int width, int height, int xcenter, int ycenter) {
-		ArrayList<Entity> es = new ArrayList<Entity>();
-		for (Entity e : entities) {
-			if (e.getpos()[0] >= xcenter - Math.floor(width/2)
-					&& e.getpos()[0] <= xcenter + Math.floor(width/2)
-					&& e.getpos()[1] >= ycenter - Math.floor(height/2)
-					&& e.getpos()[1] <= ycenter + Math.floor(height/2))
-			{
-				es.add(e);
-			}
-		}
-		return es;
-	}
 	
 	protected final Block getBlockDataAtXY(int x, int y) {
 		if (x > -1 && x < blocks.length && y > -1 && y < blocks[0].length) {
@@ -55,7 +40,22 @@ public class Map implements Serializable{
 			return blocks[x][y];
 		}
 		try {
-			return defaultOutOfBounds.newInstance();
+			try {
+				return defaultOutOfBounds.getDeclaredConstructor().newInstance();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -64,10 +64,6 @@ public class Map implements Serializable{
 	
 	public final Block getAt(int x, int y) {
 		return getBlockDataAtXY(x,y);
-	}
-	
-	public List<Entity> getEntities(){
-		return entities;
 	}
 
 	public int[] getP1StartPos() {

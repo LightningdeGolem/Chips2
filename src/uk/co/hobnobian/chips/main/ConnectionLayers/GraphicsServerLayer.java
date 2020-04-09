@@ -12,7 +12,6 @@ import uk.co.hobnobian.chips.main.client.ClientConnectionLayer;
 import uk.co.hobnobian.chips.main.client.Renderer;
 import uk.co.hobnobian.chips.main.server.Block;
 import uk.co.hobnobian.chips.main.server.Direction;
-import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Map;
@@ -60,11 +59,6 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 			for (int x = 0; x < b[y].length; x++) {
 				blocks.put(new int[] {x,y}, loadImage(b[x][y].getImage(vars)));
 			}
-		}
-		for (Entity e : m.getEntities(7, 7, p.getpos()[0], p.getpos()[1])) {
-			Image img = loadImage(e.getImage(vars));
-			int[] pos = new int[] {e.getpos()[0] - p.getpos()[0] +3, e.getpos()[1] - p.getpos()[1]+3};
-			ents.put(pos, img);
 		}
 		
 		HashMap<int[], Image> players = new HashMap<int[], Image>();

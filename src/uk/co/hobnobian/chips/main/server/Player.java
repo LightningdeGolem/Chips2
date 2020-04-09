@@ -1,7 +1,14 @@
 package uk.co.hobnobian.chips.main.server;
 
-public class Player extends Entity{
+import java.io.Serializable;
+
+public class Player implements Serializable{
 	private static final long serialVersionUID = 8878765228332183344L;
+	
+	private int x = 0;
+	private int y = 0;
+	
+	private boolean alive = true;
 	
 	private PlayerType ptype = PlayerType.BROWN;
 	
@@ -12,7 +19,6 @@ public class Player extends Entity{
 		return facing;
 	}
 	
-	@Override
 	public void move(Direction d) {
 		facing = d;
 		int[] r = Direction.move(new int[] {x, y}, d);
@@ -25,15 +31,12 @@ public class Player extends Entity{
 		this.y = y;
 	}
 	
-	@Override
 	public int[] getpos() {
 		return new int[] {x,y};
 	}
 
-	@Override
 	public void tick(Game g, Player[] p) {}
 
-	@Override
 	public String getImage(GameVariables vars) {
 		String imageFile = "";
 		if (ptype == PlayerType.BROWN) {
@@ -69,8 +72,20 @@ public class Player extends Entity{
 		ptype = t;
 	}
 
-	@Override
-	public boolean onPlayerEnter(Game g, Entity p, Direction d, GameVariables vars) {
-		return false;
+	public void go_to(int[] pos) {
+		go_to(pos[0], pos[1]);
+		
+	}
+	
+	public void kill() {
+		alive  = false;
+	}
+	
+	public void setAlive(boolean a) {
+		alive = a;
+	}
+	
+	public boolean isAlive() {
+		return alive;
 	}
 }
