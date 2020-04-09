@@ -23,4 +23,5 @@ public class Wall extends Block{
 	@Override
 	public boolean onLeave(Entity e, Direction d, GameVariables vars) {return true;}
 
+
 }

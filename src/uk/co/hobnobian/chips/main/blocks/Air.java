@@ -22,5 +22,4 @@ public class Air extends Block {
 	public boolean onLeave(Entity e, Direction d, GameVariables vars) {
 		return true;
 	}
-
 }

@@ -26,7 +26,6 @@ public class GreenButton extends Block {
 
 	@Override
 	public String getImage(GameVariables vars) {
-		// TODO Auto-generated method stub
 		return "greenButton.png";
 	}
 

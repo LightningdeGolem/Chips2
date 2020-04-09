@@ -18,6 +18,7 @@ import uk.co.hobnobian.chips.main.entities.VanishingWall;
 import uk.co.hobnobian.chips.main.multiplayer.Client;
 import uk.co.hobnobian.chips.main.multiplayer.Server;
 import uk.co.hobnobian.chips.main.options.StartupMenu;
+import uk.co.hobnobian.chips.main.server.Block;
 import uk.co.hobnobian.chips.main.server.EditableMap;
 import uk.co.hobnobian.chips.main.server.Entity;
 import uk.co.hobnobian.chips.main.server.Game;
@@ -28,6 +29,8 @@ public class Main {
 	public static final int defaultPort = 1234;
 	
 	public static void main(String[] args) {
+		Block.setup();
+		
 //		singlePlayer();
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("singleplayer")) {
