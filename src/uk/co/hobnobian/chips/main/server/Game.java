@@ -129,20 +129,16 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		if (leave == EnterLeaveEvent.YES) {
 			int[] newpos = Direction.move(p.getpos(), d);
 			
-			EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(pos[0], pos[1], Direction.invert(d), vars, this);
-			if (enter == EnterLeaveEvent.YES) {
-				if (p2 != null) {
-					if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-						return true;
-					}
-					else {
-						return false;
-					}
+			
+			if (p2 == null || !(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
+				EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(pos[0], pos[1], Direction.invert(d), vars, this);
+				if (enter == EnterLeaveEvent.YES) {
+					return true;
 				}
-			}
-			else if (enter == EnterLeaveEvent.DEATH) {
-				p.kill();
-			}
+				else if (enter == EnterLeaveEvent.DEATH) {
+					p.kill();
+				}
+			}	
 		}
 		else if (leave == EnterLeaveEvent.DEATH) {
 			p.kill();
