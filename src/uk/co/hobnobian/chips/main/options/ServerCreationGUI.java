@@ -89,10 +89,6 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 			
 			System.out.println("About to create game");
 			
-//			if (!new ProtocolCheckState(s, false).check()) {
-//				System.out.println("Invalid protocol");
-//				return;
-//			}
 			System.out.println("Passed protocol check");
 			new MapSender(map, s);
 			System.out.println("Sent map");

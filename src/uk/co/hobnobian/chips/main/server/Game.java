@@ -104,26 +104,33 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		if (paused) {
 			return;
 		}
-		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
-			int[] newpos = Direction.move(p.getpos(), d);
-			if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-				if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
-					if (p2 != null) {
-							p.move(d);
-					}
-					
-				}
-			}
+//		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
+//			int[] newpos = Direction.move(p.getpos(), d);
+//			if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
+//				if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
+//					if (p2 != null) {
+//							p.move(d);
+//					}
+//					
+//				}
+//			}
+//		}
+		
+		if (canPlayerMove(p, d)) {
+			p.move(d);
 		}
 		
 		con.updateMap(map,vars, p, p2);
 	}
 	
 	public boolean canPlayerMove(Player p, Direction d) {
-		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
+		int[] pos = p.getpos();
+		EnterLeaveEvent leave = map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(pos[0], pos[1], d, vars, this);
+		if (leave == EnterLeaveEvent.YES) {
 			int[] newpos = Direction.move(p.getpos(), d);
 			
-			if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
+			EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(pos[0], pos[1], Direction.invert(d), vars, this);
+			if (enter == EnterLeaveEvent.YES) {
 				if (p2 != null) {
 					if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
 						return true;
@@ -132,9 +139,13 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 						return false;
 					}
 				}
-				
-				
 			}
+			else if (enter == EnterLeaveEvent.DEATH) {
+				p.kill();
+			}
+		}
+		else if (leave == EnterLeaveEvent.DEATH) {
+			p.kill();
 		}
 		return false;
 	}

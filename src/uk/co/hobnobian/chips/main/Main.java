@@ -177,7 +177,7 @@ public class Main {
 	private static void saveMap() {
 		EditableMap m = new EditableMap();
 		m.setAt(new GreenButton(), 4, 0);
-		m.setAt(new GreenButton(), 1, 0);
+//		m.setAt(new GreenButton(), 1, 0);
 		m.setAt(new GreenBlock(), 0, 1);
 		m.setAt(new GreenBlock(), 1, 1);
 		m.setAt(new GreenBlock(), 2, 0);
