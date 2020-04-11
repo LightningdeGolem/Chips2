@@ -106,13 +106,13 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		}
 		if (map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(p, d, vars)) {
 			int[] newpos = Direction.move(p.getpos(), d);
-			if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
-				if (p2 != null) {
-					if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-						p.move(d);
+			if (!(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
+				if (map.getAt(newpos[0], newpos[1]).onEnter(p, Direction.invert(d), vars)) {
+					if (p2 != null) {
+							p.move(d);
 					}
+					
 				}
-				
 			}
 		}
 		
