@@ -19,6 +19,10 @@ public class Player implements Serializable{
 		return facing;
 	}
 	
+	public void setFacing(Direction f) {
+		facing = f;
+	}
+	
 	public void move(Direction d) {
 		facing = d;
 		int[] r = Direction.move(new int[] {x, y}, d);

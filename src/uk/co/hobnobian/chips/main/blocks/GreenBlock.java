@@ -5,12 +5,14 @@ import uk.co.hobnobian.chips.main.server.Direction;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Player;
 
+
+//USES GAMEVAR 0
 public class GreenBlock extends Block {
 	private static final long serialVersionUID = -5308525202743352116L;
 
 	@Override
 	public boolean onEnter(Player e, Direction d, GameVariables vars) {
-		return vars.get("greenBlock") == 1;
+		return vars.get(0) == 1;
 	}
 
 	@Override
@@ -20,7 +22,7 @@ public class GreenBlock extends Block {
 
 	@Override
 	public String getImage(GameVariables vars) {
-		if (vars.get("greenBlock") == 1) {
+		if (vars.get(0) == 1) {
 			return "greenEmpty.png";
 		}
 		else {

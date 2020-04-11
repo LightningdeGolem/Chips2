@@ -1,5 +1,7 @@
 package uk.co.hobnobian.chips.main.server;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +23,8 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	private boolean main = true;
 	public boolean resetMapWhenDie = true;
+	
+	private ArrayList<int[]> blockChanges = new ArrayList<int[]>();
 	
 	Map map;
 	private String originalMap;
@@ -191,6 +195,23 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 
 	public void setTickWhenPaused(boolean tickWhenPaused) {
 		this.tickWhenPaused = tickWhenPaused;
+	}
+	
+	public void setBlock(int x, int y, Block b) {
+		blockChanges.add(new int[] {x,y});
+		map.setBlock(x, y, b);
+	}
+	
+	@Override
+	public Map getMap() {
+		return map;
+	}
+	
+	@Override
+	public List<int[]> getAndClearBlockChanges(){
+		List<int[]> r = new ArrayList<int[]>(blockChanges);
+		blockChanges.clear();
+		return r;
 	}
 	
 	@Override

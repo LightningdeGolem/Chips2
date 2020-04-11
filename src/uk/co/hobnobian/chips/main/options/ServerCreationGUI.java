@@ -18,7 +18,8 @@ import uk.co.hobnobian.chips.main.Main;
 import uk.co.hobnobian.chips.main.ConnectionLayers.GraphicsServerLayer;
 import uk.co.hobnobian.chips.main.client.Renderer;
 import uk.co.hobnobian.chips.main.client.Window;
-import uk.co.hobnobian.chips.main.multiplayer.Server;
+import uk.co.hobnobian.chips.main.multiplayer.GameHandler;
+import uk.co.hobnobian.chips.main.multiplayer.MapSender;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Map;
@@ -86,12 +87,31 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 			GameVariables vars = new GameVariables();
 			Game g = new Game(l,map, vars);
 			
-			Server server = new Server(s, map, g);
+			System.out.println("About to create game");
+			
+//			if (!new ProtocolCheckState(s, false).check()) {
+//				System.out.println("Invalid protocol");
+//				return;
+//			}
+			System.out.println("Passed protocol check");
+			new MapSender(map, s);
+			System.out.println("Sent map");
+			
+			GameHandler handler = new GameHandler(s, g,false);
+			System.out.println("Created game handler");
+			
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					handler.start();
+				}
+			}).start();
+			
+			
 			dispose();
 			wi.setup();
 			g.update();
 			g.start();
-			new Thread(server).start();
 			
 		}
 		catch(SocketException e) {}

@@ -1,6 +1,9 @@
 package uk.co.hobnobian.chips.main.multiplayer;
 
+import java.util.List;
+
 import uk.co.hobnobian.chips.main.server.GameVariables;
+import uk.co.hobnobian.chips.main.server.Map;
 import uk.co.hobnobian.chips.main.server.Player;
 import uk.co.hobnobian.chips.main.server.PlayerType;
 
@@ -18,4 +21,6 @@ public interface ConnectionManager {
 	
 	public boolean isClosing();
 	public void exit();
+	public List<int[]> getAndClearBlockChanges();
+	public Map getMap();
 }

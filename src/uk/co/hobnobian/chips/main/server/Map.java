@@ -73,4 +73,8 @@ public class Map implements Serializable{
 	public int[] getP2StartPos() {
 		return p2StartPos;
 	}
+	
+	public void setBlock(int x, int y, Block b) {
+		blocks[x][y] = b;
+	}
 }

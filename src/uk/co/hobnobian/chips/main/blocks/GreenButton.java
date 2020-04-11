@@ -5,16 +5,17 @@ import uk.co.hobnobian.chips.main.server.Direction;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Player;
 
+//USES GAMEVAR 0
 public class GreenButton extends Block {
 	private static final long serialVersionUID = -4847454343260538041L;
 
 	@Override
 	public boolean onEnter(Player p, Direction d, GameVariables vars) {
-		if (vars.get("greenBlock") == 1) {
-			vars.set("greenBlock", 0);
+		if (vars.get(0) == 1) {
+			vars.set(0, 0);
 		}
 		else {
-			vars.set("greenBlock", 1);
+			vars.set(0, 1);
 		}
 		return true;
 	}

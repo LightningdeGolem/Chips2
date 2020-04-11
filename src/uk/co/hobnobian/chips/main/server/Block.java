@@ -22,6 +22,10 @@ public abstract class Block implements Serializable{
 	
 	public abstract String getImage(GameVariables vars);
 	
+	public void setInfo(BlockInfo i) {
+		info = i;
+	}
+	
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName();
