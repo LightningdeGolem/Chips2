@@ -4,7 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import uk.co.hobnobian.chips.game.server.Map;
+import uk.co.hobnobian.chips.game.backend.Map;
 
 public class MapReader {
 	private Map map;

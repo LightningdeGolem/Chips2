@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.server;
+package uk.co.hobnobian.chips.game.backend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import uk.co.hobnobian.chips.game.PlayerMoveListener;
-import uk.co.hobnobian.chips.game.ConnectionLayers.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.multiplayer.ConnectionManager;
 import uk.co.hobnobian.chips.game.multiplayer.Serializer;
 

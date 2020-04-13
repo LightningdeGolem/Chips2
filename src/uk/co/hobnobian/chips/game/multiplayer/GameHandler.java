@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import uk.co.hobnobian.chips.game.server.Block;
-import uk.co.hobnobian.chips.game.server.BlockInfo;
-import uk.co.hobnobian.chips.game.server.Direction;
-import uk.co.hobnobian.chips.game.server.Game;
-import uk.co.hobnobian.chips.game.server.GameVariables;
-import uk.co.hobnobian.chips.game.server.Player;
+import uk.co.hobnobian.chips.game.backend.Block;
+import uk.co.hobnobian.chips.game.backend.BlockInfo;
+import uk.co.hobnobian.chips.game.backend.Direction;
+import uk.co.hobnobian.chips.game.backend.Game;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.Player;
 import uk.co.hobnobian.chips.main.Main;
 
 public class GameHandler{

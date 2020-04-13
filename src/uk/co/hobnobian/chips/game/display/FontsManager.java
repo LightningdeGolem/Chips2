@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.client;
+package uk.co.hobnobian.chips.game.display;
 
 import java.awt.Color;
 import java.awt.Font;

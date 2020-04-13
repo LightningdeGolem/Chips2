@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.client;
+package uk.co.hobnobian.chips.game.display;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,7 +12,8 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import uk.co.hobnobian.chips.game.server.Direction;
+import uk.co.hobnobian.chips.game.backend.Direction;
+import uk.co.hobnobian.chips.main.Window;
 
 public class Renderer extends JPanel implements KeyListener{
 	private static final long serialVersionUID = -3818026926139086329L;

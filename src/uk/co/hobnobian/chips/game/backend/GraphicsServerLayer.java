@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.ConnectionLayers;
+package uk.co.hobnobian.chips.game.backend;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -8,14 +8,8 @@ import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
 import uk.co.hobnobian.chips.game.PlayerMoveListener;
-import uk.co.hobnobian.chips.game.client.ClientConnectionLayer;
-import uk.co.hobnobian.chips.game.client.Renderer;
-import uk.co.hobnobian.chips.game.server.Block;
-import uk.co.hobnobian.chips.game.server.Direction;
-import uk.co.hobnobian.chips.game.server.Game;
-import uk.co.hobnobian.chips.game.server.GameVariables;
-import uk.co.hobnobian.chips.game.server.Map;
-import uk.co.hobnobian.chips.game.server.Player;
+import uk.co.hobnobian.chips.game.display.ClientConnectionLayer;
+import uk.co.hobnobian.chips.game.display.Renderer;
 
 public class GraphicsServerLayer implements ClientConnectionLayer{
 	

@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.server;
+package uk.co.hobnobian.chips.game.backend;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;

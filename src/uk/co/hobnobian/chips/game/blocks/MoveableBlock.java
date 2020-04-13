@@ -1,10 +1,10 @@
 package uk.co.hobnobian.chips.game.blocks;
 
-import uk.co.hobnobian.chips.game.server.Block;
-import uk.co.hobnobian.chips.game.server.Direction;
-import uk.co.hobnobian.chips.game.server.EnterLeaveEvent;
-import uk.co.hobnobian.chips.game.server.Game;
-import uk.co.hobnobian.chips.game.server.GameVariables;
+import uk.co.hobnobian.chips.game.backend.Block;
+import uk.co.hobnobian.chips.game.backend.Direction;
+import uk.co.hobnobian.chips.game.backend.EnterLeaveEvent;
+import uk.co.hobnobian.chips.game.backend.Game;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
 
 public class MoveableBlock extends Block{
 	private static final long serialVersionUID = -697806509042984041L;

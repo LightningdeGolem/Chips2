@@ -4,7 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import uk.co.hobnobian.chips.game.server.Map;
+import uk.co.hobnobian.chips.game.backend.Map;
 
 public class MapSender {
 	public MapSender(Map m, Connection c) throws IOException {

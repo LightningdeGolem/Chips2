@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.server;
+package uk.co.hobnobian.chips.game.backend;
 
 public class EditableMap extends Map {
 	private static final long serialVersionUID = -5475389902704051308L;

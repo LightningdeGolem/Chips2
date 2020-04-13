@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import uk.co.hobnobian.chips.game.server.Map;
+import uk.co.hobnobian.chips.game.backend.Map;
 
 public class MultiplayerServer extends JFrame implements MouseListener{
 	private static final long serialVersionUID = -1569000305549814972L;

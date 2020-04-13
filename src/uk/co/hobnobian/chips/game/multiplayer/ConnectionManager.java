@@ -2,10 +2,10 @@ package uk.co.hobnobian.chips.game.multiplayer;
 
 import java.util.List;
 
-import uk.co.hobnobian.chips.game.server.GameVariables;
-import uk.co.hobnobian.chips.game.server.Map;
-import uk.co.hobnobian.chips.game.server.Player;
-import uk.co.hobnobian.chips.game.server.PlayerType;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.Map;
+import uk.co.hobnobian.chips.game.backend.Player;
+import uk.co.hobnobian.chips.game.backend.PlayerType;
 
 public interface ConnectionManager {
 	public void setVars(GameVariables v);

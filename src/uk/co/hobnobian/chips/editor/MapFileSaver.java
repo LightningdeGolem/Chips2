@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import uk.co.hobnobian.chips.game.server.Map;
+import uk.co.hobnobian.chips.game.backend.Map;
 
 public class MapFileSaver {
 	public static void saveMap(Map m, File f) {

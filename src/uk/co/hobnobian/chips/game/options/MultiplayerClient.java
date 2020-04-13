@@ -16,17 +16,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import uk.co.hobnobian.chips.game.ConnectionLayers.GraphicsServerLayer;
-import uk.co.hobnobian.chips.game.client.Renderer;
-import uk.co.hobnobian.chips.game.client.Window;
+import uk.co.hobnobian.chips.game.backend.Game;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
+import uk.co.hobnobian.chips.game.backend.Map;
+import uk.co.hobnobian.chips.game.display.Renderer;
 import uk.co.hobnobian.chips.game.multiplayer.Connection;
 import uk.co.hobnobian.chips.game.multiplayer.GameHandler;
 import uk.co.hobnobian.chips.game.multiplayer.MapReader;
 import uk.co.hobnobian.chips.game.multiplayer.ProtocolCheckState;
-import uk.co.hobnobian.chips.game.server.Game;
-import uk.co.hobnobian.chips.game.server.GameVariables;
-import uk.co.hobnobian.chips.game.server.Map;
 import uk.co.hobnobian.chips.main.Main;
+import uk.co.hobnobian.chips.main.Window;
 
 public class MultiplayerClient extends JFrame implements MouseListener{
 	private static final long serialVersionUID = -1575267924670350536L;

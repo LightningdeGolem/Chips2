@@ -1,6 +1,6 @@
-package uk.co.hobnobian.chips.game.client;
+package uk.co.hobnobian.chips.game.display;
 
-import uk.co.hobnobian.chips.game.server.Direction;
+import uk.co.hobnobian.chips.game.backend.Direction;
 
 public interface ClientConnectionLayer {
 	public void move(Direction d);
