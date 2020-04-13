@@ -4,12 +4,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import uk.co.hobnobian.chips.main.blocks.GreenBlock;
-import uk.co.hobnobian.chips.main.blocks.GreenButton;
-import uk.co.hobnobian.chips.main.blocks.MoveableBlock;
-import uk.co.hobnobian.chips.main.options.StartupMenu;
-import uk.co.hobnobian.chips.main.server.Block;
-import uk.co.hobnobian.chips.main.server.EditableMap;
+import uk.co.hobnobian.chips.game.blocks.GreenBlock;
+import uk.co.hobnobian.chips.game.blocks.GreenButton;
+import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
+import uk.co.hobnobian.chips.game.options.StartupMenu;
+import uk.co.hobnobian.chips.game.server.Block;
+import uk.co.hobnobian.chips.game.server.EditableMap;
 
 public class Main {
 	public static final int protocolID = 1;
