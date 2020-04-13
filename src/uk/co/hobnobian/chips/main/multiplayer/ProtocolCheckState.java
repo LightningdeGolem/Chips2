@@ -1,26 +1,30 @@
 package uk.co.hobnobian.chips.main.multiplayer;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 
 import uk.co.hobnobian.chips.main.Main;
 
 public class ProtocolCheckState {
 	private boolean worked;
-	public ProtocolCheckState(Socket sock, boolean send) throws IOException {
-		DataInputStream in = new DataInputStream(sock.getInputStream());
-		DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+	public ProtocolCheckState(Connection c, boolean send) throws IOException {
+		BufferedInputStream in = c.getIn();
+		BufferedOutputStream out = c.getOut();
 		
 		if(send) {
 			out.write(GameHandler.toByte(Main.protocolID));
+			out.flush();
 			while (in.available() == 0) {}
 			worked = (GameHandler.fromByte(in.readAllBytes()[0]) == 255);
 		}
 		else {
 			while (in.available() == 0) {}
-			int theirs = GameHandler.fromByte(in.readAllBytes()[0]);
+			byte[] idbytes = new byte[1];
+			in.read(idbytes);
+			
+			int theirs = GameHandler.fromByte(idbytes[0]);
+			
 			if (theirs == Main.protocolID) {
 				out.write(GameHandler.toByte(255));
 				worked = true;
@@ -28,7 +32,10 @@ public class ProtocolCheckState {
 			else {
 				worked = false;
 				out.write(GameHandler.toByte(0));
-				sock.close();
+				
+				out.close();
+				in.close();
+				c.getSock().close();
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import uk.co.hobnobian.chips.main.blocks.Air;
 import uk.co.hobnobian.chips.main.blocks.GreenBlock;
 import uk.co.hobnobian.chips.main.blocks.GreenButton;
+import uk.co.hobnobian.chips.main.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.main.blocks.Wall;
 
 public abstract class Block implements Serializable{
@@ -42,6 +43,7 @@ public abstract class Block implements Serializable{
 		b.put(1, Wall.class);
 		b.put(2, GreenBlock.class);
 		b.put(3, GreenButton.class);
+		b.put(4, MoveableBlock.class);
 		
 		
 		for (int key : b.keySet()) {

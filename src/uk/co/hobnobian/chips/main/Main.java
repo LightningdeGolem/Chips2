@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 
 import uk.co.hobnobian.chips.main.blocks.GreenBlock;
 import uk.co.hobnobian.chips.main.blocks.GreenButton;
+import uk.co.hobnobian.chips.main.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.main.options.StartupMenu;
 import uk.co.hobnobian.chips.main.server.Block;
 import uk.co.hobnobian.chips.main.server.EditableMap;
@@ -16,6 +17,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
+		saveMap();
 		
 //		saveMap();
 //		singlePlayer();
@@ -177,10 +179,12 @@ public class Main {
 	private static void saveMap() {
 		EditableMap m = new EditableMap();
 		m.setAt(new GreenButton(), 4, 0);
-//		m.setAt(new GreenButton(), 1, 0);
+		m.setAt(new GreenButton(), 1, 0);
 		m.setAt(new GreenBlock(), 0, 1);
 		m.setAt(new GreenBlock(), 1, 1);
 		m.setAt(new GreenBlock(), 2, 0);
+		
+		m.setAt(new MoveableBlock(), 5, 5);
 		
 		
         try {

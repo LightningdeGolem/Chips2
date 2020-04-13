@@ -3,6 +3,7 @@ package uk.co.hobnobian.chips.main.multiplayer;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -49,5 +50,54 @@ public class Serializer {
 	    
 	    public static boolean serializeEqual(Serializable i, Serializable i2) {
 	    	return (toString(i).equals(toString(i2)));
+	    }
+	    
+	    public static byte[] toByteArray(Serializable o) {
+	    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    	ObjectOutputStream out = null;
+	    	try {
+	    	  out = new ObjectOutputStream(bos);   
+	    	  out.writeObject(o);
+	    	  out.flush();
+	    	  byte[] yourBytes = bos.toByteArray();
+	    	  return yourBytes;
+	    	} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+	    	  try {
+	    	    bos.close();
+	    	  } catch (IOException ex) {
+	    	    // ignore close exception
+	    	  }
+	    	}
+	    	
+	    	return null;
+	    }
+	    
+	    public static Object fromByteArray(byte[] b) {
+	    	ByteArrayInputStream bis = new ByteArrayInputStream(b);
+	    	ObjectInput in = null;
+	    	try {
+	    	  in = new ObjectInputStream(bis);
+	    	  Object o = in.readObject();
+	    	  return o;
+	    	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+	    	  try {
+	    	    if (in != null) {
+	    	      in.close();
+	    	    }
+	    	  } catch (IOException ex) {
+	    	    // ignore close exception
+	    	  }
+	    	}
+	    	
+	    	return null;
 	    }
 }

@@ -18,8 +18,10 @@ import uk.co.hobnobian.chips.main.Main;
 import uk.co.hobnobian.chips.main.ConnectionLayers.GraphicsServerLayer;
 import uk.co.hobnobian.chips.main.client.Renderer;
 import uk.co.hobnobian.chips.main.client.Window;
+import uk.co.hobnobian.chips.main.multiplayer.Connection;
 import uk.co.hobnobian.chips.main.multiplayer.GameHandler;
 import uk.co.hobnobian.chips.main.multiplayer.MapSender;
+import uk.co.hobnobian.chips.main.multiplayer.ProtocolCheckState;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Map;
@@ -87,14 +89,17 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 			GameVariables vars = new GameVariables();
 			Game g = new Game(l,map, vars);
 			
-			System.out.println("About to create game");
 			
-			System.out.println("Passed protocol check");
-			new MapSender(map, s);
-			System.out.println("Sent map");
+			Connection con = new Connection(s);
 			
-			GameHandler handler = new GameHandler(s, g,false);
-			System.out.println("Created game handler");
+			if (!new ProtocolCheckState(con, false).check()) {
+				new ErrorWindow("Protocol mismatch");
+				return;
+			}
+			
+			new MapSender(map, con);
+			
+			GameHandler handler = new GameHandler(con, g,false);
 			
 			new Thread(new Runnable() {
 				@Override

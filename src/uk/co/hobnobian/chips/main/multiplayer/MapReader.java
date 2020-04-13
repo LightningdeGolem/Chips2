@@ -1,20 +1,31 @@
 package uk.co.hobnobian.chips.main.multiplayer;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.nio.ByteBuffer;
 
 import uk.co.hobnobian.chips.main.server.Map;
 
 public class MapReader {
 	private Map map;
 	
-	public MapReader(Socket sock) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-		while (!br.ready()) {}
-		String data = br.readLine();
-		Map m = (Map) Serializer.fromString(data);
+	public MapReader(Connection c) throws IOException {
+		BufferedInputStream in = c.getIn();
+		while (in.available() < 1) {}
+		
+		byte[] len = new byte[8];
+		in.read(len);
+		
+		
+		ByteBuffer wrapped = ByteBuffer.wrap(len);
+		long size = wrapped.getLong();
+		
+		System.out.println(size);
+		
+		byte[] data = new byte[(int) size];
+		in.read(data);
+
+		Map m = (Map) Serializer.fromByteArray(data);
 		map = m;
 	}
 	

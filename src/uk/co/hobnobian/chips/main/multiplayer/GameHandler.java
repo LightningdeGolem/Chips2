@@ -29,16 +29,13 @@ public class GameHandler{
 	
 	private boolean readfirst;
 	
-	public GameHandler(Socket s, Game con, boolean readfirst) {
+	public GameHandler(Connection c, Game con, boolean readfirst) {
 		this.readfirst = readfirst;
 		this.con = con;
-		sock = s;
-		try {
-			out = new BufferedOutputStream(sock.getOutputStream());
-			in = new BufferedInputStream(sock.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		sock = c.getSock();
+		
+		out = c.getOut();
+		in = c.getIn();
 	}
 	
 	public void start() {
@@ -52,16 +49,22 @@ public class GameHandler{
 				read();
 			}
 			else {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 			
 			while (true) {
+				if (con.isClosing()) {
+					System.out.println("Exit = true");
+				}
 				write();
+				if (con.isClosing()) {
+					break;
+				}
 				updateVarsCache();
 				updateBlockCache();
 				
@@ -69,6 +72,9 @@ public class GameHandler{
 				
 				read();
 			}
+			out.close();
+			in.close();
+			sock.close();
 			
 			
 		} catch (InvalidProtocolException e) {
@@ -77,6 +83,13 @@ public class GameHandler{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (OtherClientQuitException e) {
+			con.exit();
+			try {
+				out.close();
+				in.close();
+				sock.close();
+			} catch (IOException e1) {}
 		}
 		
 	}
@@ -105,7 +118,7 @@ public class GameHandler{
 		return d;
 	}
 	
-	private void read() throws InvalidProtocolException,IOException {
+	private void read() throws InvalidProtocolException,IOException, OtherClientQuitException {
 		
 		int length = in.read()-128;
 		
@@ -173,8 +186,11 @@ public class GameHandler{
 			con.getVars().set(id, d);
 		}
 		
-		@SuppressWarnings("unused")
-		int flags = data[offset];
+		boolean[] flags = toBits(data[offset]);
+		if (flags[0]) {
+			throw new OtherClientQuitException();
+		}
+		
 		
 		
 	}
@@ -250,9 +266,13 @@ public class GameHandler{
 			bytes.add(toByte(con.getVars().get(key)));//Write value of variable
 		}
 		
+		boolean[] flags = new boolean[8];
+		flags[0] = con.isClosing();//Flag value 0 is whether to exit
 		
-		
-		bytes.add(toByte(0));//Write flags
+		if (flags[0]) {
+			System.out.println("Sent exit");
+		}
+		bytes.add(toByte(fromBits(flags)));//Write flags
 		
 		
 		byte[] toSend = new byte[bytes.size()];
@@ -291,6 +311,25 @@ public class GameHandler{
 				return Direction.WEST;
 		}
 		return Direction.NORTH;
+	}
+	
+	private int fromBits(boolean[] bits) {
+		int r = 0;
+		for (int i = 0; i<bits.length; i++) {
+			if (bits[i]) {
+				r+=Math.pow(2, (bits.length-1)-i);
+			}
+		}
+		return r;
+	}
+	
+	private boolean[] toBits(int v) {
+		boolean[] r = new boolean[8];
+		for (int i = 0; i< 8; i++) {
+			int powerOf2 = 7-i;
+			r[i] = (((int)Math.pow(2, powerOf2) & v) == Math.pow(2, powerOf2));
+		}
+		return r;
 	}
 	
 	

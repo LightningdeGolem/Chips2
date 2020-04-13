@@ -20,8 +20,10 @@ import uk.co.hobnobian.chips.main.Main;
 import uk.co.hobnobian.chips.main.ConnectionLayers.GraphicsServerLayer;
 import uk.co.hobnobian.chips.main.client.Renderer;
 import uk.co.hobnobian.chips.main.client.Window;
+import uk.co.hobnobian.chips.main.multiplayer.Connection;
 import uk.co.hobnobian.chips.main.multiplayer.GameHandler;
 import uk.co.hobnobian.chips.main.multiplayer.MapReader;
+import uk.co.hobnobian.chips.main.multiplayer.ProtocolCheckState;
 import uk.co.hobnobian.chips.main.server.Game;
 import uk.co.hobnobian.chips.main.server.GameVariables;
 import uk.co.hobnobian.chips.main.server.Map;
@@ -109,9 +111,16 @@ public class MultiplayerClient extends JFrame implements MouseListener{
 //				System.out.println("Invalid protocol");
 //				return;
 //			}
-			Map m = new MapReader(s).getMap();
+			Connection con = new Connection(s);
 			
-			GameHandler handler = new GameHandler(s, g, true);
+			if (!new ProtocolCheckState(con, true).check()) {
+				new ErrorWindow("Protocol mismatch");
+				return;
+			}
+			
+			Map m = new MapReader(con).getMap();
+			
+			GameHandler handler = new GameHandler(con, g, true);
 			
 			g.setMap(m);
 			new Thread(new Runnable() {

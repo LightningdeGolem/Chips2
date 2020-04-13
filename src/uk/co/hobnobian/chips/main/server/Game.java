@@ -16,7 +16,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	private boolean tickWhenPaused = true;
 	
-	public boolean exiting = false;
+	private volatile boolean exiting = false;
 	
 	
 	private boolean paused = false;
@@ -124,14 +124,14 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	public boolean canPlayerMove(Player p, Direction d) {
+		int[] newpos = Direction.move(p.getpos(), d);
 		int[] pos = p.getpos();
-		EnterLeaveEvent leave = map.getAt(p.getpos()[0], p.getpos()[1]).onLeave(pos[0], pos[1], d, vars, this);
+		EnterLeaveEvent leave = map.getAt(pos[0], pos[1]).onLeave(newpos[0], newpos[1], d, vars, this);
 		if (leave == EnterLeaveEvent.YES) {
-			int[] newpos = Direction.move(p.getpos(), d);
 			
 			
 			if (p2 == null || !(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-				EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(pos[0], pos[1], Direction.invert(d), vars, this);
+				EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(newpos[0], newpos[1], Direction.invert(d), vars, this);
 				if (enter == EnterLeaveEvent.YES) {
 					return true;
 				}
@@ -222,14 +222,15 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	@Override
-	public boolean isClosing() {
+	public synchronized boolean isClosing() {
 		return exiting;
 	}
 	
 	@Override
-	public void exit() {
+	public synchronized void exit() {
 		tick.cancel();
 		con.closeWindow();
 		exiting = true;
+		System.out.println("Exiting is true");
 	}
 }
