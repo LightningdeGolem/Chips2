@@ -10,14 +10,13 @@ public class ImageCache {
 	private HashMap<String, Image> cache = new HashMap<String, Image>();
 	
 	public Image loadImage(String path, int size) {
-		if (cache.containsKey(path)) {
-//			return cache.get(path).getScaledInstance(size, size, Image.SCALE_DEFAULT);
-			return cache.get(path);
+		if (cache.containsKey(path+size)) {
+			return cache.get(path+size);
 		}
 		else {
-			Image i = loadImageFile(path);
-			cache.put(path, i.getScaledInstance(size, size, Image.SCALE_DEFAULT));
-			return i.getScaledInstance(size, size, Image.SCALE_DEFAULT);
+			Image i = loadImageFile(path).getScaledInstance(size, size, Image.SCALE_DEFAULT);
+			cache.put(path+size, i);
+			return i;
 		}
 	}
 	

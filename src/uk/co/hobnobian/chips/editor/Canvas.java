@@ -22,24 +22,24 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private int lastY = 0;
 	
 	
-	ImageCache imageCache = new ImageCache();
+	ImageCache imageCache;
 	
 	private double[] offsetcentre = {0,0};
-	private int size = 16;
+	private int size = 64;
 	
 	public Canvas(Editor e) {
 		editor = e;
+		imageCache = editor.getImageCache();
 		
 		super.addMouseListener(this);
 		super.addMouseMotionListener(this);
 		
-		super.setPreferredSize(new Dimension(1024,512));
+		super.setPreferredSize(new Dimension(448,448));
 		
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		long time = System.nanoTime();
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		
@@ -80,7 +80,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			by++;
 			py+=size;
 		}
-		System.out.println("Took: "+(System.nanoTime()-time)/1000000);
 		
 	}
 	
@@ -123,36 +122,29 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		int x = e.getX();
 		int y = e.getY();
 		
-		int xChange = (Math.abs(x-lastX)/size)*2;
-		int yChange = (Math.abs(y-lastY)/size);
+		xChange += x-lastX;
+		yChange += y-lastY;
+
+		double c = 16.0;
+		double actualXChange = (xChange/(double)size)/c;
+		double actualYChange = (yChange/(double)size)/c;
 		
-		
-		
-		if (x < lastX && offsetcentre[0] < 255) {
-			offsetcentre[0]+=xChange;
-//			lastX = x;
+		if (Math.abs(actualXChange) > 0.125) {
+			offsetcentre[0]-=actualXChange;
+			xChange = 0;
 		}
-		else if (x > lastX && offsetcentre[0] > 0) {
-			offsetcentre[0]-=xChange;
-//			lastX = x;
+		if (Math.abs(actualYChange) > 0.125) {
+			offsetcentre[1]-=actualYChange;
+			yChange = 0;
 		}
-		
-		if (y < lastY && offsetcentre[1] < 255) {
-			offsetcentre[1]+=yChange;
-			lastY = y;
-		}
-		else if (y > lastY && offsetcentre[1] > 0) {
-			offsetcentre[1]-=yChange;
-			lastY = y;
-			
-		}
+
 		
 		if (offsetcentre[0] < 0) {
 			offsetcentre[0] = 0;
 			xChange = 0;
 		}
 		else if (offsetcentre[0] > 255) {
-			offsetcentre[0] = 0;
+			offsetcentre[0] = 255;
 			xChange = 0;
 		}
 		if (offsetcentre[1] < 0) {
@@ -163,8 +155,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			offsetcentre[1] = 255;
 			yChange = 0;
 		}
-		
-		System.out.println(offsetcentre[0]);
 		
 		
 		
