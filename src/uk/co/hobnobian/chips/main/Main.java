@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import uk.co.hobnobian.chips.editor.Editor;
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
@@ -17,7 +18,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
-		saveMap();
+		
+		new Editor();
+//		w.add(new )
+		
+//		saveMap();
 		
 //		saveMap();
 //		singlePlayer();
@@ -61,7 +66,7 @@ public class Main {
 		
 		
 		
-		new StartupMenu();
+//		new StartupMenu();
 //		singlePlayer();
 //		server(8080);
 //		if (args.length > 0) {

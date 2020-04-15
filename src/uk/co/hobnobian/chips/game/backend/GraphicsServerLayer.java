@@ -7,7 +7,6 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
-import uk.co.hobnobian.chips.game.PlayerMoveListener;
 import uk.co.hobnobian.chips.game.display.ClientConnectionLayer;
 import uk.co.hobnobian.chips.game.display.Renderer;
 

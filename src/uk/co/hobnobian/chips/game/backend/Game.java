@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import uk.co.hobnobian.chips.game.PlayerMoveListener;
 import uk.co.hobnobian.chips.game.multiplayer.ConnectionManager;
 import uk.co.hobnobian.chips.game.multiplayer.Serializer;
 
