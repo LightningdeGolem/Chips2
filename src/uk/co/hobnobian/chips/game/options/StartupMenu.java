@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import uk.co.hobnobian.chips.editor.Editor;
+
 public class StartupMenu extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 6005122172405513856L;
 	
@@ -20,6 +22,7 @@ public class StartupMenu extends JFrame implements MouseListener{
 	private JButton join;
 	private JButton singleplayer;
 	private JButton host;
+	private JButton create;
 	
 	public StartupMenu() {
 		setTitle("Chips Challenge 2");
@@ -58,6 +61,12 @@ public class StartupMenu extends JFrame implements MouseListener{
 		host.setIcon(new ImageIcon(getClass().getResource("/uk/co/hobnobian/chips/assets/multiplayer.png")));
 		add(host, c);
 		
+		c.gridx = 3;
+		create = new JButton("BUILD");
+		create.addMouseListener(this);
+		create.setIcon(new ImageIcon(getClass().getResource("/uk/co/hobnobian/chips/assets/solid.png")));
+		add(create, c);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
@@ -74,6 +83,11 @@ public class StartupMenu extends JFrame implements MouseListener{
 		else if (e.getComponent().equals(host)) {
 			new MultiplayerServer();
 		}
+		else if (e.getComponent().equals(create)) {
+			new Editor();
+		}
+		setVisible(false);
+		
 		
 		
 	}

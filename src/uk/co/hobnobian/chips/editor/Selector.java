@@ -1,21 +1,30 @@
 package uk.co.hobnobian.chips.editor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.JPanel;
 
 import uk.co.hobnobian.chips.game.backend.Block;
+import uk.co.hobnobian.chips.game.blocks.Air;
 
-public class Selector extends JPanel {
+public class Selector extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 8982547834654819270L;
 	
-	public static final int ROWS = 28;
-	public static final int COLUMNS = 28;
+	public static final int ROWS = 4;
+	public static final int COLUMNS = 14;
 	
-	public static final int size = 64;
+	public static final int size = 32;
+	
+	private Class<?extends Block> selected = Air.class;
+	
+	ArrayList<Class<?extends Block>> classes = new ArrayList<Class<?extends Block>>();
 	
 	private Editor editor;
 	private ImageCache cache;
@@ -26,20 +35,27 @@ public class Selector extends JPanel {
 		cache = e.getImageCache();
 		System.out.println(COLUMNS*size);
 //		setSize(COLUMNS*size, ROWS*size);
-		super.setPreferredSize(new Dimension(1, ROWS*size));
+		super.setPreferredSize(new Dimension(COLUMNS*size, ROWS*size));
+		super.setMinimumSize(new Dimension(COLUMNS*size, ROWS*size));
 //		super.setMaximumSize(new Dimension(1, ROWS*size));
+		
+		Set<Class<?extends Block>> blockC = Block.inverseBlockIds.keySet();
+		for (Class<?extends Block> c: blockC) {
+			classes.add(c);
+		}
+		addMouseListener(this);
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, getSize().width, getSize().height);
-		Set<Class<?extends Block>> blockC = Block.inverseBlockIds.keySet();
-		String[] blocks = new String[blockC.size()];
+		
+		String[] blocks = new String[classes.size()];
 		int i = 0;
-		for (Class<?extends Block> c: blockC) {
+		for (Class<?extends Block> c : classes) {
 			try {
-				Block b = c.getConstructor().newInstance();
-				blocks[i] = b.getImage(editor.getVars());
+				blocks[i] = c.getConstructor().newInstance().getImage(editor.getVars());
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				// TODO Auto-generated catch block
@@ -67,6 +83,34 @@ public class Selector extends JPanel {
 				break;
 			}
 		}
+		
 		}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		int x = e.getX()/size;
+		int y = e.getY()/size;
+		
+		int pos = (y*COLUMNS)+x;
+		selected = classes.get(pos);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	public Class<?extends Block> getSelected() {
+		return selected;
+	}
 		
 }

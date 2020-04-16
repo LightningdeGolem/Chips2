@@ -1,15 +1,15 @@
 package uk.co.hobnobian.chips.editor;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Map;
-import uk.co.hobnobian.chips.main.Window;
 
 public class Editor {
-	private Window window;
+	private JFrame window;
 	private Canvas canvas;
 	private Selector selector;
 
@@ -23,12 +23,20 @@ public class Editor {
 	}
 	
 	public Editor() {
-		window = new Window();
-		window.setLayout(new GridLayout(0,2));
+		window = new JFrame();
+		window.setLayout(new GridBagLayout());
 		canvas = new Canvas(this);
 		selector = new Selector(this);
-		window.add(canvas);
-		window.add(selector);
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.ipadx = 4;
+		c.ipady = 4;
+		c.gridwidth = 1;
+		window.add(canvas,c);
+		c.gridy = 1;
+		window.add(selector,c);
 
 		window.pack();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,8 +44,8 @@ public class Editor {
 		
 		map = new Map();
 //		map.setBlock(0, 0, new Wall());
-		System.out.println(map.getAt(0, 0));
-		System.out.println(map.getAt(1, -1));
+//		System.out.println(map.getAt(0, 0));
+//		System.out.println(map.getAt(1, -1));
 	}
 
 	public Map getMap() {

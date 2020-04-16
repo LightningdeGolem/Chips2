@@ -18,8 +18,6 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
-		
-		new Editor();
 //		w.add(new )
 		
 //		saveMap();
@@ -66,7 +64,7 @@ public class Main {
 		
 		
 		
-//		new StartupMenu();
+		new StartupMenu();
 //		singlePlayer();
 //		server(8080);
 //		if (args.length > 0) {

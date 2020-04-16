@@ -35,6 +35,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		super.addMouseMotionListener(this);
 		
 		super.setPreferredSize(new Dimension(448,448));
+		super.setMinimumSize(new Dimension(448,448));
 		
 	}
 	
@@ -80,7 +81,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			by++;
 			py+=size;
 		}
-		
 	}
 	
 	private void setSquare(int x, int y, Image image, Graphics2D g) {
