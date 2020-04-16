@@ -4,12 +4,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import uk.co.hobnobian.chips.editor.Editor;
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
-import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.options.StartupMenu;
 
 public class Main {
@@ -187,7 +185,7 @@ public class Main {
 		m.setAt(new GreenBlock(), 1, 1);
 		m.setAt(new GreenBlock(), 2, 0);
 		
-		m.setAt(new MoveableBlock(), 5, 5);
+//		m.setAt(new MoveableBlock(), 5, 5);
 		
 		
         try {

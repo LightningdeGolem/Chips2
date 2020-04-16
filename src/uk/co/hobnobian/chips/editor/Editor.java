@@ -43,9 +43,6 @@ public class Editor {
 		window.setVisible(true);
 		
 		map = new Map();
-//		map.setBlock(0, 0, new Wall());
-//		System.out.println(map.getAt(0, 0));
-//		System.out.println(map.getAt(1, -1));
 	}
 
 	public Map getMap() {
