@@ -2,11 +2,14 @@ package uk.co.hobnobian.chips.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 
+import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Map;
+import uk.co.hobnobian.chips.game.blocks.Air;
 
 public class Editor {
 	private JFrame window;
@@ -21,6 +24,24 @@ public class Editor {
 	public GameVariables getVars() {
 		return vars;
 	}
+	
+	public void setBlock(int x, int y) {
+		if (x < 0 || x > 255 || y < 0 || y > 255) {
+			return;
+		}
+		Block b = new Air();
+		try {
+			b = selector.getSelected().getConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		map.setBlock(x, y, b);
+		window.repaint();
+	}
+	
 	
 	public Editor() {
 		window = new JFrame();

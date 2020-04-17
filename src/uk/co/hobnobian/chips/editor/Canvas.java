@@ -88,14 +88,36 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		
+	}
 
+	private int[] getXY(MouseEvent e) {
+		int relativex = e.getX()/size;
+		int relativey = e.getY()/size;
+		
+		relativex-=(getSize().width/2)/size;
+		relativey-=(getSize().height/2)/size;
+		
+		relativex+=offsetcentre[0];
+		relativey+=offsetcentre[1];
+		return new int[]{relativex,relativey};
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		lastX = e.getX();
 		lastY = e.getY();
 		
 		mouse = true;
+		
+		int[] actualpos = getXY(e);
+		if (e.getClickCount() == 1) {
+			if (e.getButton() == 1) {
+				editor.setBlock(actualpos[0], actualpos[1]);
+			}
+		}
+		
 	}
 
 	@Override
