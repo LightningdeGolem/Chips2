@@ -16,6 +16,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
+//		saveMap();
 //		w.add(new )
 		
 //		saveMap();

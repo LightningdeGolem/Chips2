@@ -121,7 +121,6 @@ public class MultiplayerClient extends JFrame implements MouseListener{
 			Map m = new MapReader(con).getMap();
 			
 			GameHandler handler = new GameHandler(con, g, true);
-			
 			g.setMap(m);
 			new Thread(new Runnable() {
 
@@ -131,6 +130,7 @@ public class MultiplayerClient extends JFrame implements MouseListener{
 				}
 				
 			}).start();
+
 			w.setup();
 			g.update();
 			g.start();

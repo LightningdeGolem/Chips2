@@ -16,7 +16,9 @@ public class ProtocolCheckState {
 			out.write(GameHandler.toByte(Main.protocolID));
 			out.flush();
 			while (in.available() == 0) {}
-			worked = (GameHandler.fromByte(in.readAllBytes()[0]) == 255);
+			byte[] raw = new byte[1];
+			in.read(raw);
+			worked = (GameHandler.fromByte(raw[0]) == 255);
 		}
 		else {
 			while (in.available() == 0) {}
