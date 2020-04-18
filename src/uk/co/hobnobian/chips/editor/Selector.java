@@ -53,9 +53,13 @@ public class Selector extends JPanel implements MouseListener{
 		
 		String[] blocks = new String[classes.size()];
 		int i = 0;
+		String selected = "";
 		for (Class<?extends Block> c : classes) {
 			try {
 				blocks[i] = c.getConstructor().newInstance().getImage(editor.getVars());
+				if (c.equals(this.selected)) {
+					selected = blocks[i];
+				}
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				// TODO Auto-generated catch block
@@ -69,6 +73,7 @@ public class Selector extends JPanel implements MouseListener{
 		}
 		
 		i = 0;
+		g.setColor(Color.RED);
 		for (int y = 0; y < ROWS; y++) {
 			for (int x = 0; x < COLUMNS; x++) {
 				if (blocks.length <= i) {
@@ -76,6 +81,9 @@ public class Selector extends JPanel implements MouseListener{
 				}
 				
 				g.drawImage(cache.loadImage(blocks[i], size), x*size,y*size, this);
+				if (blocks[i].equals(selected)) {
+					g.drawRect(x*size,y*size, size, size);
+				}
 				i++;
 				
 			}
@@ -98,6 +106,7 @@ public class Selector extends JPanel implements MouseListener{
 		
 		int pos = (y*COLUMNS)+x;
 		selected = classes.get(pos);
+		repaint();
 	}
 
 	@Override

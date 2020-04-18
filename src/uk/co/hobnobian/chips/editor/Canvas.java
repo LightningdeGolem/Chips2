@@ -15,9 +15,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;
 	
-	private boolean mouse = false;
-	
-	
 	private int lastX = 0;
 	private int lastY = 0;
 	
@@ -108,21 +105,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mousePressed(MouseEvent e) {
 		lastX = e.getX();
 		lastY = e.getY();
-		
-		mouse = true;
-		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 		int[] actualpos = getXY(e);
 		if (e.getClickCount() == 1) {
 			if (e.getButton() == 1) {
 				editor.setBlock(actualpos[0], actualpos[1]);
 			}
 		}
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		mouse = false;
 	}
 
 	@Override
@@ -133,7 +125,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (e.getButton() == 1) {
+		if (e.getButton() == 3) {
+			
 			moveCamera(e);
 		}
 	}
