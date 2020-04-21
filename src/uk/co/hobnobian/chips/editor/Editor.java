@@ -49,6 +49,8 @@ public class Editor {
 		canvas = new Canvas(this);
 		selector = new Selector(this);
 		
+		window.addKeyListener(canvas);
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;

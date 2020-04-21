@@ -5,13 +5,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-public class Canvas extends JPanel implements MouseListener, MouseMotionListener{
+public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;
 	
@@ -19,7 +21,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private int lastY = 0;
 	
 	
-	ImageCache imageCache;
+	private ImageCache imageCache;
 	
 	private double[] offsetcentre = {0,0};
 	private int size = 64;
@@ -30,6 +32,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		
 		super.addMouseListener(this);
 		super.addMouseMotionListener(this);
+		
 		
 		super.setPreferredSize(new Dimension(448,448));
 		super.setMinimumSize(new Dimension(448,448));
@@ -45,7 +48,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		g2d.fillRect(0,0, getSize().width, getSize().height);
 
 		
-		double topleftx = offsetcentre[0]-((super.getSize().width/2.0)/size);
+		double topleftx = offsetcentre[0]-((super.getSize().width/2.0)/(double)size);
 		double toplefty = offsetcentre[1]-((super.getSize().height/2.0)/size);
 		
 		int[] pixeloffset = new int[] {((int)(offsetcentre[0]*size))%size,((int)(offsetcentre[1]*size))%size};
@@ -59,7 +62,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		
 		int finalx = 0;
 		int finaly = 0;
-		
 		while (finaly < getSize().height) {
 			px = 0;
 			bx = (int) topleftx;
@@ -154,6 +156,14 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		}
 
 		
+		checkCentre();
+		
+		
+		
+		repaint();
+	}
+	
+	private void checkCentre() {
 		if (offsetcentre[0] < 0) {
 			offsetcentre[0] = 0;
 			xChange = 0;
@@ -170,12 +180,37 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			offsetcentre[1] = 255;
 			yChange = 0;
 		}
-		
-		
-		
-		repaint();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int code = e.getKeyCode();
+
+		if (code == 37) {
+			offsetcentre[0]-=0.125;
+		}
+		else if (code == 39) {
+			offsetcentre[0]+=0.125;
+		}
+		if (code == 38){
+			offsetcentre[1]-=0.125;
+		}
+		else if (code == 40) {
+			offsetcentre[1]+=0.125;
+		}
+		checkCentre();
+		repaint();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
