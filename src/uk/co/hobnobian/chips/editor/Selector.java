@@ -33,11 +33,8 @@ public class Selector extends JPanel implements MouseListener{
 		setLayout(null);
 		editor = e;
 		cache = e.getImageCache();
-		System.out.println(COLUMNS*size);
-//		setSize(COLUMNS*size, ROWS*size);
 		super.setPreferredSize(new Dimension(COLUMNS*size, ROWS*size));
 		super.setMinimumSize(new Dimension(COLUMNS*size, ROWS*size));
-//		super.setMaximumSize(new Dimension(1, ROWS*size));
 		
 		Set<Class<?extends Block>> blockC = Block.inverseBlockIds.keySet();
 		for (Class<?extends Block> c: blockC) {
