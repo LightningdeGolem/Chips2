@@ -9,10 +9,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
-public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
+public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener, MouseWheelListener{
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;
 	
@@ -31,6 +33,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		
 		super.addMouseListener(this);
 		super.addMouseMotionListener(this);
+		super.addMouseWheelListener(this);
 		
 		
 		super.setPreferredSize(new Dimension(448,448));
@@ -200,4 +203,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if (e.isShiftDown()) {
+            offsetcentre[0]+=(e.getWheelRotation()/(double)size);
+        }
+        else {
+            offsetcentre[1]+=(e.getWheelRotation()/(double)size);
+        }
+        checkCentre();
+        
+        repaint();
+        
+    }
 }
