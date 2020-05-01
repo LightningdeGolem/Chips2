@@ -1,6 +1,5 @@
 package uk.co.hobnobian.chips.editor;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -41,45 +40,32 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
+	    Graphics2D g2d = (Graphics2D) g;
+	    
+	    int[] windowRadius = new int[] {getSize().width/2, getSize().height/2};
+		int[] topleftblockcoord = new int[] {((int)offsetcentre[0])-(windowRadius[0]/size),((int)offsetcentre[1])-(windowRadius[1]/size)};
+		double[] offset = new double[] {(offsetcentre[0]*size)%size, (offsetcentre[1]*size)%size};
 		
-		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0,0, getSize().width, getSize().height);
-
-		
-		double topleftx = offsetcentre[0]-((super.getSize().width/2.0)/(double)size);
-		System.out.println(topleftx);
-		double toplefty = offsetcentre[1]-((super.getSize().height/2.0)/size);
-		
-		int[] pixeloffset = new int[] {((int)(offsetcentre[0]*size))%size,((int)(offsetcentre[1]*size))%size};
-		
-		int px;
 		int py = 0;
+		int by = topleftblockcoord[1];
 		
-		
-		int by = (int) toplefty;
-		int bx;
-		
-		int finalx = 0;
-		int finaly = 0;
-		while (finaly < getSize().height) {
-			px = 0;
-			bx = (int) topleftx;
-			finalx = 0;
-			while (finalx < getSize().width) {
-				Image i = imageCache.loadImage(editor.getMap().getAt(bx, by).getImage(editor.getVars()), size);
-				
-				finalx = px-pixeloffset[0];
-				finaly = py-pixeloffset[1];
-				
-				setSquare(finalx, finaly, i, g2d);
-				
-				bx++;
-				px+=size;
-			}
-			by++;
-			py+=size;
+		int px = 0;
+		int bx = topleftblockcoord[0];
+		while (py < getSize().height) {
+		    while (px < getSize().width) {
+		        int finalx = (int) (px-offset[0]);
+		        int finaly = (int) (py-offset[1]);
+		        
+		        Image i = imageCache.loadImage(editor.getMap().getAt(bx, by).getImage(editor.getVars()), size);
+		        setSquare(finalx, finaly, i, g2d);
+		        
+		        bx++;
+		        px+=size;
+		    }
+		    py+=size;
+		    by++;
+		    px = 0;
+		    bx = topleftblockcoord[0];
 		}
 	}
 	
@@ -128,7 +114,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (e.getButton() == 3) {
+		if (e.getButton() == 3 || (e.getButton() == 1 && e.isControlDown())) {
 			
 			moveCamera(e);
 		}
