@@ -49,8 +49,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 		
 		double topleftx = offsetcentre[0]-((super.getSize().width/2.0)/(double)size);
-		double toplefty = offsetcentre[1]-((super.getSize().height/2.0)/size);
 		System.out.println(topleftx);
+		double toplefty = offsetcentre[1]-((super.getSize().height/2.0)/size);
 		
 		int[] pixeloffset = new int[] {((int)(offsetcentre[0]*size))%size,((int)(offsetcentre[1]*size))%size};
 		
