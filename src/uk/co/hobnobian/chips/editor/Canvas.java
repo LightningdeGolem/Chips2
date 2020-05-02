@@ -18,6 +18,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;
 	
+	private static final double trackSensitivity = 4;
+	
 	private int lastX = 0;
 	private int lastY = 0;
 	
@@ -171,6 +173,15 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			yChange = 0;
 		}
 	}
+	
+	private void checkZoom() {
+	    if (size < 4) {
+	        size = 4;
+	    }
+	    else if (size > 64) {
+	        size = 64;
+	    }
+	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {}
@@ -194,6 +205,15 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		else if (code == 40) {
 			offsetcentre[1]+=0.125;
 		}
+		
+		if (e.getKeyChar() == '[') {
+		    size/=2;
+		    checkZoom();
+		}
+		else if (e.getKeyChar() == ']') {
+		    size*=2;
+            checkZoom();
+		}
 		checkCentre();
 		repaint();
 	}
@@ -206,11 +226,22 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        if (e.isControlDown()) {
+            int r = e.getWheelRotation();
+            if (r < 0) {
+                size*=2;
+            }
+            else if (r > 0){
+                size/=2;
+            }
+            checkZoom();
+        }
+        
         if (e.isShiftDown()) {
-            offsetcentre[0]+=(e.getWheelRotation()/(double)size);
+            offsetcentre[0]+=(e.getWheelRotation()/(double)size)*trackSensitivity;
         }
         else {
-            offsetcentre[1]+=(e.getWheelRotation()/(double)size);
+            offsetcentre[1]+=(e.getWheelRotation()/(double)size)*trackSensitivity;
         }
         checkCentre();
         
