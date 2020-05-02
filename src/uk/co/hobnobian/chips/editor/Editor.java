@@ -10,6 +10,7 @@ import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.gui.ImageCache;
 
 public class Editor {
 	private JFrame window;

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.gui.ImageCache;
 
 public class Selector extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 8982547834654819270L;

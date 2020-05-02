@@ -14,6 +14,8 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
+import uk.co.hobnobian.chips.gui.ImageCache;
+
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener, MouseWheelListener{
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;

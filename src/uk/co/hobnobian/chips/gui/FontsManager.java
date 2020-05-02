@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.game.display;
+package uk.co.hobnobian.chips.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+
+import uk.co.hobnobian.chips.game.display.Renderer;
 
 public class FontsManager {
 	HashMap<String, BufferedImage> data = new HashMap<String, BufferedImage>();

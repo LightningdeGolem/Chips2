@@ -13,6 +13,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import uk.co.hobnobian.chips.game.backend.Direction;
+import uk.co.hobnobian.chips.gui.FontsManager;
 import uk.co.hobnobian.chips.main.Window;
 
 public class Renderer extends JPanel implements KeyListener{

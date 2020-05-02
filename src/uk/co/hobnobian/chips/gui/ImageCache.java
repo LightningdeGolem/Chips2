@@ -1,4 +1,4 @@
-package uk.co.hobnobian.chips.editor;
+package uk.co.hobnobian.chips.gui;
 
 import java.awt.Image;
 import java.io.IOException;
