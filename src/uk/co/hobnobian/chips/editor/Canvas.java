@@ -14,11 +14,13 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 
+import uk.co.hobnobian.chips.editor.options.OptionsDisplayer;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener, MouseWheelListener{
 	private static final long serialVersionUID = 3226831824185259183L;
 	private Editor editor;
+	private OptionsDisplayer options;
 	
 	private static final double trackSensitivity = 4;
 	
@@ -33,6 +35,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	
 	public Canvas(Editor e) {
 		editor = e;
+		options = new OptionsDisplayer();
 		imageCache = editor.getImageCache();
 		
 		super.addMouseListener(this);
@@ -74,6 +77,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		    px = 0;
 		    bx = topleftblockcoord[0];
 		}
+		options.display(g2d, getSize().width, getSize().height);
 	}
 	
 	private void setSquare(int x, int y, Image image, Graphics2D g) {

@@ -14,6 +14,9 @@ public class FontsManager {
 	
 	
 	public void cache(Font f, String s) {
+	    if (data.keySet().contains(s)) {
+	        return;
+	    }
 		data.put(s, fontToBI(f,s));
 	}
 	
