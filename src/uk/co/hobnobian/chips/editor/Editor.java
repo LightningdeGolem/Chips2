@@ -16,6 +16,8 @@ public class Editor {
 	private JFrame window;
 	private Canvas canvas;
 	private Selector selector;
+	
+	Selection currentlySelected = null;
 
 	private Map map;
 	private GameVariables vars = new GameVariables();
@@ -75,5 +77,9 @@ public class Editor {
 
 	public ImageCache getImageCache() {
 		return imageCache;
+	}
+	
+	public Selection getSelected() {
+	    return currentlySelected;
 	}
 }

@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 public class OptionsDisplayer {
     private static final int HEIGHT = 32;
     
-    private OptionMenu selected = new BaseOption();
+    OptionMenu selected = new BaseOption();
     
     public OptionsDisplayer() {
         

@@ -1,5 +1,6 @@
 package uk.co.hobnobian.chips.editor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -77,6 +78,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		    px = 0;
 		    bx = topleftblockcoord[0];
 		}
+		
+		if (editor.getSelected() != null) {
+		    g2d.setColor(Color.RED);
+		    for (int[] pos : editor.getSelected().getAreaSelection()) {
+		        g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
+		    }
+		    
+		    g2d.setColor(Color.YELLOW);
+            for (int[] pos : editor.getSelected().getDragSelection()) {
+                g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
+            }
+		}
+		
 		options.display(g2d, getSize().width, getSize().height);
 	}
 	
@@ -86,6 +100,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	    if (e.getButton() == 1) {
+	        editor.currentlySelected = new Selection();
+	        editor.getSelected().mouseMoved(getXY(e)[0], getXY(e)[1]);
+	        repaint();
+	    }
 		
 	}
 
@@ -99,6 +118,21 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		relativex+=offsetcentre[0];
 		relativey+=offsetcentre[1];
 		return new int[]{relativex,relativey};
+	}
+	
+	private int[] toXY(int x1, int y1) {
+	    double x = x1;
+	    double y = y1;
+	    
+	    x-=offsetcentre[0];
+        y-=offsetcentre[1];
+	    x+=(getSize().width/2)/(double)size;
+        y+=(getSize().height/2)/(double)size;
+	    return new int[] {(int) (x*size)-(size/2), (int) (y*size)-(size/2)};
+	}
+	
+	private int[] toXY(int[] pos) {
+	    return toXY(pos[0], pos[1]);
 	}
 	
 	@Override
@@ -128,6 +162,14 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		if (e.getButton() == 3 || (e.getButton() == 1 && e.isControlDown())) {
 			
 			moveCamera(e);
+		}
+		else if (e.getButton() == 1) {
+		    if (editor.getSelected() == null) {
+		        editor.currentlySelected = new Selection();
+		    }
+		    editor.getSelected().mouseMoved(getXY(e)[0], getXY(e)[1]);
+		    repaint();
+		    
 		}
 	}
 	
