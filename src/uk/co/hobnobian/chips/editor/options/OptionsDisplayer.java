@@ -31,8 +31,17 @@ public class OptionsDisplayer {
             
             first = false;
         }
+        int textwidth = g2d.getFontMetrics().stringWidth(total);
+        
+        int fontsize = 22;
+        while (textwidth > width) {
+            g2d.setFont(new Font("Purisa", Font.PLAIN, fontsize));
+            textwidth = g2d.getFontMetrics().stringWidth(total);
+        }
+        
+        int startx = (width-textwidth)/2;
         
         g2d.setColor(Color.RED);
-        g2d.drawString(total, 0, height-HEIGHT+20);
+        g2d.drawString(total, startx, height-HEIGHT+20);
     }
 }
