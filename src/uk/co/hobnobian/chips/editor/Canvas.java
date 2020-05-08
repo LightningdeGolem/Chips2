@@ -102,22 +102,22 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mouseClicked(MouseEvent e) {
 	    if (e.getButton() == 1) {
 	        editor.currentlySelected = new Selection();
-	        editor.getSelected().mouseMoved(getXY(e)[0], getXY(e)[1]);
+	        editor.getSelected().mouseMoved((int)getXY(e)[0], (int)getXY(e)[1]);
 	        repaint();
 	    }
 		
 	}
 
-	private int[] getXY(MouseEvent e) {
-		int relativex = e.getX()/size;
-		int relativey = e.getY()/size;
+	private double[] getXY(MouseEvent e) {
+		double relativex = e.getX()/(double)size;
+		double relativey = e.getY()/(double)size;
 		
 		relativex-=(getSize().width/2)/size;
 		relativey-=(getSize().height/2)/size;
 		
 		relativex+=offsetcentre[0];
 		relativey+=offsetcentre[1];
-		return new int[]{relativex,relativey};
+		return new double[]{relativex,relativey};
 	}
 	
 	private int[] toXY(int x1, int y1) {
@@ -143,10 +143,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		int[] actualpos = getXY(e);
+		double[] actualpos = getXY(e);
 		if (e.getClickCount() == 1) {
 			if (e.getButton() == 1) {
-				editor.setBlock(actualpos[0], actualpos[1]);
+				editor.setBlock((int)actualpos[0], (int)actualpos[1]);
 			}
 		}
 	}
@@ -167,7 +167,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		    if (editor.getSelected() == null) {
 		        editor.currentlySelected = new Selection();
 		    }
-		    editor.getSelected().mouseMoved(getXY(e)[0], getXY(e)[1]);
+		    editor.getSelected().mouseMoved((int)getXY(e)[0], (int)getXY(e)[1]);
 		    repaint();
 		    
 		}
