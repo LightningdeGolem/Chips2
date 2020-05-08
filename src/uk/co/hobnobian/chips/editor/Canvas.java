@@ -101,7 +101,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	    if (e.getButton() == 1) {
-	        editor.currentlySelected = new Selection();
+	        editor.setSelected(new Selection());
 	        editor.getSelected().mouseMoved((int)getXY(e)[0], (int)getXY(e)[1]);
 	        repaint();
 	    }
@@ -139,6 +139,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mousePressed(MouseEvent e) {
 		lastX = e.getX();
 		lastY = e.getY();
+		editor.setSelected(null);
 	}
 
 	@Override
@@ -165,7 +166,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		}
 		else if (e.getButton() == 1) {
 		    if (editor.getSelected() == null) {
-		        editor.currentlySelected = new Selection();
+		        editor.setSelected(new Selection());
 		    }
 		    editor.getSelected().mouseMoved((int)getXY(e)[0], (int)getXY(e)[1]);
 		    repaint();
@@ -262,6 +263,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		    size*=2;
             checkZoom();
 		}
+		
+		//ESC
+		if (e.getKeyCode() == 27) {
+		    editor.setSelected(null);
+		}
+		
 		checkCentre();
 		repaint();
 	}

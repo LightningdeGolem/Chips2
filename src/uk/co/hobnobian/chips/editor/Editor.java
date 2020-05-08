@@ -17,7 +17,7 @@ public class Editor {
 	private Canvas canvas;
 	private Selector selector;
 	
-	Selection currentlySelected = null;
+	private Selection currentlySelected = null;
 
 	private Map map;
 	private GameVariables vars = new GameVariables();
@@ -81,5 +81,9 @@ public class Editor {
 	
 	public Selection getSelected() {
 	    return currentlySelected;
+	}
+	
+	public void setSelected(Selection s) {
+	    currentlySelected = s;
 	}
 }
