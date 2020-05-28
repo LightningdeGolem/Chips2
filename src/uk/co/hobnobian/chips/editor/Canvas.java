@@ -14,6 +14,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import uk.co.hobnobian.chips.editor.options.OptionsDisplayer;
 import uk.co.hobnobian.chips.gui.ImageCache;
@@ -157,14 +158,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
-
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (e.getButton() == 3 || (e.getButton() == 1 && e.isControlDown())) {
-			
+		boolean b1 = SwingUtilities.isLeftMouseButton(e);
+		boolean b2 = SwingUtilities.isRightMouseButton(e);
+		boolean b3 = SwingUtilities.isMiddleMouseButton(e);
+		if (b3 || (b1 && e.isControlDown())) {
 			moveCamera(e);
 		}
-		else if (e.getButton() == 1) {
+		else if (b1) {
 		    if (editor.getSelected() == null) {
 		        editor.setSelected(new Selection());
 		    }
