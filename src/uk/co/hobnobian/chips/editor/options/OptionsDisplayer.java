@@ -3,14 +3,18 @@ package uk.co.hobnobian.chips.editor.options;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class OptionsDisplayer {
+import uk.co.hobnobian.chips.editor.Editor;
+
+public class OptionsDisplayer implements KeyListener{
     private static final int HEIGHT = 32;
     
     OptionMenu selected = new BaseOption();
     
-    public OptionsDisplayer() {
-        
+    public OptionsDisplayer(Editor editor) {
+        editor.getWindow().addKeyListener(this);
     }
     
     public void display(Graphics2D g2d, int width, int height) {
@@ -43,5 +47,29 @@ public class OptionsDisplayer {
         
         g2d.setColor(Color.RED);
         g2d.drawString(total, startx, height-HEIGHT+20);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (c == '.') {
+            
+        }
+        else if (c == ',') {
+            
+        }
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }

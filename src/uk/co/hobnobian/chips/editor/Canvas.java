@@ -36,7 +36,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	
 	public Canvas(Editor e) {
 		editor = e;
-		options = new OptionsDisplayer();
+		options = new OptionsDisplayer(editor);
 		imageCache = editor.getImageCache();
 		
 		super.addMouseListener(this);

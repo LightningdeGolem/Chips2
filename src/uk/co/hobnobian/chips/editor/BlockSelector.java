@@ -15,7 +15,7 @@ import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
-public class Selector extends JPanel implements MouseListener{
+public class BlockSelector extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 8982547834654819270L;
 	
 	public static final int ROWS = 4;
@@ -30,7 +30,7 @@ public class Selector extends JPanel implements MouseListener{
 	private Editor editor;
 	private ImageCache cache;
 	
-	public Selector(Editor e) {
+	public BlockSelector(Editor e) {
 		setLayout(null);
 		editor = e;
 		cache = e.getImageCache();

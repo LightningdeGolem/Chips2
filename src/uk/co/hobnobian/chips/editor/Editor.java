@@ -15,7 +15,7 @@ import uk.co.hobnobian.chips.gui.ImageCache;
 public class Editor {
 	private JFrame window;
 	private Canvas canvas;
-	private Selector selector;
+	private BlockSelector selector;
 	
 	private Selection currentlySelected = null;
 
@@ -50,8 +50,9 @@ public class Editor {
 		window = new JFrame();
 		window.setLayout(new GridBagLayout());
 		canvas = new Canvas(this);
-		selector = new Selector(this);
+		selector = new BlockSelector(this);
 		
+		window.addKeyListener(canvas);
 		window.addKeyListener(canvas);
 		
 		GridBagConstraints c = new GridBagConstraints();
@@ -85,5 +86,9 @@ public class Editor {
 	
 	public void setSelected(Selection s) {
 	    currentlySelected = s;
+	}
+	
+	public JFrame getWindow() {
+	    return window;
 	}
 }
