@@ -177,27 +177,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		}
 	}
 	
-	private int xChange = 0;
-	private int yChange = 0;
+
 	private void moveCamera(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
+		int moveOffsetX = lastX-x;
+		int moveOffsetY = lastY-y;
 		
-		xChange += x-lastX;
-		yChange += y-lastY;
-
-		double c = 16.0;
-		double actualXChange = (xChange/(double)size)/c;
-		double actualYChange = (yChange/(double)size)/c;
+		offsetcentre[0] += moveOffsetX/(double)size;
+		offsetcentre[1] += moveOffsetY/(double)size;
 		
-		if (Math.abs(actualXChange) > 0.125) {
-			offsetcentre[0]-=actualXChange;
-			xChange = 0;
-		}
-		if (Math.abs(actualYChange) > 0.125) {
-			offsetcentre[1]-=actualYChange;
-			yChange = 0;
-		}
+		lastX = x;
+		lastY = y;
 
 		
 		checkCentre();
@@ -210,19 +201,15 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private void checkCentre() {
 		if (offsetcentre[0] < 0) {
 			offsetcentre[0] = 0;
-			xChange = 0;
 		}
 		else if (offsetcentre[0] > 255) {
 			offsetcentre[0] = 255;
-			xChange = 0;
 		}
 		if (offsetcentre[1] < 0) {
 			offsetcentre[1] = 0;
-			yChange = 0;
 		}
 		else if (offsetcentre[1] > 255) {
 			offsetcentre[1] = 255;
-			yChange = 0;
 		}
 	}
 	
