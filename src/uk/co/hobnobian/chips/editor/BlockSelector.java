@@ -103,6 +103,9 @@ public class BlockSelector extends JPanel implements MouseListener{
 		int y = e.getY()/size;
 		
 		int pos = (y*COLUMNS)+x;
+		if (!(pos < classes.size())) {
+			return;
+		}
 		selected = classes.get(pos);
 		repaint();
 	}
