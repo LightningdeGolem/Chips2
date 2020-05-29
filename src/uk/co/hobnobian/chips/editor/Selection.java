@@ -7,7 +7,7 @@ public class Selection {
     private List<int[]> line = new ArrayList<int[]>();
     private int[] area = null;
     
-    private boolean hasSelectedArea = true;
+    private static boolean hasSelectedArea = true;
     
     public Selection() {
         
@@ -70,6 +70,6 @@ public class Selection {
 	}
 
 	public void setHasSelectedArea(boolean hasSelectedArea) {
-		this.hasSelectedArea = hasSelectedArea;
+		Selection.hasSelectedArea = hasSelectedArea;
 	}
 }
