@@ -145,9 +145,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	    
 	    x-=offsetcentre[0];
         y-=offsetcentre[1];
-	    x+=(getSize().width/2)/(double)size;
-        y+=(getSize().height/2)/(double)size;
-	    return new int[] {(int) (x*size)-(size/2), (int) (y*size)-(size/2)};
+        x+=getWidth()/size/2;
+        y+=getHeight()/size/2;
+	    x*=size;
+        y*=size;
+	    return new int[] {(int) x, (int)y};
 	}
 	
 	private int[] toXY(int[] pos) {
