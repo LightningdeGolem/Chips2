@@ -14,6 +14,8 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	
 	private boolean tickWhenPaused = true;
 	
+	private boolean winning = false;
+	
 	private volatile boolean exiting = false;
 	
 	
@@ -77,9 +79,16 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		}, 0, 100);
 	}
 	
+	public void won() {
+		System.out.println("We won!!!");
+	}
+	
 	public void tick() {
 		if (!tickWhenPaused && paused) {
 			return;
+		}
+		if (p2 == null && winning) {
+			won();
 		}
 		if (!p.isAlive()) {
 			if (main) {
@@ -230,5 +239,13 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		con.closeWindow();
 		exiting = true;
 		System.out.println("Exiting is true");
+	}
+
+	public void setWinning(boolean b) {
+		winning = b;
+	}
+	
+	public boolean isWinning() {
+		return winning;
 	}
 }
