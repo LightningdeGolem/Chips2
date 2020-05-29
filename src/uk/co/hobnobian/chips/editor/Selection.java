@@ -64,6 +64,15 @@ public class Selection {
         return toreturn;
         
     }
+    
+    public List<int[]> getSelection(){
+    	if (hasSelectedArea) {
+    		return getAreaSelection();
+    	}
+    	else {
+    		return getDragSelection();
+    	}
+    }
 
 	public boolean hasSelectedArea() {
 		return hasSelectedArea;
