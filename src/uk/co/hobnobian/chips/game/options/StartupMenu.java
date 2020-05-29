@@ -17,6 +17,8 @@ import uk.co.hobnobian.chips.editor.Editor;
 public class StartupMenu extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 6005122172405513856L;
 	
+	public static StartupMenu main_menu;
+	
 	public static File pathToLastMap = null;
 	
 	private JButton join;

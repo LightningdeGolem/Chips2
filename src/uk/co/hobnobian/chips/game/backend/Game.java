@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import uk.co.hobnobian.chips.game.multiplayer.ConnectionManager;
 import uk.co.hobnobian.chips.game.multiplayer.Serializer;
+import uk.co.hobnobian.chips.gui.WonWindow;
 
 public class Game implements PlayerMoveListener, ConnectionManager{
 	Player p = new Player();
@@ -80,7 +81,8 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	public void won() {
-		System.out.println("We won!!!");
+		new WonWindow();
+		exit();
 	}
 	
 	public void tick() {

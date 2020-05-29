@@ -63,7 +63,7 @@ public class Main {
 		
 		
 		
-		new StartupMenu();
+		StartupMenu.main_menu = new StartupMenu();
 //		singlePlayer();
 //		server(8080);
 //		if (args.length > 0) {
