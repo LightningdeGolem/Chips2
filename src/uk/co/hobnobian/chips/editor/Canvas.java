@@ -160,22 +160,21 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mousePressed(MouseEvent e) {
 		lastX = e.getX();
 		lastY = e.getY();
-		if (!e.isShiftDown()) {
-    		editor.setSelected(new Selection());
-    	}
-        
-        editor.getSelected().mouseMoved(getRoughXY(e)[0], getRoughXY(e)[1]);
-        repaint();
+		
+		if (e.getButton() == 1) {
+			if (!e.isShiftDown()) {
+	    		editor.setSelected(new Selection());
+	    	}
+	        
+	        editor.getSelected().mouseMoved(getRoughXY(e)[0], getRoughXY(e)[1]);
+	        repaint();
+		}
+		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		double[] actualpos = getXY(e);
-		if (e.getClickCount() == 1) {
-			if (e.getButton() == 1) {
-				editor.setBlock(getRoughXY(e)[0], getRoughXY(e)[1]);
-			}
-		}
+		
 	}
 
 	@Override
