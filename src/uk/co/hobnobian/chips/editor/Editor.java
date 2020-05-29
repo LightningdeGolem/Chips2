@@ -91,4 +91,7 @@ public class Editor {
 	public JFrame getWindow() {
 	    return window;
 	}
+	public Canvas getCanvas() {
+		return canvas;
+	}
 }

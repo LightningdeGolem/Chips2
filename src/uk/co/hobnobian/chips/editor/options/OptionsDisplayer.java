@@ -60,13 +60,19 @@ public class OptionsDisplayer implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        char c = e.getKeyChar();
+        int c = e.getKeyCode();
         if (editor.getSelected() != null) {
         	if (c == '.') {
                 editor.getSelected().setHasSelectedArea(true);
             }
             else if (c == ',') {
                 editor.getSelected().setHasSelectedArea(false);
+            }
+            else if (c == 27) {//ESC
+            	editor.setSelected(null);
+            }
+            else if (selected.keyPressed(c,editor)){
+            	
             }
         }
         

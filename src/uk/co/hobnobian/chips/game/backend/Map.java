@@ -14,6 +14,13 @@ public class Map implements Serializable{
 	private int[] p1StartPos = {0,0};
 	private int[] p2StartPos = {4,4};
 	
+	public boolean inBounds(int x, int y) {
+		if (x < 0 || y < 0 || x >= blocks.length || y >= blocks[0].length) {
+			return false;
+		}
+		return true;
+	}
+	
 	protected final void onstart() {
 		
 	}
