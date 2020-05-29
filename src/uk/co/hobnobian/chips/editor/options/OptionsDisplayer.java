@@ -11,10 +11,13 @@ import uk.co.hobnobian.chips.editor.Editor;
 public class OptionsDisplayer implements KeyListener{
     private static final int HEIGHT = 32;
     
+    private Editor editor;
+    
     OptionMenu selected = new BaseOption();
     
     public OptionsDisplayer(Editor editor) {
         editor.getWindow().addKeyListener(this);
+        this.editor = editor;
     }
     
     public void display(Graphics2D g2d, int width, int height) {
@@ -58,12 +61,15 @@ public class OptionsDisplayer implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         char c = e.getKeyChar();
-        if (c == '.') {
-            
+        if (editor.getSelected() != null) {
+        	if (c == '.') {
+                editor.getSelected().setHasSelectedArea(true);
+            }
+            else if (c == ',') {
+                editor.getSelected().setHasSelectedArea(false);
+            }
         }
-        else if (c == ',') {
-            
-        }
+        
         
     }
 

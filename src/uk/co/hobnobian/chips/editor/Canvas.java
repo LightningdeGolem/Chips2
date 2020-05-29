@@ -81,15 +81,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		}
 		
 		if (editor.getSelected() != null) {
-		    g2d.setColor(Color.RED);
-		    for (int[] pos : editor.getSelected().getAreaSelection()) {
-		        g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
-		    }
-		    
-		    g2d.setColor(Color.YELLOW);
-            for (int[] pos : editor.getSelected().getDragSelection()) {
-                g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
-            }
+			if (editor.getSelected().hasSelectedArea()) {
+				g2d.setColor(Color.RED);
+			    for (int[] pos : editor.getSelected().getAreaSelection()) {
+			        g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
+			    }
+			}
+			else {
+				g2d.setColor(Color.YELLOW);
+	            for (int[] pos : editor.getSelected().getDragSelection()) {
+	                g2d.drawRect(toXY(pos)[0], toXY(pos)[1], size, size);
+	            }
+			}
 		}
 		
 		options.display(g2d, getSize().width, getSize().height);
