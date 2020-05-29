@@ -8,6 +8,7 @@ import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.Wall;
+import uk.co.hobnobian.chips.game.blocks.WinningBlock;
 
 public abstract class Block implements Serializable{
 	private static final long serialVersionUID = 4076482000484509547L;
@@ -44,6 +45,7 @@ public abstract class Block implements Serializable{
 		b.put(2, GreenBlock.class);
 		b.put(3, GreenButton.class);
 		b.put(4, MoveableBlock.class);
+		b.put(5, WinningBlock.class);
 		
 		
 		for (int key : b.keySet()) {
