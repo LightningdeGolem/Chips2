@@ -21,6 +21,8 @@ public class GameHandler{
 	private Game con;
 	private Socket sock;
 	
+	private boolean theyAreWinning = false;
+	
 	private HashMap<int[], Block> blockdatas = new HashMap<int[], Block>();
 	GameVariables gameVarsCache;
 	
@@ -71,6 +73,10 @@ public class GameHandler{
 				while (in.available() < 1) {}
 				
 				read();
+				if (theyAreWinning && con.isWinning()) {
+					con.won();
+					break;
+				}
 			}
 			out.close();
 			in.close();
@@ -190,6 +196,7 @@ public class GameHandler{
 		if (flags[0]) {
 			throw new OtherClientQuitException();
 		}
+		theyAreWinning = flags[1];
 		
 		
 		
@@ -268,6 +275,7 @@ public class GameHandler{
 		
 		boolean[] flags = new boolean[8];
 		flags[0] = con.isClosing();//Flag value 0 is whether to exit
+		flags[1] = con.isWinning();//Flag value 1 is whether are player is on a winning block
 		
 		if (flags[0]) {
 			System.out.println("Sent exit");
