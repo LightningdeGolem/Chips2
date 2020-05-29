@@ -282,6 +282,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		if (e.getKeyCode() == 27) {
 		    editor.setSelected(null);
 		}
+		//UNDO
+		if (e.getKeyCode() == 90 && e.isControlDown()){
+			editor.undo();
+		}
 		
 		checkCentre();
 		repaint();
@@ -289,7 +293,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

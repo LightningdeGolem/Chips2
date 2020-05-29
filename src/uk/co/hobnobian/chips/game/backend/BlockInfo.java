@@ -11,6 +11,16 @@ public class BlockInfo {
 		data = d;
 	}
 	
+	public BlockInfo(BlockInfo info) {
+		if (info == null) {
+			return;
+		}
+		data = new int[info.data.length];
+		for (int i = 0; i < info.data.length; i++) {
+			data[i] = info.data[i];
+		}
+	}
+
 	public void set(int index, int data) {
 		this.data[index] = data;
 	}

@@ -3,10 +3,12 @@ package uk.co.hobnobian.chips.game.backend;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
+import uk.co.hobnobian.chips.editor.MapChangeBlockListener;
 import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 
 public class Map implements Serializable{
+	private transient MapChangeBlockListener mapchangeblocklistener = null;
 	private static final long serialVersionUID = -2109585197244870226L;
 	protected Block[][] blocks = new Block[256][256];
 	protected final Class<?extends Block> defaultOutOfBounds = Wall.class;
@@ -82,6 +84,24 @@ public class Map implements Serializable{
 	}
 	
 	public void setBlock(int x, int y, Block b) {
+		Block oldblock = blocks[x][y];
+		if (blocks[x][y] != null) {
+			oldblock.setInfo(new BlockInfo(blocks[x][y].getInfo()));
+		}
+		if (mapchangeblocklistener != null) {
+			mapchangeblocklistener.change(x, y, oldblock, b);
+		}
+		setBlockNoRecord(x,y,b);
+	}
+	
+	public void setBlockNoRecord(int x, int y, Block b) {
+		
+		
 		blocks[x][y] = b;
+		
+	}
+
+	public void setMapChangeBlockListener(MapChangeBlockListener mapchangeblocklistener) {
+		this.mapchangeblocklistener = mapchangeblocklistener;
 	}
 }
