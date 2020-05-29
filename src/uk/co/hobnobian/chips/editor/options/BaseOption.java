@@ -18,6 +18,7 @@ public class BaseOption extends OptionMenu {
     				e.setBlock(pos[0], pos[1]);
     			}
     		}
+    		e.pushChanges();
     		e.getCanvas().repaint();
     		return true;
     	}
@@ -27,6 +28,7 @@ public class BaseOption extends OptionMenu {
     				e.getMap().setBlock(pos[0], pos[1], new Air());
     			}
     		}
+    		e.pushChanges();
     		e.getCanvas().repaint();
     		return true;
     	}

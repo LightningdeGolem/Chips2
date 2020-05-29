@@ -3,6 +3,8 @@ package uk.co.hobnobian.chips.editor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.JFrame;
@@ -18,7 +20,8 @@ public class Editor implements MapChangeBlockListener {
 	private Canvas canvas;
 	private BlockSelector selector;
 	
-	private Stack<BlockChangeEvent> undoStack = new Stack<BlockChangeEvent>();
+	private Stack<List<BlockChangeEvent>> undoStack = new Stack<List<BlockChangeEvent>>();
+	private ArrayList<BlockChangeEvent> currentUndoEvent = new ArrayList<BlockChangeEvent>();
 	
 	private Selection currentlySelected = null;
 
@@ -100,7 +103,12 @@ public class Editor implements MapChangeBlockListener {
 
 	@Override
 	public void change(int x, int y, Block old, Block newblock) {
-		undoStack.push(new BlockChangeEvent(x,y,old,newblock));
+		currentUndoEvent.add(new BlockChangeEvent(x,y,old,newblock));
+	}
+	
+	public void pushChanges() {
+		undoStack.push(currentUndoEvent);
+		currentUndoEvent = new ArrayList<BlockChangeEvent>();
 	}
 	
 	public void undo() {
@@ -108,7 +116,9 @@ public class Editor implements MapChangeBlockListener {
 			return;
 		}
 		
-		BlockChangeEvent change = undoStack.pop();
-		map.setBlockNoRecord(change.getX(), change.getY(), change.getFrom());
+		for (BlockChangeEvent change : undoStack.pop()) {
+			map.setBlockNoRecord(change.getX(), change.getY(), change.getFrom());
+		}
+		
 	}
 }
