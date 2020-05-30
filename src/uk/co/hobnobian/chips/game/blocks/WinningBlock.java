@@ -23,7 +23,7 @@ public class WinningBlock extends Block {
 
 	@Override
 	public String getImage(GameVariables vars) {
-		return "solid.png";
+		return "finish.png";
 	}
 
 }
