@@ -1,14 +1,20 @@
 package uk.co.hobnobian.chips.main;
 
+import java.awt.Image;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
+
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
+import uk.co.hobnobian.chips.game.backend.Game;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
-import uk.co.hobnobian.chips.game.options.StartupMenu;
+import uk.co.hobnobian.chips.game.display.Renderer;
 
 public class Main {
 	public static final int protocolID = 1;
@@ -16,6 +22,31 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
+		
+		EditableMap m = new EditableMap();
+		
+		Window w = new Window();
+		GraphicsServerLayer l = new GraphicsServerLayer();
+		
+		Image i;
+		try {
+			i = ImageIO.read(Main.class.getResource("/uk/co/hobnobian/chips/assets/air.png")).getScaledInstance(64, 64, Image.SCALE_DEFAULT);;
+		} catch (IOException e) {
+			return;
+		}
+		
+		Renderer r = new Renderer(l, i,w);
+		w.add(r);
+		
+		
+		GameVariables vars = new GameVariables();
+		Game g = new Game(l,m, vars);
+		w.setup();
+		g.update();
+		g.start();
+        
+        
+		
 //		saveMap();
 //		w.add(new )
 		
@@ -63,7 +94,7 @@ public class Main {
 		
 		
 		
-		StartupMenu.main_menu = new StartupMenu();
+//		StartupMenu.main_menu = new StartupMenu();
 //		singlePlayer();
 //		server(8080);
 //		if (args.length > 0) {
