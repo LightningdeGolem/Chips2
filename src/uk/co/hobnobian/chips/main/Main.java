@@ -12,6 +12,10 @@ import uk.co.hobnobian.chips.game.backend.EditableMap;
 import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
+import uk.co.hobnobian.chips.game.blocks.ConveyorE;
+import uk.co.hobnobian.chips.game.blocks.ConveyorN;
+import uk.co.hobnobian.chips.game.blocks.ConveyorS;
+import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.display.Renderer;
@@ -24,6 +28,13 @@ public class Main {
 		Block.setup();
 		
 		EditableMap m = new EditableMap();
+		
+		m.setBlock(2, 2, new ConveyorE());
+		m.setBlock(4, 2, new ConveyorN());
+		m.setBlock(6, 2, new ConveyorS());
+		m.setBlock(8, 2, new ConveyorW());
+		
+		
 		
 		Window w = new Window();
 		GraphicsServerLayer l = new GraphicsServerLayer();

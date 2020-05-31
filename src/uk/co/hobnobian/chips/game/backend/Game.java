@@ -92,6 +92,17 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		if (p2 == null && winning) {
 			won();
 		}
+		
+		
+		Block[][] blocksToUpdate = map.getSelection(7, 7, p.getpos()[0], p.getpos()[1]);
+		for (int x =0; x < 7; x++) {
+			for (int y = 0; y<7; y++) {
+				Block b = blocksToUpdate[x][y];
+				if (b instanceof Tickable) {
+					((Tickable) b).tick(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3);
+				}
+			}
+		}
 		if (!p.isAlive()) {
 			if (main) {
 				p.go_to(map.getP1StartPos());

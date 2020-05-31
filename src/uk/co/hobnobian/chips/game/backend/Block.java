@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.game.blocks.ConveyorE;
+import uk.co.hobnobian.chips.game.blocks.ConveyorN;
+import uk.co.hobnobian.chips.game.blocks.ConveyorS;
+import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
@@ -46,6 +50,10 @@ public abstract class Block implements Serializable{
 		b.put(3, GreenButton.class);
 		b.put(4, MoveableBlock.class);
 		b.put(5, WinningBlock.class);
+		b.put(6, ConveyorN.class);
+		b.put(7, ConveyorE.class);
+		b.put(8, ConveyorS.class);
+		b.put(9, ConveyorW.class);
 		
 		
 		for (int key : b.keySet()) {
