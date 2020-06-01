@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class Player implements Serializable{
 	private static final long serialVersionUID = 8878765228332183344L;
 	
+	private PlayerInventory inventory = new PlayerInventory();
+	
 	private int x = 0;
 	private int y = 0;
 	
@@ -91,5 +93,9 @@ public class Player implements Serializable{
 	
 	public boolean isAlive() {
 		return alive;
+	}
+
+	public PlayerInventory getInventory() {
+		return inventory;
 	}
 }
