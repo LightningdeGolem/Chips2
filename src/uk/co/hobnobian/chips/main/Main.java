@@ -16,6 +16,8 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
 import uk.co.hobnobian.chips.game.blocks.ConveyorW;
+import uk.co.hobnobian.chips.game.blocks.FakeAir;
+import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.Ice;
@@ -35,11 +37,14 @@ public class Main {
 		m.setBlock(6, 2, new ConveyorS());
 		m.setBlock(8, 2, new ConveyorW());
 		
-		for (int y = 4; y < 8; y++) {
-			for (int x = 2; x < 8; x++) {
+		for (int y = 4; y < 7; y++) {
+			for (int x = 2; x < 7; x++) {
 				m.setBlock(x, y, new Ice());
 			}
 		}
+		
+		m.setBlock(2, 8, new FakeAir());
+		m.setBlock(4, 8, new FakeWall());
 		
 		
 		
