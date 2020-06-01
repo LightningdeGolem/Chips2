@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import uk.co.hobnobian.chips.game.multiplayer.ConnectionManager;
 import uk.co.hobnobian.chips.game.multiplayer.Serializer;
 import uk.co.hobnobian.chips.gui.WonWindow;
+import uk.co.hobnobian.chips.main.Position;
 
 public class Game implements PlayerMoveListener, ConnectionManager{
 	Player p = new Player();
@@ -242,10 +243,13 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	@Override
-	public List<int[]> getAndClearBlockChanges(){
-		List<int[]> r = new ArrayList<int[]>(blockChanges);
+	public List<Position> getAndClearBlockChanges(){
+		List<Position> re = new ArrayList<Position>();
+		for (int[] change : blockChanges) {
+			re.add(new Position(change));
+		}
 		blockChanges.clear();
-		return r;
+		return re;
 	}
 	
 	@Override

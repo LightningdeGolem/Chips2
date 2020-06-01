@@ -16,6 +16,7 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Player;
 import uk.co.hobnobian.chips.main.Main;
+import uk.co.hobnobian.chips.main.Position;
 
 public class GameHandler{
 	private Game con;
@@ -23,7 +24,7 @@ public class GameHandler{
 	
 	private boolean theyAreWinning = false;
 	
-	private HashMap<int[], Block> blockdatas = new HashMap<int[], Block>();
+	private HashMap<Position, Block> blockdatas = new HashMap<Position, Block>();
 	GameVariables gameVarsCache;
 	
 	BufferedOutputStream out;
@@ -108,17 +109,17 @@ public class GameHandler{
 		gameVarsCache = con.getVars().clone();
 	}
 	
-	private HashMap<int[], Block> getBlocks(){
+	private HashMap<Position, Block> getBlocks(){
 		final int sizeToUpdate = 15;
 		int[] centre = con.getOurPlayer().getpos();
 		int offset = sizeToUpdate/2;
 		
-		HashMap<int[], Block> d = new HashMap<int[], Block>();
+		HashMap<Position, Block> d = new HashMap<Position, Block>();
 		
 		for (int y = centre[1]-offset; y < centre[1]+offset; y++) {
 			for (int x = centre[0]-offset; x < centre[0]+offset; x++) {
 				Block data = con.getMap().getAt(x, y);
-				d.put(new int[] {x, y},data);
+				d.put(new Position(x,y),data.clone());
 			}
 		}
 		return d;
@@ -214,22 +215,35 @@ public class GameHandler{
 		
 		//====================
 		//Get blocks that need to be sent
-		List<int[]> data = con.getAndClearBlockChanges();
+		List<Position> data = con.getAndClearBlockChanges();
 		
-		HashMap<int[], Block> currentData = getBlocks();
+		HashMap<Position, Block> currentData = getBlocks();
 		
-		for (int[] pos : currentData.keySet()) {
+		for (Position pos : currentData.keySet()) {
 			if (!data.contains(pos)) {
-				if (
-						blockdatas.containsKey(pos) && (
-							!blockdatas.get(pos).getClass().equals(currentData.get(pos).getClass()) ||
-							!blockdatas.get(pos).getInfo().equals(currentData.get(pos).getInfo()))
-						) 
-					
-					data.add(pos);
-					
-				{
-					
+				
+				boolean containsKey = false;
+				Block oldblock = null;
+				for (Position p : blockdatas.keySet()) {
+					if (p.equals(pos)) {
+						containsKey = true;
+						oldblock = blockdatas.get(p);
+						break;
+					}
+				}
+				if (containsKey) {
+					if (!oldblock.getClass().equals(currentData.get(pos).getClass())) {
+						data.add(pos);
+					}
+					else if (oldblock.getInfo() == null && currentData.get(pos).getInfo() == null) {
+						
+					}
+					else if (oldblock.getInfo() == null || currentData.get(pos).getInfo() == null) {
+						data.add(pos);
+					}
+					else if (!oldblock.getInfo().equals(currentData.get(pos).getInfo())){
+						data.add(pos);
+					}
 				}
 			}
 		}
@@ -237,10 +251,10 @@ public class GameHandler{
 		bytes.add(toByte(data.size()));//Write number of block updates to be sent
 		
 		//For each block to be sent
-		for (int[] pos : data) {
-			Block toSend = con.getMap().getAt(pos[0], pos[1]);
-			bytes.add(toByte(pos[0]));//Write block x
-			bytes.add(toByte(pos[1]));//Write block y
+		for (Position pos : data) {
+			Block toSend = con.getMap().getAt(pos.getX(), pos.getY());
+			bytes.add(toByte(pos.getX()));//Write block x
+			bytes.add(toByte(pos.getY()));//Write block y
 			
 			int id = Block.inverseBlockIds.get(toSend.getClass());
 			bytes.add(toByte(id));//Write block id

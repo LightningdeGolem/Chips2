@@ -17,7 +17,7 @@ import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
 
-public abstract class Block implements Serializable{
+public abstract class Block implements Serializable,Cloneable{
 	private static final long serialVersionUID = 4076482000484509547L;
 	public static HashMap<Integer, Class<?extends Block>> blockIds = new HashMap<Integer, Class<?extends Block>>();
 	public static HashMap<Class<?extends Block>, Integer> inverseBlockIds = new HashMap<Class<?extends Block>, Integer>();
@@ -28,6 +28,24 @@ public abstract class Block implements Serializable{
 	public abstract EnterLeaveEvent onLeave(int x, int y, Direction d, GameVariables vars, Game g);
 	
 	public Block() {}
+	
+	public Block clone() {
+		try {
+			Block newblock = (Block) super.clone();
+			if (this.info == null) {
+				newblock.setInfo(null);
+			}
+			else {
+				newblock.setInfo(new BlockInfo(info));
+			}
+			return newblock;
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 	
 	public abstract String getImage(GameVariables vars);
 	
@@ -42,6 +60,22 @@ public abstract class Block implements Serializable{
 	
 	public BlockInfo getInfo() {
 		return info;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Block) {
+			if (((Block) o).getClass().equals(getClass())) {
+				if ((info == null && ((Block) o).getInfo() == null) || ((Block) o).getInfo().equals(info)) {
+					return true;
+				}
+				return false;
+			}
+			else {
+				return false;
+			}
+		}
+		return super.equals(o);
 	}
 	
 	public static final void setup(){

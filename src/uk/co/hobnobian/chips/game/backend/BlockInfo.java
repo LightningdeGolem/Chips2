@@ -16,7 +16,8 @@ public class BlockInfo implements Serializable{
 	
 	public BlockInfo(BlockInfo info) {
 		if (info == null) {
-			return;
+			throw new RuntimeException("HERE!");
+//			return;
 		}
 		data = new int[info.data.length];
 		for (int i = 0; i < info.data.length; i++) {
@@ -38,6 +39,9 @@ public class BlockInfo implements Serializable{
 	
 	@Override
 	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
 		if (o instanceof BlockInfo) {
 			int[] data = ((BlockInfo) o).data;
 			return data.equals(this.data);

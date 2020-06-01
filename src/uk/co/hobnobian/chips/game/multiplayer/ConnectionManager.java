@@ -6,6 +6,7 @@ import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.backend.Player;
 import uk.co.hobnobian.chips.game.backend.PlayerType;
+import uk.co.hobnobian.chips.main.Position;
 
 public interface ConnectionManager {
 	public void setVars(GameVariables v);
@@ -21,6 +22,6 @@ public interface ConnectionManager {
 	
 	public boolean isClosing();
 	public void exit();
-	public List<int[]> getAndClearBlockChanges();
+	public List<Position> getAndClearBlockChanges();
 	public Map getMap();
 }
