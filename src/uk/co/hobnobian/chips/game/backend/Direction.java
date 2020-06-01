@@ -38,4 +38,32 @@ public enum Direction {
 		}
 		return new int[] {x,y};
 	}
+	
+	public static int toInt(Direction d) {
+		switch(d) {
+		case NORTH:
+			return 0;
+		case SOUTH:
+			return 1;
+		case EAST:
+			return 2;
+		case WEST:
+			return 3;
+		}
+		return 0;
+	}
+	
+	public static Direction fromInt(int i) {
+		switch(i) {
+		case 0:
+			return NORTH;
+		case 1:
+			return SOUTH;
+		case 2:
+			return EAST;
+		case 3:
+			return WEST;
+		}
+		return NORTH;
+	}
 }

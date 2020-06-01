@@ -1,6 +1,9 @@
 package uk.co.hobnobian.chips.game.backend;
 
-public class BlockInfo {
+import java.io.Serializable;
+
+public class BlockInfo implements Serializable{
+	private static final long serialVersionUID = -7081690354630842514L;
 	private int[] data;
 	
 	public BlockInfo(int fields) {

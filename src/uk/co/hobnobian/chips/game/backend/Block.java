@@ -10,6 +10,7 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorS;
 import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
+import uk.co.hobnobian.chips.game.blocks.Ice;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
@@ -54,6 +55,7 @@ public abstract class Block implements Serializable{
 		b.put(7, ConveyorE.class);
 		b.put(8, ConveyorS.class);
 		b.put(9, ConveyorW.class);
+		b.put(10, Ice.class);
 		
 		
 		for (int key : b.keySet()) {
