@@ -1,27 +1,20 @@
 package uk.co.hobnobian.chips.main;
 
-import java.awt.Image;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import javax.imageio.ImageIO;
-
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
-import uk.co.hobnobian.chips.game.backend.Game;
-import uk.co.hobnobian.chips.game.backend.GameVariables;
-import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
+import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
 import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
-import uk.co.hobnobian.chips.game.blocks.GreenBlock;
-import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.Ice;
-import uk.co.hobnobian.chips.game.display.Renderer;
+import uk.co.hobnobian.chips.game.options.StartupMenu;
 
 public class Main {
 	public static final int protocolID = 1;
@@ -29,45 +22,30 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
-		
-		EditableMap m = new EditableMap();
-		
-		m.setBlock(2, 2, new ConveyorE());
-		m.setBlock(4, 2, new ConveyorN());
-		m.setBlock(6, 2, new ConveyorS());
-		m.setBlock(8, 2, new ConveyorW());
-		
-		for (int y = 4; y < 7; y++) {
-			for (int x = 2; x < 7; x++) {
-				m.setBlock(x, y, new Ice());
-			}
-		}
-		
-		m.setBlock(2, 8, new FakeAir());
-		m.setBlock(4, 8, new FakeWall());
+//		saveMap();
 		
 		
 		
 		
-		Window w = new Window();
-		GraphicsServerLayer l = new GraphicsServerLayer();
-		
-		Image i;
-		try {
-			i = ImageIO.read(Main.class.getResource("/uk/co/hobnobian/chips/assets/air.png")).getScaledInstance(64, 64, Image.SCALE_DEFAULT);;
-		} catch (IOException e) {
-			return;
-		}
-		
-		Renderer r = new Renderer(l, i,w);
-		w.add(r);
-		
-		
-		GameVariables vars = new GameVariables();
-		Game g = new Game(l,m, vars);
-		w.setup();
-		g.update();
-		g.start();
+//		Window w = new Window();
+//		GraphicsServerLayer l = new GraphicsServerLayer();
+//		
+//		Image i;
+//		try {
+//			i = ImageIO.read(Main.class.getResource("/uk/co/hobnobian/chips/assets/air.png")).getScaledInstance(64, 64, Image.SCALE_DEFAULT);;
+//		} catch (IOException e) {
+//			return;
+//		}
+//		
+//		Renderer r = new Renderer(l, i,w);
+//		w.add(r);
+//		
+//		
+//		GameVariables vars = new GameVariables();
+//		Game g = new Game(l,m, vars);
+//		w.setup();
+//		g.update();
+//		g.start();
         
         
 		
@@ -113,7 +91,7 @@ public class Main {
 //			}
 //		}
 //		else {
-//			new StartupMenu();
+			new StartupMenu();
 //		}
 		
 		
@@ -233,19 +211,31 @@ public class Main {
 //		g.start();
 //	}
 	
+	private static Map getMap() {
+	    EditableMap m = new EditableMap();
+        
+        m.setBlock(2, 2, new ConveyorE());
+        m.setBlock(4, 2, new ConveyorN());
+        m.setBlock(6, 2, new ConveyorS());
+        m.setBlock(8, 2, new ConveyorW());
+        
+        for (int y = 4; y < 7; y++) {
+            for (int x = 2; x < 7; x++) {
+                m.setBlock(x, y, new Ice());
+            }
+        }
+        
+        m.setBlock(2, 8, new FakeAir());
+        m.setBlock(4, 8, new FakeWall());
+        return m;
+	}
+	
 	private static void saveMap() {
-		EditableMap m = new EditableMap();
-		m.setAt(new GreenButton(), 4, 0);
-		m.setAt(new GreenButton(), 1, 0);
-		m.setAt(new GreenBlock(), 0, 1);
-		m.setAt(new GreenBlock(), 1, 1);
-		m.setAt(new GreenBlock(), 2, 0);
-		
-//		m.setAt(new MoveableBlock(), 5, 5);
+		Map m = getMap();
 		
 		
         try {
-        	FileOutputStream fileOut = new FileOutputStream("/Users/ollie/map.chips");
+        	FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.home")+"/map.chips");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 			objectOut.writeObject(m);
 			objectOut.close();
