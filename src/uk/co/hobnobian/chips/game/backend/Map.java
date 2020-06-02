@@ -86,7 +86,10 @@ public class Map implements Serializable{
 	public void setBlock(int x, int y, Block b) {
 		Block oldblock = blocks[x][y];
 		if (blocks[x][y] != null) {
-			oldblock.setInfo(new BlockInfo(blocks[x][y].getInfo()));
+		    if (blocks[x][y].getInfo() != null) {
+		        oldblock.setInfo(new BlockInfo(blocks[x][y].getInfo()));
+		    }
+			
 		}
 		if (mapchangeblocklistener != null) {
 			mapchangeblocklistener.change(x, y, oldblock, b);
