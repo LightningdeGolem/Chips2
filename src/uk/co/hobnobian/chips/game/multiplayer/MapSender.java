@@ -9,7 +9,7 @@ import uk.co.hobnobian.chips.game.backend.Map;
 public class MapSender {
 	public MapSender(Map m, Connection c) throws IOException {
 		BufferedOutputStream bo = c.getOut();
-		byte[] data = Serializer.toByteArray(m);
+		byte[] data = MapDataIO.mapToBytes(m);
 		
 		long total = data.length;
 		System.out.println(total);

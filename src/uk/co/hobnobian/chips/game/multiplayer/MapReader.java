@@ -25,7 +25,7 @@ public class MapReader {
 		byte[] data = new byte[(int) size];
 		in.read(data);
 
-		Map m = (Map) Serializer.fromByteArray(data);
+		Map m = MapDataIO.decodeBytes(data);
 		map = m;
 	}
 	
