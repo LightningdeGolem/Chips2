@@ -45,57 +45,20 @@ public class MapDataIO {
     public static byte[] mapToBytes(Map map) {
         
         List<Integer> bytes = new ArrayList<Integer>();
-        int aircount = -1;
         for (int y = 0; y < 256; y++) {
             for (int x =0; x < 256; x++) {
                 Block block = map.getAt(x, y);
-                boolean air = false;
-                
-                if (aircount == 65535) {
-                    bytes.add(255);
-                    bytes.add(255);
-                    bytes.add(255);
-                    aircount = 0;
-                }
-                
                 if (block.getClass().equals(Air.class)) {
-                    air = true;
-                    aircount++;
+                    bytes.add(0);
                 }
-                else if (aircount > -1){
-                    if (aircount > 2) {
-                        int firstbyte = (aircount+1)/256;
-                        int secondbyte = (aircount+1)%256;
-                        bytes.add(255);
-                        bytes.add(firstbyte);
-                        bytes.add(secondbyte);
-                    }
-                    else {
-                        for (int i = 0; i<aircount+1;i++) {
-                            bytes.add(0);
-                        }
-                    }
-                    aircount = 0;
-                }
-                if (!air) {
+                else {
                     int[] data = encodeBlock(block);
                     for (int b : data) {
                         bytes.add(b);
                     }
                 }
-            }
-        }
-        
-        if (aircount > 3) {
-            int firstbyte = aircount/256;
-            int secondbyte = aircount%256;
-            bytes.add(255);
-            bytes.add(firstbyte);
-            bytes.add(secondbyte);
-        }
-        else if (aircount > 0){
-            for (int i = 0; i<aircount;i++) {
-                bytes.add(0);
+                
+                
             }
         }
         
@@ -129,62 +92,38 @@ public class MapDataIO {
         int[] data = new int[raw.length];
         for (int i = 0; i < raw.length; i++) {
             data[i] = byteToInt(raw[i]);
-            System.out.println(data[i]);
+        }
+
+        int i = 0;
+        for (int y = 0; y < 256; y++) {
+            for (int x = 0; x < 256; x++) {
+                if (data[i] == 0) {
+                    map.setBlockNoRecord(x, y, new Air());
+                    i++;
+                }
+                else {
+                    int blockid = data[i];
+                    i++;
+                    int blockdatalen = data[i];
+                    i++;
+                    int[] blockdata = null;
+                    if (blockdatalen > 0) {
+                        blockdata = new int[blockdatalen];
+                        for (int n = 0; n < blockdatalen; n++) {
+                            blockdata[n] = data[i];
+                            i++;
+                        }
+                    }
+                    
+                    
+                    Block b = decodeBlock(blockid, blockdata);
+                    map.setBlock(x, y, b);
+                }
+            }
         }
         
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i<data.length; i++) {
-            int b = data[i];
-            if (b == 255) {
-                i++;
-                int firstByte = data[i];
-                i++;
-                int secondByte = data[i];
-                int total = firstByte*256 + secondByte;
-                for (int n = 0; n < total; n++) {
-                    map.setBlock(x, y, new Air());
-                    x++;
-                    
-                    if (x > 255) {
-                        x = 0;
-                        y++;
-                    }
-                    if (y > 255) {
-                        break;
-                    }
-                }
-                x--;
-            }else if (b == 0) {
-                map.setBlock(x, y, new Air());
-            }
-            else {
-                int blockid = b;
-                i++;
-                int datalen = data[i];
-                i++;
-                int[] blockinfo = null;
-                if (datalen > 0) {
-                    blockinfo = new int[datalen];
-                    for (int n = 0; n < datalen; n++) {
-                        blockinfo[n] = data[i];
-                        i++;
-                    }
-                }
-                
-                Block bl = decodeBlock(blockid, blockinfo);
-                map.setBlock(x, y, bl);
-                i--;
-            }
-            x++;
-            if (x > 255) {
-                x = 0;
-                y++;
-            }
-            if (y > 255) {
-                break;
-            }
-        }
+        
+        
         return map;
     }
 }
