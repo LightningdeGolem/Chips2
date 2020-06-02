@@ -44,7 +44,15 @@ public class BlockInfo implements Serializable{
 		}
 		if (o instanceof BlockInfo) {
 			int[] data = ((BlockInfo) o).data;
-			return data.equals(this.data);
+			if (data.length != this.data.length) {
+			    return false;
+			}
+			for (int i = 0; i<data.length; i++) {
+			    if (data[i] != this.data[i]) {
+			        return false;
+			    }
+			}
+			return true;
 		}
 		else if (o instanceof int[]) {
 			int[] data = (int[]) o;
