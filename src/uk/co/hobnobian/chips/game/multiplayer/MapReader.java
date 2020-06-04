@@ -23,7 +23,9 @@ public class MapReader {
 		System.out.println(size);
 		
 		byte[] data = new byte[(int) size];
-		in.read(data);
+		for (int i = 0; i < size; i++) {
+		    data[i] = (byte)in.read();
+		}
 
 		Map m = MapDataIO.decodeBytes(data);
 		map = m;
