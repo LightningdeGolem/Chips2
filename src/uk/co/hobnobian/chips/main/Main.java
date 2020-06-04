@@ -14,6 +14,7 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.Ice;
+import uk.co.hobnobian.chips.game.blocks.WinningBlock;
 import uk.co.hobnobian.chips.game.options.StartupMenu;
 
 public class Main {
@@ -22,6 +23,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Block.setup();
+//		saveMap();
 //		saveMap();
 		
 		
@@ -214,6 +216,9 @@ public class Main {
 	private static Map getMap() {
 	    EditableMap m = new EditableMap();
         
+	    m.setBlock(2, 0, new WinningBlock());
+	    m.setBlock(4, 0, new WinningBlock());
+	    
         m.setBlock(2, 2, new ConveyorE());
         m.setBlock(4, 2, new ConveyorN());
         m.setBlock(6, 2, new ConveyorS());
