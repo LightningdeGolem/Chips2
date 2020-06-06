@@ -31,7 +31,7 @@ public class Lamp extends ElectricalComponent {
 
     @Override
     public String getImage(GetImageData data) {
-        if (poweredFromAnyWhere(data.getPos(), data.getMap())) {
+        if (poweredFromAnywhere(data.getPos(), data.getMap())) {
             return "lamp_on.png";
         }
         else {

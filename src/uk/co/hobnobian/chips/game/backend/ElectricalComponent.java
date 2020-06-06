@@ -26,7 +26,7 @@ public abstract class ElectricalComponent extends Block{
         return new boolean[] {n,e,s,w};
     }
     
-    protected final boolean poweredFromAnyWhere(int[] pos, Map map) {
+    protected final boolean poweredFromAnywhere(int[] pos, Map map) {
         boolean[] directions = getPoweredFrom(pos, map);
         return poweredFromAnywhere(directions);
     }

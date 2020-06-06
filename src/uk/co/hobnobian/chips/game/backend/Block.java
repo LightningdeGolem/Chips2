@@ -8,11 +8,14 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
 import uk.co.hobnobian.chips.game.blocks.ConveyorW;
+import uk.co.hobnobian.chips.game.blocks.ElectricDoor;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.Ice;
+import uk.co.hobnobian.chips.game.blocks.Lamp;
+import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
@@ -96,6 +99,9 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(11, FakeAir.class);
 		b.put(12, FakeWall.class);
 		b.put(13, Wire.class);
+		b.put(14, Lamp.class);
+		b.put(15, Lever.class);
+		b.put(16, ElectricDoor.class);
 		
 		
 		for (int key : b.keySet()) {
