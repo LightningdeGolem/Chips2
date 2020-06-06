@@ -34,5 +34,9 @@ public class PlayerMoveEventData {
     public Game getGame() {
         return game;
     }
+
+    public int[] getPos() {
+        return new int[] {x,y};
+    }
     
 }

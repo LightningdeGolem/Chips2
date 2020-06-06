@@ -26,6 +26,7 @@ import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.NormalWire;
 import uk.co.hobnobian.chips.game.blocks.SolidWire;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
+import uk.co.hobnobian.chips.game.blocks.Zapper;
 import uk.co.hobnobian.chips.game.display.Renderer;
 
 public class Main {
@@ -255,7 +256,7 @@ public class Main {
         m.setBlock(3, 11, new SolidWire());
         m.setBlock(3, 12, new SolidWire());
         m.setBlock(3, 13, new SolidWire());
-        m.setBlock(3, 14, new Lamp());
+        m.setBlock(3, 14, new Zapper());
         return m;
 	}
 	

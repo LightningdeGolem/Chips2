@@ -21,6 +21,7 @@ import uk.co.hobnobian.chips.game.blocks.NormalWire;
 import uk.co.hobnobian.chips.game.blocks.SolidWire;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
+import uk.co.hobnobian.chips.game.blocks.Zapper;
 
 public abstract class Block implements Serializable,Cloneable{
 	private static final long serialVersionUID = 4076482000484509547L;
@@ -104,6 +105,7 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(15, Lever.class);
 		b.put(16, ElectricDoor.class);
 		b.put(17, SolidWire.class);
+		b.put(18, Zapper.class);
 		
 		
 		for (int key : b.keySet()) {
