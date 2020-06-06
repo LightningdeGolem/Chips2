@@ -20,9 +20,11 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.Ice;
+import uk.co.hobnobian.chips.game.blocks.Lamp;
+import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
+import uk.co.hobnobian.chips.game.blocks.Wire;
 import uk.co.hobnobian.chips.game.display.Renderer;
-import uk.co.hobnobian.chips.game.options.StartupMenu;
 
 public class Main {
 	public static final int protocolID = 1;
@@ -239,6 +241,11 @@ public class Main {
         
         m.setBlock(2, 8, new FakeAir());
         m.setBlock(4, 8, new FakeWall());
+        
+        m.setBlock(2, 10, new Lever());
+        m.setBlock(3, 10, new Wire());
+        m.setBlock(4, 10, new Wire());
+        m.setBlock(5, 10, new Lamp());
         return m;
 	}
 	
