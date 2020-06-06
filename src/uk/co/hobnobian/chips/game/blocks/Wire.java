@@ -49,6 +49,9 @@ public class Wire extends Block implements ElectricalComponent{
         }
         
         
+        if (!(n || s || e || w)) {
+            return "wire/nesw.png";
+        }
         String file = "wire/";
         if (n) {
             file+="n";
@@ -62,7 +65,15 @@ public class Wire extends Block implements ElectricalComponent{
         if (w) {
             file+="w";
         }
+        if (file.equals("wire/n") || file.equals("wire/s")) {
+            file = "wire/ns";
+        }
+        if (file.equals("wire/e") || file.equals("wire/w")) {
+            file = "wire/ew";
+        }
+        
         file+=".png";
+        System.out.println(file);
         return file;
     }
 
