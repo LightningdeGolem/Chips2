@@ -111,6 +111,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 			else {
 				p.go_to(map.getP2StartPos());
 			}
+			p.setAlive(true);
 			
 			if (resetMapWhenDie) {
 				map = (Map) Serializer.fromString(originalMap);
