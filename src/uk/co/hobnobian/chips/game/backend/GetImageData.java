@@ -38,4 +38,8 @@ public class GetImageData {
     public int getY() {
         return y;
     }
+
+    public int[] getPos() {
+        return new int[] {x,y};
+    }
 }
