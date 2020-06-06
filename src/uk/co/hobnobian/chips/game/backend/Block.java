@@ -19,7 +19,7 @@ import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
-import uk.co.hobnobian.chips.game.blocks.Wire;
+import uk.co.hobnobian.chips.game.blocks.NormalWire;
 
 public abstract class Block implements Serializable,Cloneable{
 	private static final long serialVersionUID = 4076482000484509547L;
@@ -98,7 +98,7 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(10, Ice.class);
 		b.put(11, FakeAir.class);
 		b.put(12, FakeWall.class);
-		b.put(13, Wire.class);
+		b.put(13, NormalWire.class);
 		b.put(14, Lamp.class);
 		b.put(15, Lever.class);
 		b.put(16, ElectricDoor.class);

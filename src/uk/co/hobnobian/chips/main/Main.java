@@ -24,7 +24,7 @@ import uk.co.hobnobian.chips.game.blocks.Ice;
 import uk.co.hobnobian.chips.game.blocks.Lamp;
 import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
-import uk.co.hobnobian.chips.game.blocks.Wire;
+import uk.co.hobnobian.chips.game.blocks.NormalWire;
 import uk.co.hobnobian.chips.game.display.Renderer;
 
 public class Main {
@@ -244,11 +244,11 @@ public class Main {
         m.setBlock(4, 8, new FakeWall());
         
         m.setBlock(2, 10, new Lever());
-        m.setBlock(3, 10, new Wire());
-        m.setBlock(4, 10, new Wire());
+        m.setBlock(3, 10, new NormalWire());
+        m.setBlock(4, 10, new NormalWire());
         m.setBlock(5, 10, new Lamp());
         
-        m.setBlock(4, 11, new Wire());
+        m.setBlock(4, 11, new NormalWire());
         m.setBlock(4, 12, new ElectricDoor());
         return m;
 	}
