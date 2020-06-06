@@ -5,8 +5,10 @@ import uk.co.hobnobian.chips.game.backend.BlockInfo;
 import uk.co.hobnobian.chips.game.backend.Direction;
 import uk.co.hobnobian.chips.game.backend.EnterLeaveEvent;
 import uk.co.hobnobian.chips.game.backend.Game;
-import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.GameTickData;
+import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.game.backend.Player;
+import uk.co.hobnobian.chips.game.backend.PlayerMoveEventData;
 import uk.co.hobnobian.chips.game.backend.Tickable;
 
 public class Ice extends Block implements Tickable, SlidingBlock{
@@ -18,24 +20,27 @@ public class Ice extends Block implements Tickable, SlidingBlock{
 	}
 
 	@Override
-	public EnterLeaveEvent onEnter(int x, int y, Direction d, GameVariables vars, Game g) {
-		info.set(0, Direction.toInt(Direction.invert(d)));
+	public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
+		info.set(0, Direction.toInt(Direction.invert(data.getDirection())));
 		return EnterLeaveEvent.YES;
 	}
 
 	@Override
-	public EnterLeaveEvent onLeave(int x, int y, Direction d, GameVariables vars, Game g) {
+	public EnterLeaveEvent onLeave(PlayerMoveEventData d) {
 		return EnterLeaveEvent.NO;
 	}
 
 	@Override
-	public String getImage(GameVariables vars) {
+	public String getImage(GetImageData d) {
 		return "ice.png";
 	}
 
 	@Override
-	public void tick(Game game, Player p1, Player p2, int x, int y) {
-		if (p1.getpos()[0] == x && p1.getpos()[1] == y) {
+	public void tick(GameTickData data) {
+	    Player p1 = data.getP1();
+	    Game game = data.getGame();
+	    
+		if (data.isPlayer1OnBlock()) {
 			Direction slidingDirection = Direction.fromInt(info.get(0));
 			int[] newpos = Direction.move(p1.getpos(), slidingDirection);
 			

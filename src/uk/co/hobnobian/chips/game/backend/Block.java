@@ -24,8 +24,8 @@ public abstract class Block implements Serializable,Cloneable{
 
 	protected BlockInfo info = null;
 	
-	public abstract EnterLeaveEvent onEnter(int x, int y, Direction d, GameVariables vars, Game g);
-	public abstract EnterLeaveEvent onLeave(int x, int y, Direction d, GameVariables vars, Game g);
+	public abstract EnterLeaveEvent onEnter(PlayerMoveEventData data);
+	public abstract EnterLeaveEvent onLeave(PlayerMoveEventData data);
 	
 	public Block() {}
 	
@@ -47,7 +47,7 @@ public abstract class Block implements Serializable,Cloneable{
 		
 	}
 	
-	public abstract String getImage(GameVariables vars);
+	public abstract String getImage(GetImageData data);
 	
 	public void setInfo(BlockInfo i) {
 		info = i;

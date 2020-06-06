@@ -3,32 +3,34 @@ package uk.co.hobnobian.chips.game.blocks;
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.Direction;
 import uk.co.hobnobian.chips.game.backend.EnterLeaveEvent;
-import uk.co.hobnobian.chips.game.backend.Game;
-import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.GameTickData;
+import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.game.backend.Player;
+import uk.co.hobnobian.chips.game.backend.PlayerMoveEventData;
 import uk.co.hobnobian.chips.game.backend.Tickable;
 
 public class ConveyorE extends Block implements Tickable{
 	private static final long serialVersionUID = -1253491499916355869L;
 
 	@Override
-	public EnterLeaveEvent onEnter(int x, int y, Direction d, GameVariables vars, Game g) {
+	public EnterLeaveEvent onEnter(PlayerMoveEventData d) {
 		return EnterLeaveEvent.YES;
 	}
 
 	@Override
-	public EnterLeaveEvent onLeave(int x, int y, Direction d, GameVariables vars, Game g) {
+	public EnterLeaveEvent onLeave(PlayerMoveEventData d) {
 		return EnterLeaveEvent.YES;
 	}
 
 	@Override
-	public String getImage(GameVariables vars) {
+	public String getImage(GetImageData g) {
 		return "conveyor_e.png";
 	}
 
 	@Override
-	public void tick(Game game, Player p1, Player p2, int x, int y) {
-		if (p1.getpos()[0] == x && p1.getpos()[1] == y) {
+	public void tick(GameTickData data) {
+	    Player p1 = data.getP1();
+		if (data.isPlayer1OnBlock()) {
 			p1.move(Direction.EAST);
 		}
 		

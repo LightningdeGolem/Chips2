@@ -100,7 +100,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 			for (int y = 0; y<7; y++) {
 				Block b = blocksToUpdate[x][y];
 				if (b instanceof Tickable) {
-					((Tickable) b).tick(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3);
+					((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
 				}
 			}
 		}
@@ -147,7 +147,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	public boolean canPlayerMove(Player p, Direction d) {
 		int[] newpos = Direction.move(p.getpos(), d);
 		int[] pos = p.getpos();
-		EnterLeaveEvent leave = map.getAt(pos[0], pos[1]).onLeave(newpos[0], newpos[1], d, vars, this);
+		EnterLeaveEvent leave = map.getAt(pos[0], pos[1]).onLeave(new PlayerMoveEventData(newpos[0], newpos[1], d, vars, this));
 		if (leave == EnterLeaveEvent.YES) {
 			if (canPlayerEnter(p,d,true)) {
 				return true;
@@ -163,7 +163,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		int[] newpos = Direction.move(p.getpos(), d);
 
 		if (!countOtherPlayer || p2 == null || !(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
-			EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(newpos[0], newpos[1], Direction.invert(d), vars, this);
+			EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(new PlayerMoveEventData(newpos[0], newpos[1], Direction.invert(d), vars, this));
 			if (enter == EnterLeaveEvent.YES) {
 				return true;
 			}

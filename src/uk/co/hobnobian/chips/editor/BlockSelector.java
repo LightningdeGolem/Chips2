@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import uk.co.hobnobian.chips.game.backend.Block;
+import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
@@ -54,13 +55,12 @@ public class BlockSelector extends JPanel implements MouseListener{
 		String selected = "";
 		for (Class<?extends Block> c : classes) {
 			try {
-				blocks[i] = c.getConstructor().newInstance().getImage(editor.getVars());
+				blocks[i] = c.getConstructor().newInstance().getImage(new GetImageData(editor.getVars(), editor.getMap(), 0, 0, true));
 				if (c.equals(this.selected)) {
 					selected = blocks[i];
 				}
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				i++;
 				continue;

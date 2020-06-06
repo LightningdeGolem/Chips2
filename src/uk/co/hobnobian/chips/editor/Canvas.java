@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import uk.co.hobnobian.chips.editor.options.OptionsDisplayer;
+import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener, MouseWheelListener{
@@ -68,7 +69,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		        int finalx = (int) (px-offset[0]);
 		        int finaly = (int) (py-offset[1]);
 		        
-		        Image i = imageCache.loadImage(editor.getMap().getAt(bx, by).getImage(editor.getVars()), size);
+		        Image i = imageCache.loadImage(editor.getMap().getAt(bx, by).getImage(new GetImageData(editor.getVars(), editor.getMap(), bx, by)), size);
 		        setSquare(finalx, finaly, i, g2d);
 		        
 		        bx++;

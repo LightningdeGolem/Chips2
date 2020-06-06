@@ -50,7 +50,7 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 		
 		for (int y = 0; y < b.length; y++) {
 			for (int x = 0; x < b[y].length; x++) {
-				blocks.put(new int[] {x,y}, loadImage(b[x][y].getImage(vars)));
+				blocks.put(new int[] {x,y}, loadImage(b[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3))));
 			}
 		}
 		

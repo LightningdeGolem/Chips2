@@ -1,11 +1,17 @@
 package uk.co.hobnobian.chips.main;
 
+import java.awt.Image;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
+
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
+import uk.co.hobnobian.chips.game.backend.Game;
+import uk.co.hobnobian.chips.game.backend.GameVariables;
+import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
@@ -15,6 +21,7 @@ import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.Ice;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
+import uk.co.hobnobian.chips.game.display.Renderer;
 import uk.co.hobnobian.chips.game.options.StartupMenu;
 
 public class Main {
@@ -29,25 +36,25 @@ public class Main {
 		
 		
 		
-//		Window w = new Window();
-//		GraphicsServerLayer l = new GraphicsServerLayer();
-//		
-//		Image i;
-//		try {
-//			i = ImageIO.read(Main.class.getResource("/uk/co/hobnobian/chips/assets/air.png")).getScaledInstance(64, 64, Image.SCALE_DEFAULT);;
-//		} catch (IOException e) {
-//			return;
-//		}
-//		
-//		Renderer r = new Renderer(l, i,w);
-//		w.add(r);
-//		
-//		
-//		GameVariables vars = new GameVariables();
-//		Game g = new Game(l,m, vars);
-//		w.setup();
-//		g.update();
-//		g.start();
+		Window w = new Window();
+		GraphicsServerLayer l = new GraphicsServerLayer();
+		
+		Image i;
+		try {
+			i = ImageIO.read(Main.class.getResource("/uk/co/hobnobian/chips/assets/air.png")).getScaledInstance(64, 64, Image.SCALE_DEFAULT);;
+		} catch (IOException e) {
+			return;
+		}
+		
+		Renderer r = new Renderer(l, i,w);
+		w.add(r);
+		
+		
+		GameVariables vars = new GameVariables();
+		Game g = new Game(l,getMap(), vars);
+		w.setup();
+		g.update();
+		g.start();
         
         
 		
@@ -93,7 +100,7 @@ public class Main {
 //			}
 //		}
 //		else {
-			new StartupMenu();
+//			new StartupMenu();
 //		}
 		
 		
