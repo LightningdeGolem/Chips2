@@ -39,4 +39,8 @@ public class GameTickData {
         return y;
     }
 
+    public int[] getPos() {
+        return new int[] {x,y};
+    }
+
 }

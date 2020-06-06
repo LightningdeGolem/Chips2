@@ -1,15 +1,23 @@
 package uk.co.hobnobian.chips.game.blocks;
 
 import uk.co.hobnobian.chips.game.backend.Block;
+import uk.co.hobnobian.chips.game.backend.BlockInfo;
 import uk.co.hobnobian.chips.game.backend.Direction;
 import uk.co.hobnobian.chips.game.backend.ElectricalComponent;
 import uk.co.hobnobian.chips.game.backend.EnterLeaveEvent;
+import uk.co.hobnobian.chips.game.backend.GameTickData;
 import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.game.backend.PlayerMoveEventData;
+import uk.co.hobnobian.chips.game.backend.Tickable;
 
-public class Wire extends Block implements ElectricalComponent{
+public class Wire extends ElectricalComponent implements Tickable{
     private static final long serialVersionUID = 4645413774403271952L;
-
+    
+    public Wire() {
+        setInfo(new BlockInfo(1));
+        info.set(0, 0);
+    }
+    
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
         return EnterLeaveEvent.YES;
@@ -79,6 +87,31 @@ public class Wire extends Block implements ElectricalComponent{
     @Override
     public boolean canConnectFrom(Direction d) {
         return true;
+    }
+
+    @Override
+    public boolean[] getPoweringDirections() {
+        boolean p = info.get(0) == 1;
+        return new boolean[] {p,p,p,p};
+    }
+
+    @Override
+    public void tick(GameTickData g) {
+        boolean[] powered = getPoweredFrom(g.getPos(), g.getGame().getMap());
+        
+        boolean poweredAtAll = false;
+        for (boolean p : powered) {
+            if (p) {
+                poweredAtAll =true;
+                break;
+            }
+        }
+        if (poweredAtAll) {
+            info.set(0, 1);
+        }
+        else {
+            info.set(0, 0);
+        }
     }
 
 }
