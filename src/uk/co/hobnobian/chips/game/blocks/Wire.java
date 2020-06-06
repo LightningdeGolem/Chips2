@@ -73,7 +73,6 @@ public class Wire extends Block implements ElectricalComponent{
         }
         
         file+=".png";
-        System.out.println(file);
         return file;
     }
 
