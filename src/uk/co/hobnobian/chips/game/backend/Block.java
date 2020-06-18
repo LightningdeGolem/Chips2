@@ -14,6 +14,7 @@ import uk.co.hobnobian.chips.game.blocks.FakeWall;
 import uk.co.hobnobian.chips.game.blocks.GreenBlock;
 import uk.co.hobnobian.chips.game.blocks.GreenButton;
 import uk.co.hobnobian.chips.game.blocks.Ice;
+import uk.co.hobnobian.chips.game.blocks.IceBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Lamp;
 import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
@@ -106,6 +107,7 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(16, ElectricDoor.class);
 		b.put(17, SolidWire.class);
 		b.put(18, Zapper.class);
+		b.put(19, IceBootsItem.class);
 		
 		
 		for (int key : b.keySet()) {

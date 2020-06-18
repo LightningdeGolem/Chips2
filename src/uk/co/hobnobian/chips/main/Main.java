@@ -13,7 +13,6 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.backend.Map;
-import uk.co.hobnobian.chips.game.backend.inv.IceBoots;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
@@ -21,7 +20,9 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.ElectricDoor;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
+import uk.co.hobnobian.chips.game.blocks.FireBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Ice;
+import uk.co.hobnobian.chips.game.blocks.IceBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Lamp;
 import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.NormalWire;
@@ -58,7 +59,6 @@ public class Main {
 		
 		GameVariables vars = new GameVariables();
 		Game g = new Game(l,getMap(), vars);
-		g.getOurPlayer().getInventory().add(new IceBoots());
 		w.setup();
 		g.update();
 		g.start();
@@ -259,6 +259,9 @@ public class Main {
         m.setBlock(3, 12, new SolidWire());
         m.setBlock(3, 13, new SolidWire());
         m.setBlock(3, 14, new Zapper());
+        
+        m.setBlock(2, 16, new IceBootsItem());
+        m.setBlock(3, 16, new FireBootsItem());
         return m;
 	}
 	
