@@ -115,6 +115,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 			
 			if (resetMapWhenDie) {
 				map = (Map) Serializer.fromString(originalMap);
+				p.getInventory().clear();
 			}
 		}
 		con.updateMap(map,vars, p, p2);
