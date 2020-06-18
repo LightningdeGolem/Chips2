@@ -10,6 +10,7 @@ import uk.co.hobnobian.chips.game.backend.GetImageData;
 import uk.co.hobnobian.chips.game.backend.Player;
 import uk.co.hobnobian.chips.game.backend.PlayerMoveEventData;
 import uk.co.hobnobian.chips.game.backend.Tickable;
+import uk.co.hobnobian.chips.game.backend.inv.IceBoots;
 
 public class Ice extends Block implements Tickable, SlidingBlock{
 	private static final long serialVersionUID = -1963639319437118307L;
@@ -27,6 +28,9 @@ public class Ice extends Block implements Tickable, SlidingBlock{
 
 	@Override
 	public EnterLeaveEvent onLeave(PlayerMoveEventData d) {
+	    if (d.getGame().getOurPlayer().getInventory().contains(IceBoots.class)) {
+	        return EnterLeaveEvent.YES;
+	    }
 		return EnterLeaveEvent.NO;
 	}
 
@@ -39,6 +43,10 @@ public class Ice extends Block implements Tickable, SlidingBlock{
 	public void tick(GameTickData data) {
 	    Player p1 = data.getP1();
 	    Game game = data.getGame();
+	    
+	    if (p1.getInventory().contains(IceBoots.class)) {
+	        return;
+	    }
 	    
 		if (data.isPlayer1OnBlock()) {
 			Direction slidingDirection = Direction.fromInt(info.get(0));

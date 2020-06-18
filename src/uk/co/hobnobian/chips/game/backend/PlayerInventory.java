@@ -14,6 +14,15 @@ public class PlayerInventory implements Iterable<InventoryItem>{
 		return items.contains(i);
 	}
 	
+	public boolean contains(Class<?extends InventoryItem> i) {
+        for (InventoryItem item : items) {
+            if (item.getClass().equals(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
 	public void add(InventoryItem i) {
 		items.add(i);
 	}

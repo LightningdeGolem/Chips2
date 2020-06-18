@@ -13,7 +13,7 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.backend.Map;
-import uk.co.hobnobian.chips.game.backend.inv.FireBoots;
+import uk.co.hobnobian.chips.game.backend.inv.IceBoots;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
@@ -58,6 +58,7 @@ public class Main {
 		
 		GameVariables vars = new GameVariables();
 		Game g = new Game(l,getMap(), vars);
+		g.getOurPlayer().getInventory().add(new IceBoots());
 		w.setup();
 		g.update();
 		g.start();
