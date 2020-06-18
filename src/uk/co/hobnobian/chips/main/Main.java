@@ -20,6 +20,7 @@ import uk.co.hobnobian.chips.game.blocks.ConveyorW;
 import uk.co.hobnobian.chips.game.blocks.ElectricDoor;
 import uk.co.hobnobian.chips.game.blocks.FakeAir;
 import uk.co.hobnobian.chips.game.blocks.FakeWall;
+import uk.co.hobnobian.chips.game.blocks.Fire;
 import uk.co.hobnobian.chips.game.blocks.FireBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Ice;
 import uk.co.hobnobian.chips.game.blocks.IceBootsItem;
@@ -262,6 +263,8 @@ public class Main {
         
         m.setBlock(2, 16, new IceBootsItem());
         m.setBlock(3, 16, new FireBootsItem());
+        
+        m.setBlock(2, 18, new Fire());
         return m;
 	}
 	
