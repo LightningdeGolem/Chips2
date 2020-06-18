@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
@@ -21,13 +22,13 @@ public class Renderer extends JPanel implements KeyListener{
 	
 	public boolean paused = false;
 	public boolean canplay = true;
-	
+
 	private FontsManager fonts;
 	
 	ClientConnectionLayer con;
-	HashMap<int[], Image> entities = null;
 	HashMap<int[], Image> blocks = null;
 	public final Image background;
+	ArrayList<Image> inv = null;
 	HashMap<int[], Image> players = null;
 	
 	private Window window;
@@ -48,12 +49,16 @@ public class Renderer extends JPanel implements KeyListener{
 	public Renderer(ClientConnectionLayer c, Image bkgrnd, Window w) {
 		window = w;
 		initializeFonts();
+		
+		
 		//224x224 for 7x7 block layout
 		//64x64 block
+		//Add extra 3 blocks across for inventory
+		this.setPreferredSize(new Dimension(640,448));
 		background = bkgrnd;
 		con = c;
 		con.setUpdater(this);
-		this.setPreferredSize(new Dimension(448,448));
+		
 		addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -74,14 +79,25 @@ public class Renderer extends JPanel implements KeyListener{
 			setSquare(key[0], key[1], blocks.get(key), g2d);
 		}
 		
-		if (entities != null) {
-			for (int[] key : entities.keySet()) {
-				setSquare(key[0], key[1], entities.get(key), g2d);
-			}
-		}
-		
 		for (int[] key : players.keySet()) {
 			setSquare(key[0], key[1], players.get(key), g2d);
+		}
+		
+		//BLACK BORDER BETWEEN THIS AND INV
+		g2d.setColor(Color.BLACK);
+		for (int y = 0; y < 7; y++) {
+		    g2d.fillRect(7*64, y*64, 64, 64);
+		}
+		
+		int i = 0;
+		for (int y = 0; y <7; y++) {
+		    for(int x = 8; x < 10; x++) {
+		        setSquare(x,y,background,g2d);
+		        if (i < inv.size()) {
+		            setSquare(x,y,inv.get(i), g2d);
+		        }
+		        i++;
+		    }
 		}
 		
 		if (paused) {
@@ -110,10 +126,10 @@ public class Renderer extends JPanel implements KeyListener{
 		g.drawImage(image, px, py, this);
 	}
 
-	public void update(HashMap<int[], Image> blocks,HashMap<int[], Image> e , HashMap<int[], Image> players) {
+	public void update(HashMap<int[], Image> blocks,HashMap<int[], Image> players, ArrayList<Image> inv) {
 		this.blocks = blocks;
-		this.entities = e;
 		this.players = players;
+		this.inv = inv;
 		repaint();
 		
 	}

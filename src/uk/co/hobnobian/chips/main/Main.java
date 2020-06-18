@@ -13,6 +13,7 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.backend.Map;
+import uk.co.hobnobian.chips.game.backend.inv.FireBoots;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;

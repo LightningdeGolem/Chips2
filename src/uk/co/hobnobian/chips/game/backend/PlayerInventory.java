@@ -1,8 +1,9 @@
 package uk.co.hobnobian.chips.game.backend;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class PlayerInventory {
+public class PlayerInventory implements Iterable<InventoryItem>{
 	private ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
 	public PlayerInventory() {
@@ -38,4 +39,9 @@ public class PlayerInventory {
 	public void clear() {
 		items.clear();
 	}
+
+    @Override
+    public Iterator<InventoryItem> iterator() {
+        return items.iterator();
+    }
 }

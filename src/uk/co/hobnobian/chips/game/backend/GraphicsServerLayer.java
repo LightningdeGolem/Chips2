@@ -2,6 +2,7 @@ package uk.co.hobnobian.chips.game.backend;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -46,7 +47,6 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 	public void updateMap(Map m, GameVariables vars, Player p, Player p2) {
 		Block[][] b = m.getSelection(7, 7, p.getpos()[0], p.getpos()[1]);
 		HashMap<int[], Image> blocks = new HashMap<int[], Image>();
-		HashMap<int[], Image> ents = new HashMap<int[], Image>();
 		
 		for (int y = 0; y < b.length; y++) {
 			for (int x = 0; x < b[y].length; x++) {
@@ -61,11 +61,16 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 			players.put(pos, loadImage(p2.getImage(vars)));
 		}
 		
+		ArrayList<Image> inv = new ArrayList<Image>();
+		for (InventoryItem item : p.getInventory()) {
+		    inv.add(loadImage(item.getImage()));
+		}
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				du.update(blocks, ents, players);
+				du.update(blocks, players, inv);
 			}
 			
 		});

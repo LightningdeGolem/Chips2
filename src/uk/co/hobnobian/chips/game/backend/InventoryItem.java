@@ -1,5 +1,5 @@
 package uk.co.hobnobian.chips.game.backend;
 
-public enum InventoryItem {
-	
+public abstract class InventoryItem {
+    public abstract String getImage();
 }
