@@ -66,11 +66,18 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 		    inv.add(loadImage(item.getImage()));
 		}
 		
+		ArrayList<Image> title = new ArrayList<Image>();
+        String[] letters = {"c","h","i","p","s","space","2"};
+        for (String letter : letters) {
+            String filename = "letters/"+letter+".png";
+            title.add(loadImage(filename));
+        }
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				du.update(blocks, players, inv);
+				du.update(blocks, players, inv, title);
 			}
 			
 		});

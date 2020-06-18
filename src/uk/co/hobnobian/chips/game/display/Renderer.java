@@ -31,6 +31,8 @@ public class Renderer extends JPanel implements KeyListener{
 	ArrayList<Image> inv = null;
 	HashMap<int[], Image> players = null;
 	
+	ArrayList<Image> title = null;
+	
 	private Window window;
 	
 	
@@ -84,9 +86,8 @@ public class Renderer extends JPanel implements KeyListener{
 		}
 		
 		//BLACK BORDER BETWEEN THIS AND INV
-		g2d.setColor(Color.BLACK);
 		for (int y = 0; y < 7; y++) {
-		    g2d.fillRect(7*64, y*64, 64, 64);
+		    setSquare(7,y,title.get(y), g2d);
 		}
 		
 		int i = 0;
@@ -126,10 +127,11 @@ public class Renderer extends JPanel implements KeyListener{
 		g.drawImage(image, px, py, this);
 	}
 
-	public void update(HashMap<int[], Image> blocks,HashMap<int[], Image> players, ArrayList<Image> inv) {
+	public void update(HashMap<int[], Image> blocks,HashMap<int[], Image> players, ArrayList<Image> inv, ArrayList<Image> logo) {
 		this.blocks = blocks;
 		this.players = players;
 		this.inv = inv;
+		this.title = logo;
 		repaint();
 		
 	}
