@@ -41,9 +41,6 @@ public class Main {
 //		saveMap();
 //		saveMap();
 		
-		
-		
-		
 		Window w = new Window();
 		GraphicsServerLayer l = new GraphicsServerLayer();
 		

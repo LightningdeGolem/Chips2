@@ -45,6 +45,27 @@ public class MapDataIO {
     public static byte[] mapToBytes(Map map) {
         
         List<Integer> bytes = new ArrayList<Integer>();
+        //Write map title size
+        bytes.add(map.title.length());
+        //Write map title
+        for (int i = 0; i<map.title.length(); i++) {
+            bytes.add((int) map.title.charAt(i));
+        }
+        //Write map author size
+        bytes.add(map.author.length());
+        //Write map author
+        for (int i = 0; i<map.author.length(); i++) {
+            bytes.add((int)map.author.charAt(i));
+        }
+        
+        //Write start positions
+        bytes.add(map.getP1StartPos()[0]);
+        bytes.add(map.getP1StartPos()[1]);
+        bytes.add(map.getP2StartPos()[0]);
+        bytes.add(map.getP2StartPos()[1]);
+        
+       
+        //-------- WRITE MAP ---------
         for (int y = 0; y < 256; y++) {
             for (int x =0; x < 256; x++) {
                 Block block = map.getAt(x, y);
@@ -95,6 +116,40 @@ public class MapDataIO {
         }
 
         int i = 0;
+        
+        //Read map title length
+        int titleLength = data[i];
+        i++;
+        String mapTitle = "";
+        for (int ii = 0; ii < titleLength; ii++) {
+            mapTitle+=(char)data[i];
+            i++;
+        }
+        map.title = mapTitle;
+        
+        int authorLength = data[i];
+        i++;
+        String mapAuthor = "";
+        for (int ii = 0; ii < authorLength; ii++) {
+            mapAuthor+=(char)data[i];
+            i++;
+        }
+        map.author = mapAuthor;
+        
+        int p1x = data[i];
+        i++;
+        int p1y = data[i];
+        i++;
+        int p2x = data[i];
+        i++;
+        int p2y = data[i];
+        i++;
+        map.setP1StartingPosition(new int[] {p1x,p1y});
+        map.setP2StartingPosition(new int[] {p2x,p2y});
+        
+        
+        
+        
         for (int y = 0; y < 256; y++) {
             for (int x = 0; x < 256; x++) {
                 if (data[i] == 0) {

@@ -8,13 +8,16 @@ import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.game.blocks.Wall;
 
 public class Map implements Serializable{
+    public String title = "Unknown Name";
+    public String author = "Unknown Author";
+    
 	private transient MapChangeBlockListener mapchangeblocklistener = null;
 	private static final long serialVersionUID = -2109585197244870226L;
 	protected Block[][] blocks = new Block[256][256];
 	protected final Class<?extends Block> defaultOutOfBounds = Wall.class;
 	
 	private int[] p1StartPos = {0,0};
-	private int[] p2StartPos = {4,4};
+	private int[] p2StartPos = {0,0};
 	
 	public boolean inBounds(int x, int y) {
 		if (x < 0 || y < 0 || x >= blocks.length || y >= blocks[0].length) {
@@ -107,4 +110,11 @@ public class Map implements Serializable{
 	public void setMapChangeBlockListener(MapChangeBlockListener mapchangeblocklistener) {
 		this.mapchangeblocklistener = mapchangeblocklistener;
 	}
+
+    public void setP1StartingPosition(int[] pos) {
+        p1StartPos = pos;
+    }
+    public void setP2StartingPosition(int[] pos) {
+        p2StartPos = pos;
+    }
 }
