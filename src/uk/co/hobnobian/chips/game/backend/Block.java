@@ -20,6 +20,7 @@ import uk.co.hobnobian.chips.game.blocks.IceBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Lamp;
 import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
+import uk.co.hobnobian.chips.game.blocks.NoItem;
 import uk.co.hobnobian.chips.game.blocks.NormalWire;
 import uk.co.hobnobian.chips.game.blocks.SolidWire;
 import uk.co.hobnobian.chips.game.blocks.Wall;
@@ -112,6 +113,7 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(19, IceBootsItem.class);
 		b.put(20, FireBootsItem.class);
 		b.put(21, Fire.class);
+		b.put(22, NoItem.class);
 		
 		
 		for (int key : b.keySet()) {
