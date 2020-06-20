@@ -26,6 +26,7 @@ import uk.co.hobnobian.chips.game.blocks.Ice;
 import uk.co.hobnobian.chips.game.blocks.IceBootsItem;
 import uk.co.hobnobian.chips.game.blocks.Lamp;
 import uk.co.hobnobian.chips.game.blocks.Lever;
+import uk.co.hobnobian.chips.game.blocks.NoItem;
 import uk.co.hobnobian.chips.game.blocks.NormalWire;
 import uk.co.hobnobian.chips.game.blocks.SolidWire;
 import uk.co.hobnobian.chips.game.blocks.WinningBlock;
@@ -262,6 +263,7 @@ public class Main {
         m.setBlock(3, 16, new FireBootsItem());
         
         m.setBlock(2, 18, new Fire());
+        m.setBlock(2, 20, new NoItem());
         return m;
 	}
 	
