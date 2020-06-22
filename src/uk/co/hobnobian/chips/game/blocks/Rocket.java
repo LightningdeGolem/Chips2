@@ -31,7 +31,7 @@ public class Rocket extends Block implements Tickable{
     @Override
     public String getImage(GetImageData data) {
         if (info.get(0) == 255) {
-            return "rocket/e.png";
+            return "rocket/off.png";
         }
         String file = "rocket/";
         int direction = info.get(0);
@@ -47,7 +47,13 @@ public class Rocket extends Block implements Tickable{
         else if (direction == 3) {
             file+="w";
         }
-        file +="_on.png";
+        if (info.get(1) == 0) {
+            file +="_on.png";
+        }
+        else {
+            file+=".png";
+        }
+        
         return file;
     }
 
