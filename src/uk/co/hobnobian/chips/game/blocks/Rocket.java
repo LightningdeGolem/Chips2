@@ -98,7 +98,6 @@ public class Rocket extends Block implements Tickable{
             info.set(1, info.get(1)-1);
             return;
         }
-        info.set(1, 2);
         
         Direction d = Direction.NORTH;
         int direction = info.get(0);
