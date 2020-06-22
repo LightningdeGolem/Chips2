@@ -54,6 +54,17 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 			}
 		}
 		
+		Block[][] second = m.getSelectionSecondLayer(7, 7, p.getpos()[0], p.getpos()[1]);
+		HashMap<int[], Image> blocks2 = new HashMap<int[], Image>();
+		for (int y = 0; y < second.length; y++) {
+            for (int x = 0; x < second[y].length; x++) {
+                if (second[x][y] == null) {
+                    continue;
+                }
+                blocks2.put(new int[] {x,y}, loadImage(second[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3))));
+            }
+        }
+		
 		HashMap<int[], Image> players = new HashMap<int[], Image>();
 		players.put(new int[] {3,3}, loadImage(p.getImage(vars)));
 		if (p2 != null) {
@@ -77,7 +88,7 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 
 			@Override
 			public void run() {
-				du.update(blocks, players, inv, title);
+				du.update(blocks, blocks2, players, inv, title);
 			}
 			
 		});

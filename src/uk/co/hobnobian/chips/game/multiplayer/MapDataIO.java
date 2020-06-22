@@ -45,11 +45,19 @@ public class MapDataIO {
     public static byte[] mapToBytes(Map map) {
         
         List<Integer> bytes = new ArrayList<Integer>();
+        if (map.title == null) {
+            map.title = "Unknown Title";
+        }
         //Write map title size
         bytes.add(map.title.length());
         //Write map title
         for (int i = 0; i<map.title.length(); i++) {
             bytes.add((int) map.title.charAt(i));
+        }
+        
+        
+        if (map.author == null) {
+            map.author = "Unknown";
         }
         //Write map author size
         bytes.add(map.author.length());

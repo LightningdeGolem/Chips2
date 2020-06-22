@@ -15,6 +15,7 @@ import uk.co.hobnobian.chips.game.backend.Direction;
 import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Player;
+import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.main.Main;
 import uk.co.hobnobian.chips.main.Position;
 
@@ -119,7 +120,16 @@ public class GameHandler{
 		for (int y = centre[1]-offset; y < centre[1]+offset; y++) {
 			for (int x = centre[0]-offset; x < centre[0]+offset; x++) {
 				Block data = con.getMap().getAt(x, y);
+				Block second = con.getMap().getBlockSecondLayer(x, y);
+				
 				d.put(new Position(x,y),data.clone());
+				if (second == null) {
+				    d.put(new Position(x, y,1), new Air());
+				}
+				else {
+				    d.put(new Position(x,y,1),second.clone());
+				}
+				
 			}
 		}
 		return d;
@@ -153,10 +163,12 @@ public class GameHandler{
 		
 		int offset = 5;
 		for (int i = 0; i < data[4]; i++) {
-			int x = data[offset];
+			int x = data[offset];//Read x
 			offset++;
-			int y = data[offset];
+			int y = data[offset];//Read y
 			offset++;
+			int layer = data[offset];//Read layer
+            offset++;
 			int id = data[offset];
 			offset++;
 			
@@ -172,7 +184,19 @@ public class GameHandler{
 			try {
 				Block b = blocktype.getConstructor().newInstance();
 				b.setInfo(new BlockInfo(blockdata));
-				con.getMap().setBlock(x, y, b);
+				if (layer == 0) {
+				    con.getMap().setBlock(x, y, b);
+				}
+				else {
+				    if (blocktype.equals(Air.class)) {
+				        con.getMap().setBlockSecondLayer(x, y, null);
+				    }
+				    else {
+				        con.getMap().setBlockSecondLayer(x, y, b);
+				    }
+				    
+				}
+				
 				
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -217,6 +241,7 @@ public class GameHandler{
 		//Get blocks that need to be sent
 		List<Position> data = con.getAndClearBlockChanges();
 		
+		
 		HashMap<Position, Block> currentData = getBlocks();
 		
 		for (Position pos : currentData.keySet()) {
@@ -255,6 +280,7 @@ public class GameHandler{
 			Block toSend = con.getMap().getAt(pos.getX(), pos.getY());
 			bytes.add(toByte(pos.getX()));//Write block x
 			bytes.add(toByte(pos.getY()));//Write block y
+			bytes.add(toByte(pos.getLayer()));//Write block layer
 			
 			int id = Block.inverseBlockIds.get(toSend.getClass());
 			bytes.add(toByte(id));//Write block id
@@ -271,6 +297,7 @@ public class GameHandler{
 				bytes.add(toByte(i));//Write info bytes
 			}
 		}
+		
 		
 		//GAMEVARS
 		ArrayList<Integer> changed = new ArrayList<Integer>();

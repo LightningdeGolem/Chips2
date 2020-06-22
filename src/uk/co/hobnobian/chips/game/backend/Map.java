@@ -14,6 +14,7 @@ public class Map implements Serializable{
 	private transient MapChangeBlockListener mapchangeblocklistener = null;
 	private static final long serialVersionUID = -2109585197244870226L;
 	protected Block[][] blocks = new Block[256][256];
+	protected Block[][] upperLayer = new Block[256][256];
 	protected final Class<?extends Block> defaultOutOfBounds = Wall.class;
 	
 	private int[] p1StartPos = {0,0};
@@ -43,6 +44,16 @@ public class Map implements Serializable{
 		}
 		return data;
 	}
+	
+    public Block[][] getSelectionSecondLayer(int width, int height, int xcenter, int ycenter) {
+        Block[][] data = new Block[width][height];
+        for (int y = ycenter; y < ycenter+height; y++) {
+            for (int x = xcenter; x < xcenter+width; x++) {
+                data[x-xcenter][y-ycenter] = getBlockSecondLayer((int)(x-Math.floor(width/2)),(int)(y-Math.floor(height/2)));
+            }
+        }
+        return data;
+    }
 	
 	protected final Block getBlockDataAtXY(int x, int y) {
 		if (x > -1 && x < blocks.length && y > -1 && y < blocks[0].length) {
@@ -100,6 +111,20 @@ public class Map implements Serializable{
 		setBlockNoRecord(x,y,b);
 	}
 	
+	public void setBlockSecondLayer(int x, int y, Block b) {
+	    upperLayer[x][y] = b;
+	}
+	
+	public Block getBlockSecondLayer(int x, int y) {
+	    if (x > -1 && x < blocks.length && y > -1 && y < blocks[0].length) {
+            if (upperLayer[x][y] == null) {
+                return null;
+            }
+            return upperLayer[x][y];
+        }
+	    return null;
+	}
+	
 	public void setBlockNoRecord(int x, int y, Block b) {
 		
 		
@@ -117,4 +142,6 @@ public class Map implements Serializable{
     public void setP2StartingPosition(int[] pos) {
         p2StartPos = pos;
     }
+
+
 }

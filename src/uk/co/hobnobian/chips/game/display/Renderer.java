@@ -27,6 +27,7 @@ public class Renderer extends JPanel implements KeyListener{
 	
 	ClientConnectionLayer con;
 	HashMap<int[], Image> blocks = null;
+	HashMap<int[], Image> blocks2 = null;
 	public final Image background;
 	ArrayList<Image> inv = null;
 	HashMap<int[], Image> players = null;
@@ -81,6 +82,13 @@ public class Renderer extends JPanel implements KeyListener{
 			setSquare(key[0], key[1], blocks.get(key), g2d);
 		}
 		
+		for (int[] key : blocks2.keySet()) {
+		    if (blocks2.get(key) == null) {
+		        continue;
+		    }
+            setSquare(key[0], key[1], blocks2.get(key), g2d);
+        }
+		
 		for (int[] key : players.keySet()) {
 			setSquare(key[0], key[1], players.get(key), g2d);
 		}
@@ -127,8 +135,9 @@ public class Renderer extends JPanel implements KeyListener{
 		g.drawImage(image, px, py, this);
 	}
 
-	public void update(HashMap<int[], Image> blocks,HashMap<int[], Image> players, ArrayList<Image> inv, ArrayList<Image> logo) {
+	public void update(HashMap<int[], Image> blocks, HashMap<int[], Image> blocks2,HashMap<int[], Image> players, ArrayList<Image> inv, ArrayList<Image> logo) {
 		this.blocks = blocks;
+		this.blocks2 = blocks2;
 		this.players = players;
 		this.inv = inv;
 		this.title = logo;

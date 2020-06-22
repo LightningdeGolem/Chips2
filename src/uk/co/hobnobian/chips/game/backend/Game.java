@@ -27,6 +27,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	public boolean resetMapWhenDie = true;
 	
 	private ArrayList<int[]> blockChanges = new ArrayList<int[]>();
+	private ArrayList<int[]> blockChangesSecondLayer = new ArrayList<int[]>();
 	
 	Map map;
 	private String originalMap;
@@ -150,10 +151,25 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		int[] newpos = Direction.move(p.getpos(), d);
 		int[] pos = p.getpos();
 		EnterLeaveEvent leave = map.getAt(pos[0], pos[1]).onLeave(new PlayerMoveEventData(newpos[0], newpos[1], d, vars, this));
+		
+		EnterLeaveEvent leave2;
+        if (map.getBlockSecondLayer(newpos[0], newpos[1]) == null) {
+            leave2 = null;
+        }
+        else {
+            leave2 = map.getBlockSecondLayer(newpos[0], newpos[1]).onLeave(new PlayerMoveEventData(newpos[0], newpos[1], Direction.invert(d), vars, this));
+        }
+		
 		if (leave == EnterLeaveEvent.YES) {
-			if (canPlayerEnter(p,d,true)) {
-				return true;
-			}
+		    if (leave2 == null || leave2 == EnterLeaveEvent.YES) {
+		        if (canPlayerEnter(p,d,true)) {
+	                return true;
+	            }
+		    }
+		    else if (leave2 == EnterLeaveEvent.DEATH) {
+	            p.kill();
+	        }
+			
 		}
 		else if (leave == EnterLeaveEvent.DEATH) {
 			p.kill();
@@ -166,8 +182,21 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 
 		if (!countOtherPlayer || p2 == null || !(p2.getpos()[0] == newpos[0] && p2.getpos()[1] == newpos[1])) {
 			EnterLeaveEvent enter = map.getAt(newpos[0], newpos[1]).onEnter(new PlayerMoveEventData(newpos[0], newpos[1], Direction.invert(d), vars, this));
+			EnterLeaveEvent enter2;
+			if (map.getBlockSecondLayer(newpos[0], newpos[1]) == null) {
+			    enter2 = null;
+			}
+			else {
+			    enter2 = map.getBlockSecondLayer(newpos[0], newpos[1]).onEnter(new PlayerMoveEventData(newpos[0], newpos[1], Direction.invert(d), vars, this));
+			}
+			
 			if (enter == EnterLeaveEvent.YES) {
-				return true;
+			    if (enter2 == null || enter2 == EnterLeaveEvent.YES) {
+			        return true;
+			    }
+			    else if (enter2 == EnterLeaveEvent.DEATH) {
+			        p.kill();
+			    }
 			}
 			else if (enter == EnterLeaveEvent.DEATH) {
 				p.kill();
@@ -239,6 +268,21 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		map.setBlock(x, y, b);
 	}
 	
+	public void setBlockSecondLayer(int x, int y, Block b) {
+	    blockChangesSecondLayer.add(new int[] {x,y});
+	    map.setBlockSecondLayer(x, y, b);
+	}
+	
+	public Block getBlockSecondLayer(int x, int y) {
+	    return map.getBlockSecondLayer(x, y);
+	}
+	
+	public void swapBlockLayers(int x, int y) {
+	    Block b = map.getBlockSecondLayer(x, y);
+	    setBlockSecondLayer(x,y, map.getBlockDataAtXY(x, y));
+	    setBlock(x,y,b);
+	}
+	
 	@Override
 	public Map getMap() {
 		return map;
@@ -250,7 +294,11 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		for (int[] change : blockChanges) {
 			re.add(new Position(change));
 		}
+		for (int[] change : blockChangesSecondLayer) {
+		    re.add(new Position(change, 1));
+		}
 		blockChanges.clear();
+		blockChangesSecondLayer.clear();
 		return re;
 	}
 	
