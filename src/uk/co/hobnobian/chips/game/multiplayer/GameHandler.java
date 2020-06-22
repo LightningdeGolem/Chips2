@@ -244,6 +244,7 @@ public class GameHandler{
 		
 		HashMap<Position, Block> currentData = getBlocks();
 		
+		
 		for (Position pos : currentData.keySet()) {
 			if (!data.contains(pos)) {
 				
@@ -272,12 +273,19 @@ public class GameHandler{
 				}
 			}
 		}
+		
 		//=====================
 		bytes.add(toByte(data.size()));//Write number of block updates to be sent
 		
 		//For each block to be sent
 		for (Position pos : data) {
-			Block toSend = con.getMap().getAt(pos.getX(), pos.getY());
+			Block toSend;
+			if (pos.getLayer() == 0) {
+			    toSend = con.getMap().getAt(pos.getX(), pos.getY());
+			}
+			else {
+			    toSend = con.getMap().getBlockSecondLayer(pos.getX(), pos.getY());
+			}
 			bytes.add(toByte(pos.getX()));//Write block x
 			bytes.add(toByte(pos.getY()));//Write block y
 			bytes.add(toByte(pos.getLayer()));//Write block layer

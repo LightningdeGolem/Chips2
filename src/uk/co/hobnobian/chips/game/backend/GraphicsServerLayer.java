@@ -37,6 +37,7 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 		path = "/uk/co/hobnobian/chips/assets/"+path;
 		try {
 			Image i = ImageIO.read(getClass().getResource(path));
+			
 			return i.getScaledInstance(64, 64, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,6 +62,7 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
                 if (second[x][y] == null) {
                     continue;
                 }
+                String path = second[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
                 blocks2.put(new int[] {x,y}, loadImage(second[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3))));
             }
         }

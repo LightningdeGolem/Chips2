@@ -105,6 +105,16 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 				}
 			}
 		}
+		
+		Block[][] secondLayer = map.getSelectionSecondLayer(7, 7, p.getpos()[0], p.getpos()[1]);
+        for (int x =0; x < 7; x++) {
+            for (int y = 0; y<7; y++) {
+                Block b = secondLayer[x][y];
+                if (b instanceof Tickable) {
+                    ((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
+                }
+            }
+        }
 		if (!p.isAlive()) {
 			if (main) {
 				p.go_to(map.getP1StartPos());
