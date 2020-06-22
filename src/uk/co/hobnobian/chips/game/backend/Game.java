@@ -96,22 +96,22 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		}
 		
 		
-		Block[][] blocksToUpdate = map.getSelection(7, 7, p.getpos()[0], p.getpos()[1]);
-		for (int x =0; x < 7; x++) {
-			for (int y = 0; y<7; y++) {
+		Block[][] blocksToUpdate = map.getSelection(25, 25, p.getpos()[0], p.getpos()[1]);
+		for (int x =0; x < 25; x++) {
+			for (int y = 0; y<25; y++) {
 				Block b = blocksToUpdate[x][y];
 				if (b instanceof Tickable) {
-					((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
+					((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-12, y+p.getpos()[1]-12));
 				}
 			}
 		}
 		
-		Block[][] secondLayer = map.getSelectionSecondLayer(7, 7, p.getpos()[0], p.getpos()[1]);
-        for (int x =0; x < 7; x++) {
-            for (int y = 0; y<7; y++) {
+		Block[][] secondLayer = map.getSelectionSecondLayer(25, 25, p.getpos()[0], p.getpos()[1]);
+        for (int x =0; x < 25; x++) {
+            for (int y = 0; y<25; y++) {
                 Block b = secondLayer[x][y];
                 if (b instanceof Tickable) {
-                    ((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
+                    ((Tickable) b).tick(new GameTickData(this, p, p2, x+p.getpos()[0]-12, y+p.getpos()[1]-12));
                 }
             }
         }

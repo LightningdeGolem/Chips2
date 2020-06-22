@@ -23,6 +23,8 @@ public class GameHandler{
 	private Game con;
 	private Socket sock;
 	
+	private static final int updateRadius = 25;
+	
 	private boolean theyAreWinning = false;
 	
 	private HashMap<Position, Block> blockdatas = new HashMap<Position, Block>();
@@ -111,7 +113,7 @@ public class GameHandler{
 	}
 	
 	private HashMap<Position, Block> getBlocks(){
-		final int sizeToUpdate = 15;
+		final int sizeToUpdate = updateRadius;
 		int[] centre = con.getOurPlayer().getpos();
 		int offset = sizeToUpdate/2;
 		
