@@ -118,7 +118,7 @@ public class Rocket extends Block implements Tickable{
         int[] newpos = Direction.move(new int[] {x,y}, d);
         EnterLeaveEvent move = data.move(this, d);
         if (move == EnterLeaveEvent.YES) {
-            data.getGame().getMap().setBlockSecondLayer(x, y, new Air());
+            data.getGame().getMap().setBlockSecondLayer(x, y, null);
             data.getGame().getMap().setBlockSecondLayer(newpos[0], newpos[1], this);
         }
         else if (move == EnterLeaveEvent.DEATH){
@@ -126,6 +126,7 @@ public class Rocket extends Block implements Tickable{
         }
         else {
             info.set(0, 255);
+            info.set(1, 4);
         }
 
         
