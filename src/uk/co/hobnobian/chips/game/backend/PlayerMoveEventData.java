@@ -14,6 +14,10 @@ public class PlayerMoveEventData {
         this.vars = vars;
         this.game = g;
     }
+    
+    public boolean isPlayer1OnBlock() {
+        return game.getOurPlayer().getpos()[0] == x && game.getOurPlayer().getpos()[1] == y;
+    }
 
     public int getX() {
         return x;

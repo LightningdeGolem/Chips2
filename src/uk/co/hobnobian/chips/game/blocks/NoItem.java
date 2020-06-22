@@ -10,6 +10,9 @@ public class NoItem extends Block {
 
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
+        if (!data.isPlayer1OnBlock()) {
+            return EnterLeaveEvent.YES;
+        }
         data.getGame().getOurPlayer().getInventory().clear();
         return EnterLeaveEvent.YES;
     }

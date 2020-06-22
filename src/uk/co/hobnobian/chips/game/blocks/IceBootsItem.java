@@ -11,6 +11,9 @@ public class IceBootsItem extends Block{
 
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
+        if (!data.isPlayer1OnBlock()) {
+            return EnterLeaveEvent.YES;
+        }
         if (!data.getGame().getOurPlayer().getInventory().contains(IceBoots.class)) {
             data.getGame().getOurPlayer().getInventory().add(new IceBoots());
             data.getGame().setBlock(data.getX(), data.getY(), new Air());

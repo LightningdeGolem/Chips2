@@ -11,6 +11,9 @@ public class FireBootsItem extends Block{
 
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
+        if (!data.isPlayer1OnBlock()) {
+            return EnterLeaveEvent.YES;
+        }
         if (!data.getGame().getOurPlayer().getInventory().contains(FireBoots.class)) {
             data.getGame().getOurPlayer().getInventory().add(new FireBoots());
             data.getGame().setBlock(data.getX(), data.getY(), new Air());

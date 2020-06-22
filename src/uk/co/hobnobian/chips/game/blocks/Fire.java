@@ -11,9 +11,12 @@ public class Fire extends Block {
 
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
-        if (data.getGame().getOurPlayer().getInventory().contains(FireBoots.class)) {
-            return EnterLeaveEvent.YES;
+        if (data.isPlayer1OnBlock()) {
+            if (data.getGame().getOurPlayer().getInventory().contains(FireBoots.class)) {
+                return EnterLeaveEvent.YES;
+            }
         }
+        
         return EnterLeaveEvent.DEATH;
     }
 

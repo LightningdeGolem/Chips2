@@ -10,6 +10,9 @@ public class WinningBlock extends Block {
 
 	@Override
 	public EnterLeaveEvent onEnter(PlayerMoveEventData d) {
+	    if (!d.isPlayer1OnBlock()) {
+            return EnterLeaveEvent.YES;
+        }
 		d.getGame().setWinning(true);
 		return EnterLeaveEvent.YES;
 	}
