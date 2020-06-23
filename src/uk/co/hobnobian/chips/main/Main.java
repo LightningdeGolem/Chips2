@@ -13,6 +13,7 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.GraphicsServerLayer;
 import uk.co.hobnobian.chips.game.backend.Map;
+import uk.co.hobnobian.chips.game.blocks.Button;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
@@ -247,6 +248,7 @@ public class Main {
         m.setBlock(2, 8, new FakeAir());
         m.setBlock(4, 8, new FakeWall());
         
+        m.setBlock(3, 9, new Button());
         m.setBlock(2, 10, new Lever());
         m.setBlock(3, 10, new NormalWire());
         m.setBlock(4, 10, new NormalWire());

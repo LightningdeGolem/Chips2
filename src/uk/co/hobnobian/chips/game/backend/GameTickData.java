@@ -19,6 +19,13 @@ public class GameTickData {
         return p1.getpos()[0] == x && p1.getpos()[1] == y;
     }
     
+    public boolean isPlayer2OnBlock() {
+        if (p2 == null) {
+            return false;
+        }
+        return p2.getpos()[0] == x && p2.getpos()[1] == y;
+    }
+    
     public Game getGame() {
         return game;
     }

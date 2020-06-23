@@ -1,9 +1,11 @@
 package uk.co.hobnobian.chips.game.backend;
 
+
 import java.io.Serializable;
 import java.util.HashMap;
 
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.game.blocks.Button;
 import uk.co.hobnobian.chips.game.blocks.ConveyorE;
 import uk.co.hobnobian.chips.game.blocks.ConveyorN;
 import uk.co.hobnobian.chips.game.blocks.ConveyorS;
@@ -116,6 +118,7 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(21, Fire.class);
 		b.put(22, NoItem.class);
 		b.put(23, Rocket.class);
+		b.put(24, Button.class);
 		
 		
 		for (int key : b.keySet()) {
