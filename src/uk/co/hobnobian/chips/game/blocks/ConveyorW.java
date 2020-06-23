@@ -13,6 +13,9 @@ public class ConveyorW extends Block implements Tickable{
 
 	@Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData d) {
+	    if (d.getDirection() == Direction.WEST) {
+            return EnterLeaveEvent.NO;
+        }
         return EnterLeaveEvent.YES;
     }
 
