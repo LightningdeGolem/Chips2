@@ -16,7 +16,8 @@ public class PlayerMoveEventData {
     }
     
     public boolean isPlayer1OnBlock() {
-        return game.getOurPlayer().getpos()[0] == x && game.getOurPlayer().getpos()[1] == y;
+        int[] newpos = Direction.move(game.getOurPlayer().getpos(), Direction.invert(direction));
+        return newpos[0] == x && newpos[1] == y;
     }
 
     public int getX() {
