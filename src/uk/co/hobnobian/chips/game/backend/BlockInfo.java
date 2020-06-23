@@ -37,6 +37,16 @@ public class BlockInfo implements Serializable{
 		return data;
 	}
 	
+	public String toString() {
+	    String r = "BlockInfo: [";
+	    for (int part : data) {
+	        r+=part+",";
+	    }
+	    r = r.substring(0, r.length()-1);
+	    r+="]";
+	    return r;
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {

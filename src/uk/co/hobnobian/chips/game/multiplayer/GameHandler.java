@@ -288,9 +288,16 @@ public class GameHandler{
 			else {
 			    toSend = con.getMap().getBlockSecondLayer(pos.getX(), pos.getY());
 			}
+			
+			if (toSend == null){
+                toSend = new Air();
+            }
+			
 			bytes.add(toByte(pos.getX()));//Write block x
 			bytes.add(toByte(pos.getY()));//Write block y
 			bytes.add(toByte(pos.getLayer()));//Write block layer
+			
+			
 			
 			int id = Block.inverseBlockIds.get(toSend.getClass());
 			bytes.add(toByte(id));//Write block id
