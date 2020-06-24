@@ -12,6 +12,8 @@ import uk.co.hobnobian.chips.game.backend.Tickable;
 public class Rocket extends Block implements Tickable{
     private static final long serialVersionUID = -426960872136302919L;
 
+    private static final int checkDistance = 15;
+    
     public Rocket() {
         setInfo(new BlockInfo(2));
         info.set(0, 255);//Store direction rocket is heading
@@ -67,32 +69,56 @@ public class Rocket extends Block implements Tickable{
         }
         
         if (info.get(0) == 255) {
-            //Check around for player - r = 6
-            int xdiff = x-data.getP1().getpos()[0];
-            int ydiff = y-data.getP1().getpos()[1];
+            
+            int playerx = data.getP1().getpos()[0];
+            int playery = data.getP1().getpos()[1];
             
             boolean move = false;
             
-            if (xdiff == 0) {
-                if (ydiff > 0) {
-                    info.set(0, 0);
-                    move = true;
+            for (int checkx = x; checkx < checkDistance+x; checkx++) {
+                Block checking = data.getGame().getMap().getAt(checkx, y);
+                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.WEST, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                    break;
                 }
-                else if (ydiff < 0) {
-                    info.set(0, 2);
-                    move = true;
-                }
-            }
-            else if (ydiff == 0) {
-                if (xdiff > 0) {
-                    info.set(0, 3);
-                    move = true;
-                }
-                else if (xdiff < 0) {
+                if (playerx == checkx && playery == y) {
                     info.set(0, 1);
                     move = true;
                 }
             }
+            
+            for (int checkx = x; checkx > -checkDistance+x; checkx--) {
+                Block checking = data.getGame().getMap().getAt(checkx, y);
+                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.EAST, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                    break;
+                }
+                if (playerx == checkx && playery == y) {
+                    info.set(0, 3);
+                    move = true;
+                }
+            }
+            
+            for (int checky = y; checky < checkDistance+y; checky++) {
+                Block checking = data.getGame().getMap().getAt(x, checky);
+                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.NORTH, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                    break;
+                }
+                if (playerx == x && playery == checky) {
+                    info.set(0, 2);
+                    move = true;
+                }
+            }
+            
+            for (int checky = y; checky > -checkDistance+y; checky--) {
+                Block checking = data.getGame().getMap().getAt(x, checky);
+                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.SOUTH, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                    break;
+                }
+                if (playerx == x && playery == checky) {
+                    info.set(0, 0);
+                    move = true;
+                }
+            }
+            
             if (move) {
                 data.getGame().setBlockSecondLayer(x, y, this);
                 data.getGame().setBlock(x, y, new Air());
