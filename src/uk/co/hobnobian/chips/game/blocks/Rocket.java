@@ -77,7 +77,7 @@ public class Rocket extends Block implements Tickable{
             
             for (int checkx = x; checkx < checkDistance+x; checkx++) {
                 Block checking = data.getGame().getMap().getAt(checkx, y);
-                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.WEST, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.WEST, data.getGame().getVars(), data.getGame(), true)) == EnterLeaveEvent.NO) {
                     break;
                 }
                 if (playerx == checkx && playery == y) {
@@ -88,7 +88,7 @@ public class Rocket extends Block implements Tickable{
             
             for (int checkx = x; checkx > -checkDistance+x; checkx--) {
                 Block checking = data.getGame().getMap().getAt(checkx, y);
-                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.EAST, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                if (checking.onEnter(new PlayerMoveEventData(checkx, y, Direction.EAST, data.getGame().getVars(), data.getGame(), true)) == EnterLeaveEvent.NO) {
                     break;
                 }
                 if (playerx == checkx && playery == y) {
@@ -99,7 +99,7 @@ public class Rocket extends Block implements Tickable{
             
             for (int checky = y; checky < checkDistance+y; checky++) {
                 Block checking = data.getGame().getMap().getAt(x, checky);
-                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.NORTH, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.NORTH, data.getGame().getVars(), data.getGame(), true)) == EnterLeaveEvent.NO) {
                     break;
                 }
                 if (playerx == x && playery == checky) {
@@ -110,7 +110,7 @@ public class Rocket extends Block implements Tickable{
             
             for (int checky = y; checky > -checkDistance+y; checky--) {
                 Block checking = data.getGame().getMap().getAt(x, checky);
-                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.SOUTH, data.getGame().getVars(), data.getGame())) == EnterLeaveEvent.NO) {
+                if (checking.onEnter(new PlayerMoveEventData(x, checky, Direction.SOUTH, data.getGame().getVars(), data.getGame(), true)) == EnterLeaveEvent.NO) {
                     break;
                 }
                 if (playerx == x && playery == checky) {

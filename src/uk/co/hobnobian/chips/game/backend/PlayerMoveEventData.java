@@ -6,13 +6,18 @@ public class PlayerMoveEventData {
     private Direction direction;
     private GameVariables vars;
     private Game game;
+    private boolean test;
     
-    public PlayerMoveEventData(int x, int y, Direction d, GameVariables vars, Game g) {
+    public PlayerMoveEventData(int x, int y, Direction d, GameVariables vars, Game g, boolean test) {
         this.x = x;
         this.y = y;
         this.direction = d;
         this.vars = vars;
         this.game = g;
+        this.test = test;
+    }
+    public PlayerMoveEventData(int x, int y, Direction d, GameVariables vars, Game g) {
+        this(x,y,d,vars,g,false);
     }
     
     public boolean isPlayer1OnBlock() {
@@ -42,6 +47,10 @@ public class PlayerMoveEventData {
 
     public int[] getPos() {
         return new int[] {x,y};
+    }
+    
+    public boolean test() {
+        return test;
     }
     
 }

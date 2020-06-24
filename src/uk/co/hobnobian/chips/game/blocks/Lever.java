@@ -27,6 +27,9 @@ public class Lever extends ElectricalComponent {
 
     @Override
     public EnterLeaveEvent onEnter(PlayerMoveEventData data) {
+        if (data.test()) {
+            return EnterLeaveEvent.YES;
+        }
         if (info.get(0) == 1) {
             info.set(0, 0);
         }
