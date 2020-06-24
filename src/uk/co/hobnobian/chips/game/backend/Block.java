@@ -24,6 +24,8 @@ import uk.co.hobnobian.chips.game.blocks.Lever;
 import uk.co.hobnobian.chips.game.blocks.MoveableBlock;
 import uk.co.hobnobian.chips.game.blocks.NoItem;
 import uk.co.hobnobian.chips.game.blocks.NormalWire;
+import uk.co.hobnobian.chips.game.blocks.RedKey;
+import uk.co.hobnobian.chips.game.blocks.RedKeyhole;
 import uk.co.hobnobian.chips.game.blocks.Rocket;
 import uk.co.hobnobian.chips.game.blocks.SolidWire;
 import uk.co.hobnobian.chips.game.blocks.Wall;
@@ -119,6 +121,8 @@ public abstract class Block implements Serializable,Cloneable{
 		b.put(22, NoItem.class);
 		b.put(23, Rocket.class);
 		b.put(24, Button.class);
+		b.put(25, RedKeyhole.class);
+		b.put(26, RedKey.class);
 		
 		
 		for (int key : b.keySet()) {

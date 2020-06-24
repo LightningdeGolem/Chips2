@@ -27,18 +27,18 @@ public class PlayerInventory implements Iterable<InventoryItem>{
 		items.add(i);
 	}
 	
-	public void removeAll(InventoryItem i) {
+	public void removeAll(Class<?extends InventoryItem> i) {
 		for (int index = 0; index < items.size(); index++) {
-			if (items.get(index) == i) {
+			if (items.get(index).getClass().equals(i)) {
 				items.remove(index);
 				index--;
 			}
 		}
 	}
 	
-	public void remove(InventoryItem i) {
+	public void remove(Class<?extends InventoryItem> i) {
 		for (int index = 0; index < items.size(); index++) {
-			if (items.get(index) == i) {
+			if (items.get(index).getClass().equals(i)) {
 				items.remove(index);
 				return;
 			}
