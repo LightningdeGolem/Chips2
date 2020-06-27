@@ -209,6 +209,9 @@ public class Renderer extends JPanel implements KeyListener{
 		else if (e.getKeyCode() == 27){
 			con.togglePause();
 		}
+		else if (e.getKeyCode() == 32) {
+			con.respawn();
+		}
 		
 	}
 

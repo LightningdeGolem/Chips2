@@ -22,6 +22,10 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 		game = g;
 	}
 	
+	public void setDead(boolean b) {
+		du.death = b;
+	}
+	
 	private Image loadImage(String path) {
 		if (cache.containsKey(path)) {
 			return cache.get(path);
@@ -140,6 +144,12 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
 
 	public void closeWindow() {
 		du.close();
+		
+	}
+
+	@Override
+	public void respawn() {
+		game.respawn();
 		
 	}
 }

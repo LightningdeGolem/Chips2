@@ -9,5 +9,6 @@ public interface ClientConnectionLayer {
 	
 	public void togglePause();
 	public void exit();
+	public void respawn();
 	
 }
