@@ -22,6 +22,7 @@ public class Renderer extends JPanel implements KeyListener{
 	
 	public boolean paused = false;
 	public boolean canplay = true;
+	public boolean death = false;
 
 	private FontsManager fonts;
 	
@@ -39,12 +40,15 @@ public class Renderer extends JPanel implements KeyListener{
 	
 	private void initializeFonts() {
 		fonts = new FontsManager();
-		fonts.cache(new Font("Sans-serif", 1, 40), "PAUSED");
+		fonts.cache(new Font("Sans-serif", 1, 40), "PAUSED", Color.BLACK);
 		
 		Font f = new Font("Sans-serif",2,20);
-		fonts.cache(f,"Press 'r' to restart game");
-		fonts.cache(f, "Press 'e' to exit game");
-		fonts.cache(f, "Press 'ESC' to exit menu");
+		fonts.cache(f,"Press 'r' to restart game", Color.BLACK);
+		fonts.cache(f, "Press 'e' to exit game", Color.BLACK);
+		fonts.cache(f, "Press 'ESC' to exit menu", Color.BLACK);
+		
+		fonts.cache(new Font("Sans-serif", 1, 40), "YOU DIED", Color.RED);
+		fonts.cache(new Font("Sans-serif", 1, 30), "Press space to continue", Color.YELLOW);
 		
 		
 	}
@@ -69,7 +73,25 @@ public class Renderer extends JPanel implements KeyListener{
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
 		Graphics2D g2d = (Graphics2D) g;
+		
+		if (death) {
+			g2d.setColor(new Color(0,0,0));
+			g2d.fillRect(0, 0, getSize().width ,getSize().height);
+			
+			g2d.setColor(Color.RED);
+			int w = fonts.getImage("YOU DIED").getWidth(this);
+			int h = fonts.getImage("YOU DIED").getHeight(this);
+			fonts.render("YOU DIED", (getSize().width/2)-(w/2), (getSize().height/2)-(h/2)-60, g2d, this);
+			
+			w = fonts.getImage("Press space to continue").getWidth(this);
+			h = fonts.getImage("Press space to continue").getHeight(this);
+			fonts.render("Press space to continue",(getSize().width/2)-(w/2),(getSize().height/2)-(h/2),g2d,this);
+			return;
+		}
+		
 		for (int x = 0; x < 7;x++) {
 			for (int y = 0; y < 7; y++) {
 				setSquare(x, y, background, g2d);

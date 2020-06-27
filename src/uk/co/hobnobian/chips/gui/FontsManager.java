@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -13,11 +14,11 @@ public class FontsManager {
 	HashMap<String, BufferedImage> data = new HashMap<String, BufferedImage>();
 	
 	
-	public void cache(Font f, String s) {
+	public void cache(Font f, String s, Color c) {
 	    if (data.keySet().contains(s)) {
 	        return;
 	    }
-		data.put(s, fontToBI(f,s));
+		data.put(s, fontToBI(f,s,c));
 	}
 	
 	public void render(String s, int x, int y, Graphics g, Renderer r) {
@@ -26,7 +27,11 @@ public class FontsManager {
 		}
 	}
 	
-	private BufferedImage fontToBI(Font f, String text) {
+	public Image getImage(String s) {
+		return data.get(s);
+	}
+	
+	private BufferedImage fontToBI(Font f, String text, Color c) {
 		BufferedImage test = new BufferedImage(1,1, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = test.createGraphics();
 		g.setFont(f);
@@ -38,7 +43,7 @@ public class FontsManager {
 		BufferedImage b = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = b.createGraphics();
 		g2.setBackground(new Color(0f,0f,0f,0f));
-		g2.setColor(Color.BLACK);
+		g2.setColor(c);
 		g2.setFont(f);
 		g2.drawString(text, 0, height);
 		g2.dispose();
