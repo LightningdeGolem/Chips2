@@ -289,9 +289,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		if (e.getKeyCode() == 90 && e.isControlDown()){
 			editor.undo();
 		}
-		//CTRL-Z
+		//SAVE
 		if (e.getKeyCode() == 83 && e.isControlDown()) {
 			editor.save();
+		}
+		//OPEN
+		if (e.getKeyCode() == 79 && e.isControlDown()) {
+			editor.open();
 		}
 		
 		checkCentre();
