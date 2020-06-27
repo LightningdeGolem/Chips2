@@ -49,13 +49,9 @@ public class BlockSelector extends JPanel implements MouseListener{
 		
 		String[] blocks = new String[classes.size()];
 		int i = 0;
-		String selected = "";
 		for (Class<?extends Block> c : classes) {
 			try {
 				blocks[i] = c.getConstructor().newInstance().getImage(new GetImageData(editor.getVars(), editor.getMap(), 0, 0, true));
-				if (c.equals(this.selected)) {
-					selected = blocks[i];
-				}
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
@@ -76,7 +72,7 @@ public class BlockSelector extends JPanel implements MouseListener{
 				}
 				
 				g.drawImage(cache.loadImage(blocks[i], size), x*size,y*size, this);
-				if (blocks[i].equals(selected)) {
+				if (classes.get(i).equals(selected)) {
 					g.drawRect(x*size,y*size, size, size);
 				}
 				i++;
