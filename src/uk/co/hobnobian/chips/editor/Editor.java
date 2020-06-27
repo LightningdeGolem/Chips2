@@ -13,6 +13,7 @@ import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.game.options.MapSaver;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
 public class Editor implements MapChangeBlockListener {
@@ -120,5 +121,9 @@ public class Editor implements MapChangeBlockListener {
 			map.setBlockNoRecord(change.getX(), change.getY(), change.getFrom());
 		}
 		
+	}
+
+	public void save() {
+		new MapSaver().save(canvas, map);;
 	}
 }

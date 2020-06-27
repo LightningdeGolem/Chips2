@@ -1,8 +1,8 @@
 package uk.co.hobnobian.chips.game.options;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -13,11 +13,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.multiplayer.MapDataIO;
 
-public class MapChooser{
+public class MapSaver{
 	private JFileChooser files;
 	private JComponent c;
 	
-	public Map choose(JComponent comp) {
+	public void save(JComponent comp, Map toSave) {
 		files = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Chips2 Map Files - *.chips", "chips");
 		files.setFileFilter(filter);
@@ -26,35 +26,26 @@ public class MapChooser{
 		}
 		c = comp;
 		
-		return go();
-		
+		go(toSave);
 	}
-	private Map go() {
+	private void go(Map m) {
 		int result = files.showOpenDialog(c);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File f = files.getSelectedFile();
-			if (!f.canRead()) {
-				new ErrorWindow("No read permission on file");
-				return null;
-			}
+//			if (!f.canWrite()) {
+//				new ErrorWindow("No write permission on file");
+//			}
 			try {
-				FileInputStream fileIn = new FileInputStream(f);
+				FileOutputStream fileOut = new FileOutputStream(f);
+				byte[] data = MapDataIO.mapToBytes(m);
 				
-				byte[] sizebytes = new byte[4];
-				fileIn.read(sizebytes);
+				byte[] size = ByteBuffer.allocate(4).putInt(data.length).array();
 				
-				int size = ByteBuffer.wrap(sizebytes).getInt();
-				byte[] raw = new byte[size];
-				
-				for (int i = 0; i < size; i++) {
-				    raw[i] = (byte)fileIn.read();
-				}
-				
-				fileIn.close();
-				
-				Map m = MapDataIO.decodeBytes(raw);
-				return m;
-			} 
+				fileOut.write(size);
+				fileOut.write(data);
+				fileOut.flush();
+				fileOut.close();
+			}
 			catch (FileNotFoundException e) {
 				new ErrorWindow("File Not Found");
 			} catch (IOException e) {
@@ -66,7 +57,6 @@ public class MapChooser{
 		}
 		else {
 		}
-		
-		return null;
 	}
 }
+
