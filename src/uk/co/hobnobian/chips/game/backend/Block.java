@@ -2,6 +2,7 @@ package uk.co.hobnobian.chips.game.backend;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import uk.co.hobnobian.chips.game.blocks.Air;
@@ -36,7 +37,9 @@ public abstract class Block implements Serializable,Cloneable{
 	private static final long serialVersionUID = 4076482000484509547L;
 	public static HashMap<Integer, Class<?extends Block>> blockIds = new HashMap<Integer, Class<?extends Block>>();
 	public static HashMap<Class<?extends Block>, Integer> inverseBlockIds = new HashMap<Class<?extends Block>, Integer>();
-
+	public static ArrayList<Class<?extends Block>> blocks = new ArrayList<Class<?extends Block>>();
+	
+	
 	protected BlockInfo info = null;
 	
 	public abstract EnterLeaveEvent onEnter(PlayerMoveEventData data);
@@ -94,39 +97,40 @@ public abstract class Block implements Serializable,Cloneable{
 	}
 	
 	public static final void setup(){
-		HashMap<Integer, Class<?extends Block>> b = blockIds;
+		blocks.add(Air.class);
+		blocks.add(Wall.class);
+		blocks.add(GreenBlock.class);
+		blocks.add(GreenButton.class);
+		blocks.add(MoveableBlock.class);
+		blocks.add(WinningBlock.class);
+		blocks.add(ConveyorN.class);
+		blocks.add(ConveyorE.class);
+		blocks.add(ConveyorS.class);
+		blocks.add(ConveyorW.class);
+		blocks.add(Ice.class);
+		blocks.add(FakeAir.class);
+		blocks.add(FakeWall.class);
+		blocks.add(NormalWire.class);
+		blocks.add(Lamp.class);
+		blocks.add(Lever.class);
+		blocks.add(ElectricDoor.class);
+		blocks.add(SolidWire.class);
+		blocks.add(Zapper.class);
+		blocks.add(IceBootsItem.class);
+		blocks.add(FireBootsItem.class);
+		blocks.add(Fire.class);
+		blocks.add(NoItem.class);
+		blocks.add(Rocket.class);
+		blocks.add(Button.class);
+		blocks.add(RedKeyhole.class);
+		blocks.add(RedKey.class);
 		
-		b.put(0, Air.class);
-		b.put(1, Wall.class);
-		b.put(2, GreenBlock.class);
-		b.put(3, GreenButton.class);
-		b.put(4, MoveableBlock.class);
-		b.put(5, WinningBlock.class);
-		b.put(6, ConveyorN.class);
-		b.put(7, ConveyorE.class);
-		b.put(8, ConveyorS.class);
-		b.put(9, ConveyorW.class);
-		b.put(10, Ice.class);
-		b.put(11, FakeAir.class);
-		b.put(12, FakeWall.class);
-		b.put(13, NormalWire.class);
-		b.put(14, Lamp.class);
-		b.put(15, Lever.class);
-		b.put(16, ElectricDoor.class);
-		b.put(17, SolidWire.class);
-		b.put(18, Zapper.class);
-		b.put(19, IceBootsItem.class);
-		b.put(20, FireBootsItem.class);
-		b.put(21, Fire.class);
-		b.put(22, NoItem.class);
-		b.put(23, Rocket.class);
-		b.put(24, Button.class);
-		b.put(25, RedKeyhole.class);
-		b.put(26, RedKey.class);
+		for (int i = 0; i < blocks.size(); i++) {
+			blockIds.put(i, blocks.get(i));
+		}
 		
-		
-		for (int key : b.keySet()) {
-			inverseBlockIds.put(b.get(key), key);
+		for (int key : blockIds.keySet()) {
+			inverseBlockIds.put(blockIds.get(key), key);
 		}
 	}
 }

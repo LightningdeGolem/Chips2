@@ -26,7 +26,7 @@ public class BlockSelector extends JPanel implements MouseListener{
 	
 	private Class<?extends Block> selected = Air.class;
 	
-	ArrayList<Class<?extends Block>> classes = new ArrayList<Class<?extends Block>>();
+	ArrayList<Class<?extends Block>> classes;
 	
 	private Editor editor;
 	private ImageCache cache;
@@ -38,10 +38,7 @@ public class BlockSelector extends JPanel implements MouseListener{
 		super.setPreferredSize(new Dimension(COLUMNS*size, ROWS*size));
 		super.setMinimumSize(new Dimension(COLUMNS*size, ROWS*size));
 		
-		Set<Class<?extends Block>> blockC = Block.inverseBlockIds.keySet();
-		for (Class<?extends Block> c: blockC) {
-			classes.add(c);
-		}
+		classes = Block.blocks;
 		addMouseListener(this);
 	}
 	
