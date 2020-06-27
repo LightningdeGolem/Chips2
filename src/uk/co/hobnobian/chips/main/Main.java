@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
 
+import uk.co.hobnobian.chips.editor.Editor;
 import uk.co.hobnobian.chips.game.backend.Block;
 import uk.co.hobnobian.chips.game.backend.EditableMap;
 import uk.co.hobnobian.chips.game.backend.Game;
@@ -66,6 +67,9 @@ public class Main {
             w.setup();
             g.update();
             g.start();
+		}
+		else if (args.length > 0 && args[0].equalsIgnoreCase("--editor")) {
+			new Editor();
 		}
 		else {
 		    new StartupMenu();

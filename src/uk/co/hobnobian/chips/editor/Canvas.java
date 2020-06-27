@@ -53,6 +53,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 	    Graphics2D g2d = (Graphics2D) g;
 	    
 	    int[] windowRadius = new int[] {getSize().width/2, getSize().height/2};
@@ -68,7 +69,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		    while (px < getSize().width) {
 		        int finalx = (int) (px-offset[0]);
 		        int finaly = (int) (py-offset[1]);
-		        
+		        Image air = imageCache.loadImage("air.png", size);
+		        setSquare(finalx, finaly, air, g2d);
 		        Image i = imageCache.loadImage(editor.getMap().getAt(bx, by).getImage(new GetImageData(editor.getVars(), editor.getMap(), bx, by)), size);
 		        setSquare(finalx, finaly, i, g2d);
 		        
