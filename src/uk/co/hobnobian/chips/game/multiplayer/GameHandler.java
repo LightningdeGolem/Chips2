@@ -16,6 +16,8 @@ import uk.co.hobnobian.chips.game.backend.Game;
 import uk.co.hobnobian.chips.game.backend.GameVariables;
 import uk.co.hobnobian.chips.game.backend.Player;
 import uk.co.hobnobian.chips.game.blocks.Air;
+import uk.co.hobnobian.chips.game.options.InfoWindow;
+import uk.co.hobnobian.chips.game.options.StartupMenu;
 import uk.co.hobnobian.chips.main.Main;
 import uk.co.hobnobian.chips.main.Position;
 
@@ -39,6 +41,7 @@ public class GameHandler{
 		this.readfirst = readfirst;
 		this.con = con;
 		sock = c.getSock();
+		con.setMain(readfirst);
 		
 		out = c.getOut();
 		in = c.getIn();
@@ -99,6 +102,8 @@ public class GameHandler{
 				out.close();
 				in.close();
 				sock.close();
+				StartupMenu.main_menu.setVisible(true);
+				new InfoWindow("The other player left the game!");
 			} catch (IOException e1) {}
 		}
 		
@@ -224,6 +229,10 @@ public class GameHandler{
 			throw new OtherClientQuitException();
 		}
 		theyAreWinning = flags[1];
+		if (flags[2]) {
+		    con.reset();
+		    con.setResetting(false);
+		}
 		
 		
 		
@@ -333,11 +342,14 @@ public class GameHandler{
 		
 		boolean[] flags = new boolean[8];
 		flags[0] = con.isClosing();//Flag value 0 is whether to exit
-		flags[1] = con.isWinning();//Flag value 1 is whether are player is on a winning block
+		flags[1] = con.isWinning();//Flag value 1 is whether our player is on a winning block
+		flags[2] = con.isResetting();//Flag value 2 is whether the map should be reset
 		
-		if (flags[0]) {
-			System.out.println("Sent exit");
+		//Reset resetting flag when sent
+		if (con.isResetting()) {
+		    con.setResetting(false);
 		}
+		
 		bytes.add(toByte(fromBits(flags)));//Write flags
 		
 		

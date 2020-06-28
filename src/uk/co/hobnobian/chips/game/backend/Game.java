@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import uk.co.hobnobian.chips.game.multiplayer.ConnectionManager;
 import uk.co.hobnobian.chips.game.multiplayer.Serializer;
+import uk.co.hobnobian.chips.game.options.StartupMenu;
 import uk.co.hobnobian.chips.gui.WonWindow;
 import uk.co.hobnobian.chips.main.Position;
 
@@ -15,6 +16,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	Player p2 = null;
 	
 	private boolean tickWhenPaused = true;
+	private boolean isResetting = false;
 	
 	private boolean winning = false;
 	
@@ -241,7 +243,9 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	@Override
 	public void setMain(boolean value) {
 		main = value;
-		
+		if (!main) {
+		    p.go_to(map.getP2StartPos());
+		}
 	}
 
 	@Override
@@ -260,10 +264,10 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 	}
 	
 	public void reset() {
-		if (main) {
-			vars = new GameVariables();
-			setMap((Map) Serializer.fromString(originalMap));
-		}
+		vars = new GameVariables();
+		setMap((Map) Serializer.fromString(originalMap));
+		p.getInventory().clear();
+		isResetting = true;
 	}
 
 	public boolean isTickWhenPaused() {
@@ -323,7 +327,7 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 		tick.cancel();
 		con.closeWindow();
 		exiting = true;
-		System.out.println("Exiting is true");
+		StartupMenu.main_menu.setVisible(true);
 	}
 
 	public void setWinning(boolean b) {
@@ -340,4 +344,12 @@ public class Game implements PlayerMoveListener, ConnectionManager{
 			paused = false;
 		}
 	}
+
+    public boolean isResetting() {
+        return isResetting;
+    }
+
+    public void setResetting(boolean isReseting) {
+        this.isResetting = isReseting;
+    }
 }

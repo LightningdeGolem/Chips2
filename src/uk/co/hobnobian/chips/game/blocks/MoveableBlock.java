@@ -24,15 +24,18 @@ public class MoveableBlock extends Block{
 	    Game game = data.getGame();
 	    
 	    
-	    
+	    int[] newpos = Direction.move(new int[] {data.getX(),data.getY()}, Direction.invert(data.getDirection()));
+        if (map.getAt(newpos[0], newpos[1]).getClass().equals(getClass())) {
+            return EnterLeaveEvent.NO;
+        }
 		if (data.move(this, Direction.invert(data.getDirection())) != EnterLeaveEvent.NO) {
-			int[] newpos = Direction.move(new int[] {data.getX(),data.getY()}, Direction.invert(data.getDirection()));
+			
 			
 			if (map.getAt(x, y).getClass().equals(getClass())) {
 		    	game.setBlock(x, y, new Air());
 		    }
 			
-			map.getAt(newpos[0], newpos[1]).onEnter(new PlayerMoveEventData(newpos[0], newpos[1],data.getDirection(), game.getVars(), game));
+			map.getAt(newpos[0], newpos[1]).onEnter(new PlayerMoveEventData(newpos[0], newpos[1],Direction.invert(data.getDirection()), game.getVars(), game));
 			game.setBlockSecondLayer(x, y, null);
 			game.setBlockSecondLayer(newpos[0], newpos[1], this);
 			return EnterLeaveEvent.YES;
