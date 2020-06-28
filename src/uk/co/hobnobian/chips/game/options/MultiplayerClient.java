@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -78,6 +80,16 @@ public class MultiplayerClient extends JFrame implements MouseListener{
 		
 		
 		pack();
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent event) {
+		        StartupMenu.main_menu.setVisible(true);
+		        dispose();
+		    }
+		});
+		
 		setVisible(true);
 	}
 

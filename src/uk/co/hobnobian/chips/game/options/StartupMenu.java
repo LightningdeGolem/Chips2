@@ -76,6 +76,7 @@ public class StartupMenu extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		setVisible(false);
 		if (e.getComponent().equals(singleplayer)) {
 			new SinglePlayer();
 		}
@@ -88,7 +89,7 @@ public class StartupMenu extends JFrame implements MouseListener{
 		else if (e.getComponent().equals(create)) {
 			new Editor();
 		}
-		setVisible(false);
+		
 		
 		
 		

@@ -1,13 +1,17 @@
 package uk.co.hobnobian.chips.game.options;
 
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import uk.co.hobnobian.chips.game.backend.Game;
@@ -26,20 +30,35 @@ public class SinglePlayer extends JFrame implements MouseListener{
 	
 	public SinglePlayer() {
 		panel = new JPanel();
+		panel.setLayout(new GridLayout(0,1));
 		add(panel);
 		m = new MapChooser().choose(panel);
 		if (m == null) {
 			dispose();
+			StartupMenu.main_menu.setVisible(true);
 			return;
 		}
 		
 		JButton button = new JButton("Start");
 		button.addMouseListener(this);
-		button.setSize(256,256);
+		setTitle("Singleplayer - "+m.title);
+		
+		panel.add(new JLabel("Map Title: "+m.title));
+		panel.add(new JLabel("Map Author: "+m.author));
 		panel.add(button);
-		setSize(256,256);
+		pack();
+		
+		
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent event) {
+		        StartupMenu.main_menu.setVisible(true);
+		        dispose();
+		    }
+		});
 	}
 	
 	public void begin() {

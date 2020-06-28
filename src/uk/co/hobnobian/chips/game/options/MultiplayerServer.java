@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
 
@@ -27,6 +29,7 @@ public class MultiplayerServer extends JFrame implements MouseListener{
 		map = new MapChooser().choose(p);
 		if (map == null) {
 			dispose();
+			StartupMenu.main_menu.setVisible(true);
 			return;
 		}
 		
@@ -44,9 +47,16 @@ public class MultiplayerServer extends JFrame implements MouseListener{
 		
 		con.gridwidth = 2;
 		add(new JLabel("Multiplayer"), con);
-		con.gridwidth = 1;
 		
 		con.gridy = 1;
+		add(new JLabel("Map Name: "+map.title), con);
+		
+		
+		con.gridy = 2;
+		add(new JLabel("Map Author: "+map.author), con);
+		con.gridwidth = 1;
+		
+		con.gridy = 3;
 		con.gridx = 0;
 		add(new JLabel("Port:"), con);
 		
@@ -54,12 +64,22 @@ public class MultiplayerServer extends JFrame implements MouseListener{
 		add(port, con);
 		
 		
+		
 		JButton ok = new JButton("CREATE");
 		ok.addMouseListener(this);
-		con.gridy = 2;
+		con.gridy = 4;
 		con.gridx = 0;
 		con.gridwidth = 2;
 		add(ok, con);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent event) {
+		        StartupMenu.main_menu.setVisible(true);
+		        dispose();
+		    }
+		});
 		
 		
 		pack();

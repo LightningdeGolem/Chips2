@@ -2,6 +2,8 @@ package uk.co.hobnobian.chips.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,10 @@ import uk.co.hobnobian.chips.game.backend.Map;
 import uk.co.hobnobian.chips.game.blocks.Air;
 import uk.co.hobnobian.chips.game.options.MapChooser;
 import uk.co.hobnobian.chips.game.options.MapSaver;
+import uk.co.hobnobian.chips.game.options.StartupMenu;
 import uk.co.hobnobian.chips.gui.ImageCache;
 
-public class Editor implements MapChangeBlockListener {
+public class Editor implements MapChangeBlockListener, WindowListener {
 	private JFrame window;
 	private Canvas canvas;
 	private BlockSelector selector;
@@ -73,7 +76,10 @@ public class Editor implements MapChangeBlockListener {
 		window.add(selector,c);
 
 		window.pack();
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		window.addWindowListener(this);
+		
 		window.setVisible(true);
 		
 		map = new Map();
@@ -132,4 +138,47 @@ public class Editor implements MapChangeBlockListener {
 		map = new MapChooser().choose(canvas);
 		
 	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		window.dispose();
+		StartupMenu.main_menu.setVisible(true);
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

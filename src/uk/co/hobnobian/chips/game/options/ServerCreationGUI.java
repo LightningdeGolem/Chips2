@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -50,6 +52,15 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 		add(cancel);
 		
 		pack();
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent event) {
+		        mouseClicked(null);
+		    }
+		});
+		
 		setVisible(true);
 	}
 	
@@ -129,6 +140,7 @@ public class ServerCreationGUI extends JFrame implements MouseListener, Runnable
 			server.close();
 		} catch (IOException e1) {}
 		dispose();
+		StartupMenu.main_menu.setVisible(true);
 		
 	}
 
