@@ -72,7 +72,7 @@ public class Main {
 			new Editor();
 		}
 		else {
-		    new StartupMenu();
+		    StartupMenu.main_menu = new StartupMenu();
 		}
 		
 	}
