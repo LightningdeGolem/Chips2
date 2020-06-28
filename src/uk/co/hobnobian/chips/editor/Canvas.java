@@ -186,6 +186,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseExited(MouseEvent e) {}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		boolean b1 = SwingUtilities.isLeftMouseButton(e);

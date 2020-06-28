@@ -1,9 +1,7 @@
 package uk.co.hobnobian.chips.main;
 
 import java.awt.Image;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -125,21 +123,6 @@ public class Main {
         m.setBlock(2, 26, new RedKey());
         m.setBlock(4, 26, new RedKey());
         return m;
-	}
-	
-	private static void saveMap() {
-		Map m = getMap();
-		
-		
-        try {
-        	FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.home")+"/map.chips");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(m);
-			objectOut.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

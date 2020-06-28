@@ -66,7 +66,6 @@ public class GraphicsServerLayer implements ClientConnectionLayer{
                 if (second[x][y] == null) {
                     continue;
                 }
-                String path = second[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3));
                 blocks2.put(new int[] {x,y}, loadImage(second[x][y].getImage(new GetImageData(vars,m, x+p.getpos()[0]-3, y+p.getpos()[1]-3))));
             }
         }
