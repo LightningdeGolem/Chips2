@@ -53,4 +53,36 @@ public class PlayerMoveEventData {
         return test;
     }
     
+    public EnterLeaveEvent move(Block b, Direction d) {
+        int[] newpos = Direction.move(new int[] {x,y}, d);
+        Block from = getGame().getMap().getAt(newpos[0], newpos[1]);
+        Block movingTo = getGame().getMap().getAt(newpos[0], newpos[1]);
+        Block movingTo2 = getGame().getMap().getBlockSecondLayer(newpos[0], newpos[1]);
+        
+        EnterLeaveEvent leaving;
+        if (from.equals(b)) {
+            leaving = EnterLeaveEvent.YES;
+        }else {
+           leaving = from.onLeave(new PlayerMoveEventData(x,y,d, getGame().getVars(), getGame()));
+        }
+        
+        
+        if (leaving == EnterLeaveEvent.YES) {
+            EnterLeaveEvent enter1 = movingTo.onEnter(new PlayerMoveEventData(x,y,d, getGame().getVars(), getGame()));
+            if (enter1 == EnterLeaveEvent.YES) {
+                if (movingTo2 == null) {
+                    return EnterLeaveEvent.YES;
+                }
+                EnterLeaveEvent enter2 = movingTo2.onEnter(new PlayerMoveEventData(x,y,d, getGame().getVars(), getGame()));
+                return enter2;
+            }
+            else {
+                return enter1;
+            }
+        }
+        else {
+            return leaving;
+        }
+    }
+    
 }
